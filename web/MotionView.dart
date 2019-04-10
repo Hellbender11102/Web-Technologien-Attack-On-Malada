@@ -1,5 +1,39 @@
 import 'dart:html';
-import 'dart:math';
+import 'dart:math' as math;
+
+class Line {
+	//start
+	double x;
+	double y;
+
+	//bis zu 
+	double dx;
+	double dy;
+
+	Line(this.x, this.y, this.dx, this.dy);
+
+	MotionView view;
+
+	//länge der Linie
+	double get length => math.sqrt(math.pow(this.dx-this.x, 2) + math.pow(this.dy-this.y, 2));
+
+	//setzt den Anfang
+	void startAt(double x_in, double y_in){
+		this.x = x_in;
+		this.y = y_in;
+	}
+
+	//setzt das Ende
+	void endAt(double x_in, double y_in){
+		this.dx = x_in;
+		this.dy = y_in;
+	}
+
+	void update() {
+		this.x += this.dx;
+		this.y += this.dy;
+	}
+}
 
 class Circle {
 	double x;
@@ -76,7 +110,7 @@ class Circle {
 		if (this.left < 0) this.x = this.radius;
 
 		if (this.right > this.view.width - 1) this.x = this.view.width - 1 - this.radius;
-  }
+	}
 
 	/**
    * Grows the [radius] of the circle by [dr].
@@ -85,8 +119,8 @@ class Circle {
    */
 	void grow(double dr) {
 		this.radius += dr;
-		this.radius = max(this.target, this.radius);
-		this.radius = min(this.view.size / 2, this.radius);
+		this.radius = math.max(this.target, this.radius);
+		this.radius = math.min(this.view.size / 2, this.radius);
 	}
 
 	/**
@@ -97,79 +131,83 @@ class Circle {
 	bool isInDanger(Circle other) {
 		final dx = (this.x - other.x).abs();
 		final dy = (this.y - other.y).abs();
-		final dist = sqrt(dx * dx + dy * dy);
+		final dist = math.sqrt(dx * dx + dy * dy);
 		return dist + other.radius > this.radius;
 	}
 
-  /**
+	/**
    * Checks wether the [other] circle is completely out.
    * A circle is completely out whenever it has not overlop
    * with this circle anymore.
    */
-  bool isOut(Circle other) {
-    final dx = (this.x - other.x).abs();
-    final dy = (this.y - other.y).abs();
-    final dist = sqrt(dx * dx + dy * dy);
-    return dist > this.radius;
-  }
+	bool isOut(Circle other) {
+		final dx = (this.x - other.x).abs();
+		final dy = (this.y - other.y).abs();
+		final dist = math.sqrt(dx * dx + dy * dy);
+		return dist > this.radius;
+	}
 
-  /**
+	/**
    * Checks whether the [other] circle is completely in this circle.
    * A circle is completely in whenever it overlops fully
    * with this circle.
    */
-  bool isIn(Circle other) {
-    final dx = (this.x - other.x).abs();
-    final dy = (this.y - other.y).abs();
-    final dist = sqrt(dx * dx + dy * dy);
-    return dist + other.radius < this.radius;
-  }
+	bool isIn(Circle other) {
+		final dx = (this.x - other.x).abs();
+		final dy = (this.y - other.y).abs();
+		final dist = math.sqrt(dx * dx + dy * dy);
+		return dist + other.radius < this.radius;
+	}
 }
 
 ///Nutzbar als "Pseudo"-Canvas, da echte nicht erlaubt sind
 class MotionView {
-  //Html element representing the moving area of the game.
-  final area = querySelector("#area");
+	//Html element representing the moving area of the game.
+	final area = querySelector("#area");
 
-  //Funktioniert nur für ein Objekt, umbauen zu List o.Ä.
-  final stick = querySelector("#stick");
+	//Funktioniert nur für ein Objekt, umbauen zu List o.Ä.
+	final stick = querySelector("#stick");
 
-  //(re)start Element
-  final start = querySelector("#Texto");
+	//(re)start Element
+	final start = querySelector("#Texto");
 
-  //"Fake" Canvas
-  int get width => window.innerWidth;
-  int get height => window.innerHeight;
+	//"Fake" Canvas
+	int get width => window.innerWidth;
+	int get height => window.innerHeight;
 
-  //Minimale Größe
-  int get size => min(this.width, this.height);
+	//Minimale Größe
+	int get size => math.min(this.width, this.height);
 
-  //Mitte von x/y herausfinden
-  double get center_x => this.width / 2;
-  double get center_y => this.height / 2;
+	//Mitte von x/y herausfinden
+	double get center_x => this.width / 2;
+	double get center_y => this.height / 2;
 
-  void update(Circle a, Circle b) {
-    a.update();
-    b.update();
+	/*
+  	void update(Line a) {
+		a.update();
+		
+		final round = "${this.size}px";
+		
+		this.area.style.width = "${a.width}px";
+		this.area.style.height = "${a.width}px";
+		this.area.style.borderRadius = round;
+		this.area.style.top = "${a.top}px";
+		this.area.style.left = "${a.left}px";
 
-    final round = "${this.size}px";
+		this.stick.style.top = "${b.top}px";
+		this.stick.style.left = "${b.left}px";
+		this.stick.style.width = "${b.width}px";
+		this.stick.style.height = "${b.width}px";
+		this.stick.style.borderRadius = round;
 
-    this.area.style.width = "${a.width}px";
-    this.area.style.height = "${a.width}px";
-    this.area.style.borderRadius = round;
-    this.area.style.top = "${a.top}px";
-    this.area.style.left = "${a.left}px";
-
-    this.stick.style.top = "${b.top}px";
-    this.stick.style.left = "${b.left}px";
-    this.stick.style.width = "${b.width}px";
-    this.stick.style.height = "${b.width}px";
-    this.stick.style.borderRadius = round;
-
-    this.stick.classes.remove('out');
-    this.stick.classes.remove('danger');
-
-    if (a.isInDanger(b)) this.stick.classes.add('danger');
-    if (a.isOut(b)) this.stick.classes.add('out');
-  }
+		/*
+		this.stick.classes.remove('out');
+		this.stick.classes.remove('danger');
+		*/
+		/*
+		if (a.isInDanger(b)) this.stick.classes.add('danger');
+		if (a.isOut(b)) this.stick.classes.add('out');
+		*/
+	}
+	*/
 }
