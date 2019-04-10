@@ -4,9 +4,9 @@ import 'dart:math' as math;
 
 void main() async{
 	DivElement divi = querySelector("#line");
-	svg.SvgElement svgElemento = new svg.SvgSvgElement();
+	svg.SvgElement svgElemento = new svg.SvgElement.tag("svgElemento");
 	
-	svg.SvgElement line = new svg.SvgSvgElement();
+	svg.SvgElement line = new svg.SvgElement.tag(tag);
 	svgElemento.children.add(line);
 	line.setAttribute("x1", "50");
 	line.setAttribute("y1", "50");
