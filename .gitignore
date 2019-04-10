@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Created by https://www.gitignore.io/api/java,linux,windows,eclipse,intellij,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=java,linux,windows,eclipse,intellij,visualstudiocode
@@ -229,4 +230,15 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/java,linux,windows,eclipse,intellij,visualstudiocode
+# Files and directories created by pub
+.dart_tool/
+.packages
+# Remove the following pattern if you wish to check in your lock file
+pubspec.lock
+
+# Conventional directory for build outputs
+build/
+
+# Directory created by dartdoc
+doc/api/
+>>>>>>> origin/master
