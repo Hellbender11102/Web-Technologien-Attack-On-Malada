@@ -2,17 +2,18 @@ import 'dart:html';
 import 'dart:svg' as svg;
 import 'dart:math' as math;
 
-void main() async{
+void main() {
+
 	DivElement divi = querySelector("#line");
 	svg.SvgElement svgElemento = new svg.SvgElement.tag("svgElemento");
 	
-	svg.SvgElement line = new svg.SvgElement.tag(tag);
+	svg.SvgElement line = new svg.SvgElement.tag("line");
 	svgElemento.children.add(line);
 	line.setAttribute("x1", "50");
 	line.setAttribute("y1", "50");
 	line.setAttribute("x2", "100");
 	line.setAttribute("y2", "100");
-	divi.append(svgElemento); 
+	divi.append(svgElemento); //Hier Fehler
 
 	querySelector("#lineo").nodes.add(svgElemento);
   
