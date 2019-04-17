@@ -19,6 +19,13 @@ class Vector {
     this.dy = math.sin(betaDegree) * this.dx + math.cos(betaDegree) * this.dy;
   }
 
+  void invertX(){
+    this.dx = -this.dx;
+  }
+  void invertY(){
+    this.dy = -this.dy;
+  }
+
   //toString for debug purpose
   String toString() => "($dx, $dy)";
 }

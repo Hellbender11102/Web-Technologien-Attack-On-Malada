@@ -19,7 +19,7 @@ abstract class Actor{
 
   //simple function to move. Shall not be used by the asteroid
   void move(){
-    this.curr_pos_X = this.curr_pos_X + this.vector.dx;
-    this.curr_pos_Y = this.curr_pos_Y + this.vector.dy;
+    this.curr_pos_X += this.vector.dx;
+    this.curr_pos_Y += this.vector.dy;
   }
 }
