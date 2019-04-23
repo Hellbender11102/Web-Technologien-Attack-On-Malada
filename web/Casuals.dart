@@ -1,12 +1,12 @@
 import 'Enemy.dart';
 import 'Player.dart';
 
-class Casuals extends Enemy{
+class Casual extends Enemy{
   //determines, if enemy does alot of damage. Give it like a 10% chance to happen for extra challenge
   bool heavy;
 
   //constructor shall also set heavy
-  Casuals(int life_start, double posX, double posY, bool isHeavy) : super(life_start, posX, posY){
+  Casual(int life_start, double posX, double posY, bool isHeavy) : super(life_start, posX, posY){
     this.heavy = isHeavy;
   }
 

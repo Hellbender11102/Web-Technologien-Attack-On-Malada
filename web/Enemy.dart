@@ -9,5 +9,6 @@ abstract class Enemy extends Actor{
     this.vector = new Vector(1.0,0.0);
     this.damage = 1;
     //Icon Image //TBD
+
   }
 }
