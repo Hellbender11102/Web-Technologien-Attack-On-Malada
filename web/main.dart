@@ -8,11 +8,16 @@ import 'Player.dart';
 
 void main() {
   /*
+  var Minimap = querySelector("minimap");
+  ImageElement imEle = 
+  Minimap.append(node)
+  */
+  /*
   Player thatMe = new Player(1.0, 2.0);
   List<Enemy> enemiesList = new List();
   enemiesList.add(new Casual(2, 3.0, 3.0, false));
   World space = new World(4.0, 4.0, thatMe, enemiesList);
-
+  
   //querySelectorAll("#table td").onMouseEnter.listen((MouseEvent ev){
   //  HTMLElement elem = ev.target;
   //  elem.classes.add("active");

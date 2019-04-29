@@ -8,30 +8,33 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 	text-align: center;
 }
-
-.grid {
+.minimap {
 	position: absolute;
-	display: flex;                       /* establish flex container */
-	flex-wrap: wrap;                     /* enable flex items to wrap */
-	justify-content: space-around;
-	bottom: 5px;
-	right: 5px;
+	bottom: 0px;
+	right: 0px;
 	width: 150px;
 	height: 150px;
-  }
+}
 
-  .cell {
-	flex: 0 0 33.3%;                       /* don't grow, don't shrink, width */
-	height: 50px;
-	/*
-	margin-bottom: 0px;
-	margin-right: 0px;
-	margin-left: 0px;
-	*/
-	border: 1px black;
-	background-color: #999;
-  }
+.griddy{
+	padding: 0px;
+}
 
-  .cell:nth-child(3n) {
-	background-color: #999;
-  }
+ul {
+	padding: 0px;
+	margin: 0px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	/*border: .2em solid #91a7ff;*/
+}
+
+li {
+	list-style-type: none;
+	background: #000;
+	box-sizing: border-box;
+	border: solid lightgreen 1px;
+}
