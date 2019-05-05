@@ -26,7 +26,14 @@ void main() {
   List<Asteroid> enemies = [new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.25 * view.width), (0.80 * view.height), view), 
   new Asteroid((0.05 * view.width), (0.90 * view.height), view), new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.15 * view.width), (0.85 * view.height), view)];
 */
-  int ScreenPosX = 50;
+  var Screen = querySelector("#screen");
+  int maxSizeX = Screen.clientWidth;
+  int maxSizeY = Screen.clientHeight;
+  int ScreenPosX = (maxSizeX / 2).floor();
+  int ScreenPosY = (maxSizeY / 2).floor();
+  int deltaX = 0;
+  int deltaY = 0;
+  var cross = querySelector('.cross');
   var ship = querySelector('#player');
   bool mobile = false;
   
@@ -42,33 +49,47 @@ void main() {
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
       ScreenPosX =-dx;
-       ship.style.left = '${(ScreenPosX)}%';
+      ScreenPosY =-dy;
+      cross.style.top = '${(ScreenPosY)}%';
+      cross.style.left = '${(ScreenPosX)}%';
     }
   });
 
   if(mobile == false){
-  window.onKeyPress.listen((KeyboardEvent e) {
-    if ((e.keyCode == 97 ||e.keyCode == KeyCode.A) &&ScreenPosX > 0) {        
-       ScreenPosX -=1;
-        ship.style.left = '${(ScreenPosX)}%';
+  window.onKeyDown.listen((KeyboardEvent e) {
+    if ((e.keyCode == 97 ||e.keyCode == KeyCode.A || e.keyCode == KeyCode.LEFT) &&ScreenPosX > 2) {        
+       deltaX -= 3;
         
-       print(space.player.vector.toString());
+       print(space.player.vector.toString()); //DEBUG VECTOR
     }
-     if ((e.keyCode == 100 ||e.keyCode == KeyCode.D)&&ScreenPosX < 93) {
-       ScreenPosX +=1;
-       ship.style.left = '${(ScreenPosX)}%';
-       
-       print(space.player.vector.toString());
+     else if ((e.keyCode == 100 ||e.keyCode == KeyCode.D || e.keyCode == KeyCode.RIGHT)&&ScreenPosX < (maxSizeX-70)) {
+       deltaX += 3;
+    
+       print(space.player.vector.toString()); //DEBUG VECTOR
     }
+      if ((e.keyCode == 119 ||e.keyCode == KeyCode.W || e.keyCode == KeyCode.UP) &&ScreenPosY < (maxSizeY-70)) {        
+       deltaY += 3;
+    }
+      else if ((e.keyCode == 115 ||e.keyCode == KeyCode.S || e.keyCode == KeyCode.DOWN) &&ScreenPosY > 5) {        
+       deltaY -= 3;
+    }
+  
+    else if (e.keyCode == 32) {
+       print("SpaceBar");
+    }
+    ScreenPosX += deltaX;
+    ScreenPosY += deltaY;
+    view.update(ScreenPosX, ScreenPosY);
+    deltaX = 0;
+    deltaY = 0;
   });
   }
 
   thatMe.vector.rotate(new Random().nextInt(45));
   /* GameLoop */
   new Timer.periodic(new Duration(milliseconds: 120), (update) {
-
-    view.update(ScreenPosX);
-    //view.update(cross, enemies);
+    ship.style.left = "${ScreenPosX}px";
+    view.update(ScreenPosX, ScreenPosY);
     mMap.adjust(thatMe, space.enemies);
     // viewController.update();
   });
