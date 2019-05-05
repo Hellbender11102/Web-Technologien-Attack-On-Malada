@@ -22,10 +22,7 @@ void main() {
   World space = new World(xSize, ySize, thatMe, enemiesList);
   WorldController worldController = new WorldController(space);
   MiniMap mMap = new MiniMap(space);
-/*
-  List<Asteroid> enemies = [new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.25 * view.width), (0.80 * view.height), view), 
-  new Asteroid((0.05 * view.width), (0.90 * view.height), view), new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.15 * view.width), (0.85 * view.height), view)];
-*/
+  
   var Screen = querySelector("#screen");
   int maxSizeX = Screen.clientWidth;
   int maxSizeY = Screen.clientHeight;
@@ -48,6 +45,7 @@ void main() {
       mobile = true;
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
+      
       ScreenPosX =-dx;
       ScreenPosY =-dy;
       cross.style.top = '${(ScreenPosY)}%';

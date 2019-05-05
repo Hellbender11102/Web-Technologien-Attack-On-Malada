@@ -44,6 +44,10 @@ class View{
     this.crosshair.style.bottom = "${yPos}px";
     this.crosshair.style.left = "${xPos}px";
 
+    for(int i = 0; i < enemyList.length; i++){
+      enemyList[i].moveDown();
+    }
+
     for(int i = xPos - 32; i < xPos + 32; i++){
       for(int j = yPos - 32; j < yPos +32; j++){
         for(int k = 0; k < enemyList.length; k++){
@@ -84,5 +88,11 @@ class Asteroid{
 
     ast_x = x.toDouble();
     ast_y = y.toDouble();
+  }
+
+  moveDown(){
+    double newY = ast_y - 1;
+    this.asteroid.style.bottom = "${newY}px";
+    this.asteroid.style.left = "${ast_x}px";
   }
 }
