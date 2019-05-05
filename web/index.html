@@ -4,9 +4,13 @@
     <link rel="stylesheet" href="styles.css">
     
 </head>
-<body>
+<body id="background">
+<div id="screen">
+    <img src="Assets/hearts_6.png" id="life6"></img>
+    <img src="Assets/cross.png" id="cross"></img>
+    <img src="Assets/Sprite-0001.png" id="player"></img>
+    <img src="Assets/astroid.png" id="enemy_asteroid"></img>
     <div class = "minimap">
-        <div class = "playerOnMap"></div>
         <ul class="griddy">
             <li></li>
             <li></li>
@@ -18,6 +22,8 @@
             <li></li>
             <li></li>
           </ul>
+          <img class = "playerOnMap" src="Assets/MiniMap_Circle_Player.png" />
     </div>
+</div>
     <script defer src="main.dart.js"></script>
 </body>
