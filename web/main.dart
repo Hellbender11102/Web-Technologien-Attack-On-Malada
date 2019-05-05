@@ -84,8 +84,6 @@ void main() {
     deltaY = 0;
   });
   }
-
-  thatMe.vector.rotate(new Random().nextInt(45));
   /* GameLoop */
   new Timer.periodic(new Duration(milliseconds: 120), (update) {
     ship.style.left = "${ScreenPosX}px";

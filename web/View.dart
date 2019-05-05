@@ -43,11 +43,15 @@ class View{
     this.crosshair = querySelector(".cross");
     this.crosshair.style.bottom = "${yPos}px";
     this.crosshair.style.left = "${xPos}px";
-    
-    for(int k = 0; k < enemyList.length; k++){
-          if(xPos == enemyList[k].ast_x && yPos == enemyList[k].ast_y){
+
+    for(int i = xPos - 32; i < xPos + 32; i++){
+      for(int j = yPos - 32; j < yPos +32; j++){
+        for(int k = 0; k < enemyList.length; k++){
+          if(i == enemyList[k].ast_x && j == enemyList[k].ast_y){
             enemyList[k].asteroid.src = "";
           }
+        }
+      }
     }
   }
 }
