@@ -1,40 +1,77 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	font-family: 'Roboto', sans-serif;
-	text-align: center;
+}
+.minimap {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
 }
 
-.map{
+.griddy{
+	padding: 0px;
+}
+
+ul {
+	padding: 0px;
+	margin: 0px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
 	width: 100%;
 	height: 100%;
+	background: #000;
+	/*border: .2em solid #91a7ff;*/
 }
 
-.square-box{
-    position: absolute;
-	width: 50px;
-	bottom: 0vw;
-	right: 0vw;
-	overflow: hidden;
-	border-style: groove;
-    background: #ffffff;
+li {
+	list-style-type: none;
+	background: #000;
+	box-sizing: border-box;
+	border: solid lightgreen 1px;
 }
-.square-box:before{
-    content: "";
-	display: block;
+
+.playerOnMap{
+	position: absolute;
+}
+
+.enemy{
+	position: absolute;
+}
+
+#player{
+	position: absolute;
+	left: 50%;
+	bottom: 5%;
+}
+
+#life6{
+	position: absolute;
+	bottom: 90%;
+	left: 47%;
+}
+
+#cross{
 	position: relative;
-    padding-top: 100%;
-}
-.square-content{
-	position:  absolute;
-	top: 100%;
-    right: 0;
-    color: white;
-    text-align: center;
 }
 
+#enemy_asteroid{
+	position: relative;
+}
 
+#background{
+	position: relative;
+	background: url(Assets/bg.jpg);
+}
+
+#screen{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
