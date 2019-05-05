@@ -13,7 +13,7 @@ class Vector {
   //Functions to rotate clockwise/counter-clockwise
   //we'll use some math for this (oh geez!)
   //names not right yet
-  void rotate_counter_clockwise(int betaDegree) {
+  void rotate(int betaDegree) {
     betaDegree = betaDegree%360;
     this.dx = math.cos(betaDegree) * this.dx - math.sin(betaDegree) * this.dy;
     this.dy = math.sin(betaDegree) * this.dx + math.cos(betaDegree) * this.dy;

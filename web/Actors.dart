@@ -22,4 +22,8 @@ abstract class Actor{
     this.curr_pos_X += this.vector.dx;
     this.curr_pos_Y += this.vector.dy;
   }
+
+  double get X => this.curr_pos_X;
+
+  double get Y => this.curr_pos_Y;
 }
