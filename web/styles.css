@@ -1,19 +1,17 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	font-family: 'Roboto', sans-serif;
-	text-align: center;
 }
 .minimap {
 	position: absolute;
-	bottom: 0px;
-	right: 0px;
+	top: 0px;
+	left: 0px;
 	width: 150px;
 	height: 150px;
+	overflow: hidden;
 }
 
 .griddy{
@@ -40,16 +38,17 @@ li {
 }
 
 .playerOnMap{
-	align-content: center;
 	position: absolute;
-	bottom: 0;
-	left: 0;
+}
+
+.enemy{
+	position: absolute;
 }
 
 #player{
 	position: absolute;
-	bottom: 5%;
 	left: 50%;
+	bottom: 5%;
 }
 
 #life6{
@@ -59,7 +58,6 @@ li {
 }
 
 #cross{
-	background: url(Assets/cross.png);
 	position: relative;
 }
 

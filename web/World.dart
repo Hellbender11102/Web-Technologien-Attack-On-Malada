@@ -8,7 +8,16 @@ class World {
   double boundaryX;
   double boundaryY;
 
-  World(boundaryX, boundaryY, player, enemies);
+  World(double boundaryX,double boundaryY,Player player,List<Enemy> enemies){
+    this.boundaryX = boundaryX;
+    this.boundaryY = boundaryY;
+    this.player = player;
+    this.enemies = enemies;
+  }
 
+
+String toString(){
+  return "World: X: $boundaryX Y: $boundaryY EnemyList:  ${enemies.toString()}\nPlayer:${player.toString()}";
+}
   
 }

@@ -8,6 +8,9 @@ class Casual extends Enemy{
   //constructor shall also set heavy
   Casual(int life_start, double posX, double posY, bool isHeavy) : super(life_start, posX, posY){
     this.heavy = isHeavy;
+    this.life = life_start;
+    this.curr_pos_X = posX;
+    this.curr_pos_Y = posY;
   }
 
   //Shoot function for controller. Whether it hits or not is up to controller or world
