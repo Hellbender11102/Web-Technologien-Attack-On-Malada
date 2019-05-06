@@ -60,10 +60,10 @@ void main() {
          deltaY += 3;
       }
       //-90, 90
-      if((ev.alpha < 20 )&&( ScreenPosX > 2)){
+      if((ev.gamma < 20 )&&( ScreenPosX > 2)){
           deltaX -= 3;
       }
-      if((ev.alpha > -20 )&&( ScreenPosX < (maxSizeX-70))){
+      if((ev.gamma > -20 )&&( ScreenPosX < (maxSizeX-70))){
           deltaX += 3;
       }
       ScreenPosX += deltaX;
