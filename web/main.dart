@@ -50,7 +50,6 @@ void main() {
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
       */
-     
 
       //-180, 180
       if((ev.beta > 20 )&&( ScreenPosY > 2)){
@@ -68,7 +67,7 @@ void main() {
           deltaX += (ev.gamma /10).floor();
       }
       if((ev.gamma > 0 )&&( ScreenPosX < (maxSizeX-30))){
-          deltaX += (ev.gamma /10).floor();
+          deltaX += (ev.gamma /5).floor();
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
