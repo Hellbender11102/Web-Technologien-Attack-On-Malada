@@ -60,7 +60,7 @@ void main() {
         if(ev.beta > 1){
           deltaY += (ev.beta/ySpeed).floor();
         } else{
-          deltaY -= ((ev.beta-10)/ySpeed).floor();
+          deltaY -= ((ev.beta-10)).floor();
         }
       }
 
@@ -69,7 +69,7 @@ void main() {
       if((ev.gamma < 5 )&&( ScreenPosX > 2)){
           deltaX += (ev.gamma /xSpeed).floor();
       }
-      if((ev.gamma > -5 )&&( ScreenPosX < (maxSizeX-15))){
+      if((ev.gamma > -5 )&&( ScreenPosX < (maxSizeX-13))){
           deltaX += (ev.gamma /xSpeed).floor();
       }
       ScreenPosX += deltaX;
