@@ -52,14 +52,14 @@ void main() {
       */
 
       //-180, 180
-      if((ev.beta > 20 )&&( ScreenPosY > 2)){
+      if((ev.beta > 35 )&&( ScreenPosY > 2)){
         deltaY -= (ev.beta/10).floor();
       }
-      if((ev.beta < 20 )&&( ScreenPosY < (maxSizeY-40))){
+      if((ev.beta < 35 )&&( ScreenPosY < (maxSizeY-40))){
         if(ev.beta < 0){
           deltaY -= (ev.beta/10).floor();
         } else{
-          deltaY += (ev.beta/5).floor();
+          deltaY += (ev.beta).floor();
         }
       }
       //-90, 90
