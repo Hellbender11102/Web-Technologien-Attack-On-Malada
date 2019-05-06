@@ -52,21 +52,21 @@ void main() {
       */
 
       //-180, 180
-      if((ev.beta > 35 )&&( ScreenPosY > 2)){
+      if((ev.beta > 40 )&&( ScreenPosY > 2)){
         deltaY -= (ev.beta/10).floor();
       }
-      if((ev.beta < 35 )&&( ScreenPosY < (maxSizeY-45))){
+      if((ev.beta < 30 )&&( ScreenPosY < (maxSizeY-45))){
         if(ev.beta < 0){
           deltaY -= (ev.beta/10).floor();
         } else{
-          deltaY += ((ev.beta+35)/10).floor();
+          deltaY += ((ev.beta+30)/10).floor();
         }
       }
       //-90, 90
-      if((ev.gamma < 0 )&&( ScreenPosX > 2)){
+      if((ev.gamma < 5 )&&( ScreenPosX > 2)){
           deltaX += (ev.gamma /10).floor();
       }
-      if((ev.gamma > 0 )&&( ScreenPosX < (maxSizeX-10))){
+      if((ev.gamma > -5 )&&( ScreenPosX < (maxSizeX-10))){
           deltaX += (ev.gamma /10).floor();
       }
       ScreenPosX += deltaX;
