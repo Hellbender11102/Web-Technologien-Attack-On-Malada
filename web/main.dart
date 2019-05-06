@@ -50,23 +50,21 @@ void main() {
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
       */
-        print(ev.alpha.toString());
-        print(ev.beta.toString());
-        print(ev.delta.toString());
+     
 
       //-180, 180
       if((ev.beta > 20 )&&( ScreenPosY > 2)){
-        deltaY -= 1;
+        deltaY -= 3;
       }
       if((ev.beta < -20 )&&( ScreenPosY < (maxSizeY-70))){
-         deltaY += 1;
+         deltaY += 3;
       }
       //-90, 90
       if((ev.alpha < 0 )&&( ScreenPosX > 2)){
-          deltaX -= 1;
+          deltaX -= 3;
       }
       if((ev.alpha > 0 )&&( ScreenPosX < (maxSizeX-70))){
-          deltaX += 1;
+          deltaX += 3;
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
