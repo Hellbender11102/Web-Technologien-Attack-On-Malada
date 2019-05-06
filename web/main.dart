@@ -57,7 +57,7 @@ void main() {
         deltaY -= (ev.beta/ySpeed).floor();
       }
       if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-56))){
-        if(ev.beta < 1){
+        if(ev.beta > 1){
           deltaY -= (ev.beta/30).floor();
         } else{
           deltaY += ((ev.beta-10)/ySpeed).floor();
