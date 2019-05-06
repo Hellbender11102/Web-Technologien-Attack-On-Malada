@@ -56,14 +56,14 @@ void main() {
       if((ev.beta > 40 )&&( ScreenPosY > 2)){
         deltaY -= (ev.beta/10).floor();
       }
-      if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-70))){
+      if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-20))){
          deltaY += (ev.bet/10).floor(;
       }
       //-90, 90
       if((ev.gamma < 0 )&&( ScreenPosX > 2)){
           deltaX -= (ev.gamma /10).floor;
       }
-      if((ev.gamma > 0 )&&( ScreenPosX < (maxSizeX-70))){
+      if((ev.gamma > 0 )&&( ScreenPosX < (maxSizeX-20))){
           deltaX += (ev.gamma /10).floor;
       }
       ScreenPosX += deltaX;
