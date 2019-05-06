@@ -48,8 +48,18 @@ void main() {
       mobile = true;
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
-      ScreenPosX =-dx;
-      ScreenPosY =-dy;
+      if(ev.beta > 90){
+        deltaY -= 3;
+      }
+        else if(ev.beta < 90){
+            deltaY += 3;
+        }
+      if(ev.gamma > 90){
+          deltaX -= 3;
+      }
+          else if(ev.beta < 90){
+            deltaX += 3;
+        }
       cross.style.top = '${(ScreenPosY)}%';
       cross.style.left = '${(ScreenPosX)}%';
     }
