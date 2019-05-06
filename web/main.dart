@@ -53,13 +53,13 @@ void main() {
 
       //-180, 180
       if((ev.beta > 40 )&&( ScreenPosY > 2)){
-        deltaY -= (ev.beta/10).floor();
+        deltaY -= (ev.beta/15).floor();
       }
       if((ev.beta < 30 )&&( ScreenPosY < (maxSizeY-45))){
         if(ev.beta < 0){
-          deltaY -= (ev.beta/10).floor();
+          deltaY -= (ev.beta/15).floor();
         } else{
-          deltaY += ((ev.beta+30)/10).floor();
+          deltaY += ((ev.beta+30)/15).floor();
         }
       }
       //-90, 90
@@ -109,7 +109,7 @@ void main() {
   /* GameLoop */
   new Timer.periodic(new Duration(milliseconds: 120), (update) {
     ship.style.left = "${ScreenPosX}px";
-    view.update(ScreenPosX, ScreenPosY);
+   // view.update(ScreenPosX, ScreenPosY); doppelt
     mMap.adjust(thatMe, space.enemies);
     // viewController.update();
   });
