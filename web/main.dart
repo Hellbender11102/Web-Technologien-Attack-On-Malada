@@ -60,7 +60,7 @@ void main() {
         if(ev.beta < 0){
           deltaY -= (ev.beta/ySpeed).floor();
         } else{
-          deltaY -= ((ev.beta)/ySpeed).floor();
+          deltaY += ((ev.beta)/ySpeed).floor();
         }
       }
 
