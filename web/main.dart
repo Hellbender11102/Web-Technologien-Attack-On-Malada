@@ -55,17 +55,17 @@ void main() {
         print(ev.delta.toString());
 
       //-180, 180
-      if((ev.beta < 0 )&&( ScreenPosY > 2)){
+      if((ev.beta > 20 )&&( ScreenPosY > 2)){
         deltaY -= 1;
       }
-      if((ev.beta > 0 )&&( ScreenPosY < (maxSizeY-70))){
+      if((ev.beta < -20 )&&( ScreenPosY < (maxSizeY-70))){
          deltaY += 1;
       }
       //-90, 90
-      if((ev.gamma < 0 )&&( ScreenPosX > 2)){
+      if((ev.alpha < 0 )&&( ScreenPosX > 2)){
           deltaX -= 1;
       }
-      if((ev.beta > 0 )&&( ScreenPosX < (maxSizeX-70))){
+      if((ev.alpha > 0 )&&( ScreenPosX < (maxSizeX-70))){
           deltaX += 1;
       }
       ScreenPosX += deltaX;
