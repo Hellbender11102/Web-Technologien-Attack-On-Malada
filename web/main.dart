@@ -54,17 +54,17 @@ void main() {
 
       //-180, 180
       if((ev.beta > 40 )&&( ScreenPosY > 2)){
-        deltaY -= 3;
+        deltaY -= (ev.beta%10).floor();
       }
-      if((ev.beta < 0 )&&( ScreenPosY < (maxSizeY-70))){
-         deltaY += 3;
+      if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-70))){
+         deltaY += (ev.beta%10).floor(;
       }
       //-90, 90
-      if((ev.gamma < 20 )&&( ScreenPosX > 2)){
-          deltaX -= 3;
+      if((ev.gamma < 0 )&&( ScreenPosX > 2)){
+          deltaX -= (ev.gamma %10).floor;
       }
-      if((ev.gamma > -20 )&&( ScreenPosX < (maxSizeX-70))){
-          deltaX += 3;
+      if((ev.gamma > 0 )&&( ScreenPosX < (maxSizeX-70))){
+          deltaX += (ev.gamma %10).floor;
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
