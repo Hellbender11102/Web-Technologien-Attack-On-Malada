@@ -48,20 +48,23 @@ void main() {
       mobile = true;
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
-      if(ev.beta > 90){
+      if(ev.beta > 90 && ScreenPosY > 5){
         deltaY -= 3;
       }
-        else if(ev.beta < 90){
+        else if(ev.beta < 90 &&  && ScreenPosY < (maxSizeY-70)) ){
             deltaY += 3;
         }
-      if(ev.gamma > 90){
+      if(ev.gamma > 90 &&ScreenPosX > 2){
           deltaX -= 3;
       }
-          else if(ev.beta < 90){
+          else if(ev.beta < 90 &&ScreenPosX < (maxSizeX-70)){
             deltaX += 3;
         }
-      cross.style.top = '${(ScreenPosY)}%';
-      cross.style.left = '${(ScreenPosX)}%';
+    ScreenPosX += deltaX;
+    ScreenPosY += deltaY;
+    view.update(ScreenPosX, ScreenPosY);
+    deltaX = 0;
+    deltaY = 0;
     }
   });
 
