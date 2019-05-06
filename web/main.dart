@@ -53,7 +53,7 @@ void main() {
       if((ev.beta > 90 )&&( ScreenPosY > 5)){
         deltaY -= 3;
       }
-      if((ev.beta < 90 &&  )&&( ScreenPosY < (maxSizeY-70))){
+      if((ev.beta < 90 )&&( ScreenPosY < (maxSizeY-70))){
          deltaY += 3;
       }
       if((ev.gamma > 90 )&&( ScreenPosX > 2)){
