@@ -52,22 +52,25 @@ void main() {
       */
 
       //-180, 180
+       int ySpeed = 10;// Langsam > Schnell
       if((ev.beta > 40 )&&( ScreenPosY > 2)){
-        deltaY -= (ev.beta/15).floor();
+        deltaY -= (ev.beta/ySpeed).floor();
       }
       if((ev.beta < 30 )&&( ScreenPosY < (maxSizeY-55))){
         if(ev.beta < 0){
-          deltaY -= (ev.beta/15).floor();
+          deltaY -= (ev.beta/ySpeed).floor();
         } else{
-          deltaY += ((ev.beta-30)/15).floor();
+          deltaY -= ((ev.beta-30)/ySpeed).floor();
         }
       }
+
       //-90, 90
+      int xSpeed = 10;// Langsam > Schnell
       if((ev.gamma < 5 )&&( ScreenPosX > 2)){
-          deltaX += (ev.gamma /10).floor();
+          deltaX += (ev.gamma /xSpeed).floor();
       }
       if((ev.gamma > -5 )&&( ScreenPosX < (maxSizeX-10))){
-          deltaX += (ev.gamma /10).floor();
+          deltaX += (ev.gamma /xSpeed).floor();
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
