@@ -53,10 +53,10 @@ void main() {
 
       //-180, 180
        int ySpeed = 10;// Langsam > Schnell
-      if((ev.beta > 50 )&&( ScreenPosY > 2)){
+      if((ev.beta > 45 )&&( ScreenPosY > 2)){
         deltaY -= (ev.beta/ySpeed).floor();
       }
-      if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-56))){
+      if((ev.beta < 35 )&&( ScreenPosY < (maxSizeY-56))){
         if(ev.beta < 1){
           deltaY -= (ev.beta/30).floor();
         } else{
