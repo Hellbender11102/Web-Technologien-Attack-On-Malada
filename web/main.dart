@@ -55,11 +55,11 @@ void main() {
       if((ev.beta > 40 )&&( ScreenPosY > 2)){
         deltaY -= (ev.beta/15).floor();
       }
-      if((ev.beta < 30 )&&( ScreenPosY < (maxSizeY-45))){
+      if((ev.beta < 30 )&&( ScreenPosY < (maxSizeY-55))){
         if(ev.beta < 0){
           deltaY -= (ev.beta/15).floor();
         } else{
-          deltaY += ((ev.beta+30)/15).floor();
+          deltaY += ((ev.beta-30)/15).floor();
         }
       }
       //-90, 90
