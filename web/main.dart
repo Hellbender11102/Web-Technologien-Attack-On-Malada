@@ -59,7 +59,7 @@ void main() {
         if(ev.beta < 0){
           deltaY -= (ev.beta/10).floor();
         } else{
-          deltaY += (ev.beta).floor();
+          deltaY += ((ev.beta+35)/10).floor();
         }
       }
       //-90, 90
