@@ -43,13 +43,45 @@ void main() {
     // Device orientation available
     else {
       mobile = true;
+      /*
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
+<<<<<<< HEAD
       
       ScreenPosX =-dx;
       ScreenPosY =-dy;
       cross.style.top = '${(ScreenPosY)}%';
       cross.style.left = '${(ScreenPosX)}%';
+=======
+      */
+
+      //-180, 180
+       int ySpeed = 10;// Langsam > Schnell
+      if((ev.beta > 50 )&&( ScreenPosY > 2)){
+        deltaY -= (ev.beta/ySpeed).floor();
+      }
+      if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-56))){
+        if(ev.beta > 1){
+          deltaY += (ev.beta/ySpeed).floor();
+        } else{
+          deltaY -= ((ev.beta-10)).floor();
+        }
+      }
+
+      //-90, 90
+      int xSpeed = 5;// Langsam > Schnell
+      if((ev.gamma < 5 )&&( ScreenPosX > 2)){
+          deltaX += (ev.gamma /xSpeed).floor();
+      }
+      if((ev.gamma > -5 )&&( ScreenPosX < (maxSizeX-13))){
+          deltaX += (ev.gamma /xSpeed).floor();
+      }
+      ScreenPosX += deltaX;
+      ScreenPosY += deltaY;
+      view.update(ScreenPosX, ScreenPosY);
+      deltaX = 0;
+      deltaY = 0;
+>>>>>>> 7acd50a9baf340b4fa6dcc0c13eb106b4e185edc
     }
   });
 
@@ -85,7 +117,7 @@ void main() {
   /* GameLoop */
   new Timer.periodic(new Duration(milliseconds: 120), (update) {
     ship.style.left = "${ScreenPosX}px";
-    view.update(ScreenPosX, ScreenPosY);
+   // view.update(ScreenPosX, ScreenPosY); doppelt
     mMap.adjust(thatMe, space.enemies);
     // viewController.update();
   });
