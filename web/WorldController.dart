@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'Enemy.dart';
 import 'World.dart';
 
@@ -9,8 +8,14 @@ class WorldController{
 
   World world;
   
-  List<Enemy> getAllEnemysFromView(){
+  /* 
+  List<ImageElement> getAllEnemysFromView(){
     return querySelectorAll(".enemy");
+  }
+  */
+
+  List<Enemy> getEnemiesFromWorld(){
+    return this.world.enemies;
   }
 
   void addEnemyToWorld(Enemy enemy){

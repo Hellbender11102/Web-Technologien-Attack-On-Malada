@@ -13,12 +13,17 @@ import 'View.dart';
 void main() {
   View view = new View();
   Player thatMe = new Player(40.0, 10.0);
+  thatMe.vector.rotate(new Random().nextInt(180));
   final double xSize = 100.0;
   final double ySize = 100.0;
 
   List<Enemy> enemiesList = new List<Enemy>();
   Casual Benedikt = new Casual(2, 10.0, 10.0, false);
+  Benedikt.vector.rotate(new Random().nextInt(45));
+  Casual Marco = new Casual(2, 15.0, 15.0, false);
+  Marco.vector.rotate(new Random().nextInt(45));
   enemiesList.add(Benedikt);
+  enemiesList.add(Marco);
   World space = new World(xSize, ySize, thatMe, enemiesList);
   WorldController worldController = new WorldController(space);
   MiniMap mMap = new MiniMap(space);
@@ -46,13 +51,6 @@ void main() {
       /*
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
-<<<<<<< HEAD
-      
-      ScreenPosX =-dx;
-      ScreenPosY =-dy;
-      cross.style.top = '${(ScreenPosY)}%';
-      cross.style.left = '${(ScreenPosX)}%';
-=======
       */
 
       //-180, 180
@@ -78,24 +76,20 @@ void main() {
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
-      view.update(ScreenPosX, ScreenPosY);
       deltaX = 0;
       deltaY = 0;
->>>>>>> 7acd50a9baf340b4fa6dcc0c13eb106b4e185edc
     }
   });
 
+
+  /* Keyboard Kontrolle */
   if(mobile == false){
   window.onKeyDown.listen((KeyboardEvent e) {
     if ((e.keyCode == 97 ||e.keyCode == KeyCode.A || e.keyCode == KeyCode.LEFT) &&ScreenPosX > 2) {        
        deltaX -= 3;
-        
-       print(space.player.vector.toString()); //DEBUG VECTOR
     }
      else if ((e.keyCode == 100 ||e.keyCode == KeyCode.D || e.keyCode == KeyCode.RIGHT)&&ScreenPosX < (maxSizeX-70)) {
        deltaX += 3;
-    
-       print(space.player.vector.toString()); //DEBUG VECTOR
     }
       if ((e.keyCode == 119 ||e.keyCode == KeyCode.W || e.keyCode == KeyCode.UP) &&ScreenPosY < (maxSizeY-70)) {        
        deltaY += 3;
@@ -109,17 +103,28 @@ void main() {
     }
     ScreenPosX += deltaX;
     ScreenPosY += deltaY;
-    view.update(ScreenPosX, ScreenPosY);
     deltaX = 0;
     deltaY = 0;
   });
   }
+
   /* GameLoop */
-  new Timer.periodic(new Duration(milliseconds: 120), (update) {
+  new Timer.periodic(new Duration(milliseconds: 30), (update) {
+    view.update(ScreenPosX, ScreenPosY);
     ship.style.left = "${ScreenPosX}px";
-   // view.update(ScreenPosX, ScreenPosY); doppelt
     mMap.adjust(thatMe, space.enemies);
-    // viewController.update();
+  });
+
+  new Timer.periodic(new Duration(milliseconds: 60), (update) {
+    worldController.simulate();
+  });
+
+  new Timer.periodic(new Duration(milliseconds: 240), (update) {
+    for(Enemy e in worldController.getEnemiesFromWorld()){
+      if(new Random().nextInt(10) < 2){
+        e.vector.rotate(new Random().nextInt(90) - 45);
+      }
+    }
   });
 }
 

@@ -12,20 +12,22 @@ class Vector {
 
   //Functions to rotate clockwise/counter-clockwise
   //we'll use some math for this (oh geez!)
-  //names not right yet
-  void rotate(int betaDegree) {
-    betaDegree = betaDegree%360;
-    this.dx = math.cos(betaDegree) * this.dx - math.sin(betaDegree) * this.dy;
-    this.dy = math.sin(betaDegree) * this.dx + math.cos(betaDegree) * this.dy;
+  void rotate(int Theta) {
+    if(Theta < 0) Theta + 360;
+    double tempX;
+    double tempY;
+    tempX = math.cos(Theta) * this.dx - math.sin(Theta) * this.dy;
+    tempY = math.sin(Theta) * this.dx + math.cos(Theta) * this.dy;
+    this.dx = tempX;
+    this.dy = tempY;
   }
-
+  //invert for the world borders
   void invertX(){
     this.dx = -this.dx;
   }
   void invertY(){
     this.dy = -this.dy;
   }
-
   //toString for debug purpose
   String toString() => "($dx, $dy)";
 }
