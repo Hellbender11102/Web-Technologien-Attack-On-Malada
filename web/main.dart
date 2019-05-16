@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:html';
 import 'dart:math';
-import 'Casuals.dart';
-import 'Enemy.dart';
-import 'MiniMap.dart';
-import 'World.dart';
+import 'casuals.dart';
+import 'enemy.dart';
+import 'mini_map.dart';
+import 'world.dart';
 import 'Player.dart';
-import 'WorldController.dart';
+import 'world_controller.dart';
 
-import 'View.dart';
+import 'view.dart';
 
 void main() {
   View view = new View();

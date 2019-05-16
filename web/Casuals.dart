@@ -1,4 +1,4 @@
-import 'Enemy.dart';
+import 'enemy.dart';
 import 'Player.dart';
 
 class Casual extends Enemy{

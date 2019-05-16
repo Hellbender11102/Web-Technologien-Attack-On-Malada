@@ -1,5 +1,5 @@
 import 'Player.dart';
-import 'Enemy.dart';
+import 'enemy.dart';
 
 class World {
   Player player;

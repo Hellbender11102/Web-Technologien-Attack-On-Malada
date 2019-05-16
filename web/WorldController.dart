@@ -1,6 +1,6 @@
 import 'dart:html';
-import 'Enemy.dart';
-import 'World.dart';
+import 'enemy.dart';
+import 'world.dart';
 
 class WorldController{
   WorldController(World world){
