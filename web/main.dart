@@ -52,18 +52,25 @@ void main() {
       */
 
       //-180, 180
-      if((ev.beta < 0 )&&( ScreenPosY > 5)){
-        deltaY -= 1;
+       int ySpeed = 10;// Langsam > Schnell
+      if((ev.beta > 50 )&&( ScreenPosY > 2)){
+        deltaY -= (ev.beta/ySpeed).floor();
       }
-      if((ev.beta > 0 )&&( ScreenPosY < (maxSizeY-70))){
-         deltaY += 1;
+      if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-56))){
+        if(ev.beta > 1){
+          deltaY += (ev.beta/ySpeed).floor();
+        } else{
+          deltaY -= ((ev.beta-10)).floor();
+        }
       }
+
       //-90, 90
-      if((ev.gamma < 0 )&&( ScreenPosX > 2)){
-          deltaX -= 1;
+      int xSpeed = 5;// Langsam > Schnell
+      if((ev.gamma < 5 )&&( ScreenPosX > 2)){
+          deltaX += (ev.gamma /xSpeed).floor();
       }
-      if((ev.beta > 0 )&&( ScreenPosX < (maxSizeX-70))){
-          deltaX += 1;
+      if((ev.gamma > -5 )&&( ScreenPosX < (maxSizeX-13))){
+          deltaX += (ev.gamma /xSpeed).floor();
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
@@ -105,7 +112,7 @@ void main() {
   /* GameLoop */
   new Timer.periodic(new Duration(milliseconds: 120), (update) {
     ship.style.left = "${ScreenPosX}px";
-    view.update(ScreenPosX, ScreenPosY);
+   // view.update(ScreenPosX, ScreenPosY); doppelt
     mMap.adjust(thatMe, space.enemies);
     // viewController.update();
   });
