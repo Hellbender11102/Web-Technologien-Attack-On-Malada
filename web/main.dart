@@ -5,7 +5,7 @@ import 'casuals.dart';
 import 'enemy.dart';
 import 'mini_map.dart';
 import 'world.dart';
-import 'Player.dart';
+import 'player.dart';
 import 'world_controller.dart';
 
 import 'view.dart';

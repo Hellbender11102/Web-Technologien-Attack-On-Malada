@@ -1,6 +1,6 @@
 import 'dart:html';
 import 'enemy.dart';
-import 'Player.dart';
+import 'player.dart';
 import 'world.dart';
 
 class MiniMap{
