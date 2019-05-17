@@ -1,6 +1,6 @@
 import 'dart:html';
 import 'enemy.dart';
-import 'player.dart';
+import 'Player.dart';
 import 'world.dart';
 
 class MiniMap{
@@ -19,7 +19,6 @@ class MiniMap{
     MinimapElement.children.add(playerDot);
 
     //Alle Gegner hinzufügen
-    int i = 0;
     for(int i = 0; i < world.enemies.length; i++){
       ImageElement enemy = new ImageElement();
       enemy.src = "Assets/EnemyBeepBeep.png";

@@ -1,4 +1,4 @@
-import 'player.dart';
+import 'Player.dart';
 import 'enemy.dart';
 
 class World {

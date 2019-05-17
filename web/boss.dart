@@ -1,5 +1,5 @@
 import 'enemy.dart';
-import 'player.dart';
+import 'Player.dart';
 
 class Boss extends Enemy{
   //Shield and regeneration shall be handeled in the world controller
