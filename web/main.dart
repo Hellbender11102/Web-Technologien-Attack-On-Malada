@@ -115,7 +115,7 @@ void main() {
     });
   }
   /* GameLoop */
-  new Timer.periodic(new Duration(milliseconds: 25), (update) {
+  new Timer.periodic(new Duration(milliseconds: 60), (update) {
     ship.style.left = "${ScreenPosX}px";
     view.update(ScreenPosX, ScreenPosY);
     mMap.adjust(thatMe, space.enemies);
