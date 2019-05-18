@@ -23,6 +23,9 @@ class View{
   double cross_x;
   double cross_y;
 
+  ImageElement life = new ImageElement();
+  int counter = 240;
+
   List<Asteroid> enemies = [new Asteroid(250, 250), new Asteroid(500,300), new Asteroid(325,325), new Asteroid(540, 450), new Asteroid(740, 300), new Asteroid(500, 700), new Asteroid(800, 825), new Asteroid(1000, 800), new Asteroid(800, 600)];
 
   List<Asteroid> get enemyList => enemies;
@@ -34,6 +37,13 @@ class View{
     this.crosshair.style.bottom = "${cross_y}px";
     this.crosshair.style.left = "${cross_x}px";
     this.screen.children.add(crosshair);
+
+    this.life.src = "Assets/hearts_6.png";
+    this.life.className = "life";
+    this.life.style.position = "absolute";
+    this.life.style.bottom = "${90}%";
+    this.life.style.left = "${46}%";
+    this.screen.children.add(life);
     
     cross_x = center_x;
     cross_y = center_y;
@@ -44,18 +54,49 @@ class View{
     this.crosshair.style.bottom = "${yPos}px";
     this.crosshair.style.left = "${xPos}px";
 
-    for(int i = 0; i < enemyList.length; i++){
-      enemyList[i].moveDown();
+    for(int a = 0; a < enemyList.length; a++){
+      enemyList[a].moveDown();
     }
 
-    for(int i = xPos - 32; i < xPos + 32; i++){
-      for(int j = yPos - 32; j < yPos +32; j++){
-        for(int k = 0; k < enemyList.length; k++){
-          if(i == enemyList[k].ast_x && j == enemyList[k].ast_y){
+    var rectP = player.getBoundingClientRect();
+    var rectC = this.crosshair.getBoundingClientRect();
+
+    for(int k = 0; k < enemyList.length; k++){
+         var rectA = enemyList[k].asteroid.getBoundingClientRect();
+         var overlapAC = !(rectA.right < rectC.left || 
+               rectA.left > rectC.right || 
+               rectA.bottom < rectC.top || 
+               rectA.top > rectC.bottom);
+         var overlapAP = !(rectA.right < rectP.left || 
+               rectA.left > rectP.right || 
+               rectA.bottom < rectP.top || 
+               rectA.top > rectP.bottom);
+         if(overlapAC){
+            enemyList[k].dead = true;
             enemyList[k].asteroid.src = "";
-          }
-        }
-      }
+            enemyList.removeAt(k);
+         } else if(overlapAP) {
+            counter--;
+            switch(counter) {
+              case 200: { this.life.src = "Assets/hearts_5.png"; }
+              break;
+
+              case 160: { this.life.src = "Assets/hearts_4.png"; }
+              break;
+
+              case 120: { this.life.src = "Assets/hearts_3.png"; }
+              break;
+
+              case 80: { this.life.src = "Assets/hearts_2.png"; }
+              break;
+
+              case 40: { this.life.src = "Assets/hearts_1.png"; }
+              break;
+
+              case 0: { this.life.src = "Assets/hearts_0.png"; }
+              break;
+            }
+         }
     }
   }
 }
@@ -71,6 +112,7 @@ class Asteroid{
   
   double ast_x;
   double ast_y;
+  bool dead = false;
 
   double get xPos => ast_x;
 
@@ -80,7 +122,7 @@ class Asteroid{
 
   Asteroid(int x, int y){
     this.asteroid.src = "Assets/asteroid_fix.png";
-    this.asteroid.className = "asteroid";
+    this.asteroid.className = "enemy_asteroid";
     this.asteroid.style.position = "absolute";
     this.asteroid.style.bottom = "${y}px";
     this.asteroid.style.left = "${x}px";
@@ -91,8 +133,13 @@ class Asteroid{
   }
 
   moveDown(){
-    double newY = ast_y - 1;
-    this.asteroid.style.bottom = "${newY}px";
-    this.asteroid.style.left = "${ast_x}px";
+    if((ast_y - 1) > 0){
+      ast_y -= 1;
+    } else {
+      this.asteroid.src = "";
+      dead = true;
+    }
+    this.asteroid.querySelector(".enemy_asteroid");
+    this.asteroid.style.bottom = "${ast_y}px";
   }
 }

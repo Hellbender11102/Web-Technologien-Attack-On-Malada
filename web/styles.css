@@ -51,7 +51,7 @@ li {
 	bottom: 5%;
 }
 
-#life6{
+#life{
 	position: absolute;
 	bottom: 90%;
 	left: 47%;
@@ -62,7 +62,7 @@ li {
 }
 
 #enemy_asteroid{
-	position: relative;
+	position: absolute;
 }
 
 #background{

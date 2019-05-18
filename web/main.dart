@@ -12,7 +12,7 @@ import 'view.dart';
 
 void main() {
   View view = new View();
-  Player thatMe = new Player(40.0, 10.0);
+  Player thatMe = new Player(0.05 * view.height, 0.50 * view.width);
   final double xSize = 100.0;
   final double ySize = 100.0;
 
@@ -115,7 +115,7 @@ void main() {
     });
   }
   /* GameLoop */
-  new Timer.periodic(new Duration(milliseconds: 120), (update) {
+  new Timer.periodic(new Duration(milliseconds: 25), (update) {
     ship.style.left = "${ScreenPosX}px";
     view.update(ScreenPosX, ScreenPosY);
     mMap.adjust(thatMe, space.enemies);
