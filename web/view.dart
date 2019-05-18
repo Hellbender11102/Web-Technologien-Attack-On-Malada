@@ -26,8 +26,7 @@ class View{
   ImageElement life = new ImageElement();
   int counter = 180;
 
-  List<Asteroid> enemies = [new Asteroid(250, 250), new Asteroid(500,300), new Asteroid(325,325), new Asteroid(540, 450), new Asteroid(740, 300), new Asteroid(500, 700), new Asteroid(800, 825), new Asteroid(1000, 800), new Asteroid(800, 600)];
-
+  List<Asteroid> enemies = [new Asteroid(0.25 * window.innerWidth, 0.9 * window.innerHeight), new Asteroid(0.8 * window.innerWidth, 0.7 * window.innerHeight), new Asteroid(0.45 * window.innerWidth, 0.8 * window.innerHeight), new Asteroid(0.65 * window.innerWidth, 0.85 * window.innerHeight), new Asteroid(0.78 * window.innerWidth, 0.9 * window.innerHeight), new Asteroid(0.1 * window.innerWidth, 0.95 * window.innerHeight)];
   List<Asteroid> get enemyList => enemies;
 
   View(){
@@ -120,7 +119,7 @@ class Asteroid{
 
   ImageElement asteroid = new ImageElement();
 
-  Asteroid(int x, int y){
+  Asteroid(double x, double y){
     this.asteroid.src = "Assets/asteroid_fix.png";
     this.asteroid.className = "enemy_asteroid";
     this.asteroid.style.position = "absolute";
@@ -128,8 +127,8 @@ class Asteroid{
     this.asteroid.style.left = "${x}px";
     this.screen.children.add(asteroid);
 
-    ast_x = x.toDouble();
-    ast_y = y.toDouble();
+    ast_x = x;
+    ast_y = y;
   }
 
   moveDown(){
