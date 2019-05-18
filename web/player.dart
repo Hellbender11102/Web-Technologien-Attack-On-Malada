@@ -1,6 +1,6 @@
-import 'Actors.dart';
-import 'Enemy.dart';
-import 'Vector.dart';
+import 'actors.dart';
+import 'enemy.dart';
+import 'vector.dart';
 
 class Player extends Actor{
   Player(double curr_x, double curr_y){

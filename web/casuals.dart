@@ -1,5 +1,5 @@
-import 'Enemy.dart';
-import 'Player.dart';
+import 'enemy.dart';
+import 'player.dart';
 
 class Casual extends Enemy{
   //determines, if enemy does alot of damage. Give it like a 10% chance to happen for extra challenge

@@ -1,5 +1,5 @@
-import 'Actors.dart';
-import 'Vector.dart';
+import 'actors.dart';
+import 'vector.dart';
 
 abstract class Enemy extends Actor{
   Enemy(int life_start, double posX, double posY){
