@@ -24,7 +24,7 @@ class View{
   double cross_y;
 
   ImageElement life = new ImageElement();
-  int counter = 240;
+  int counter = 180;
 
   List<Asteroid> enemies = [new Asteroid(250, 250), new Asteroid(500,300), new Asteroid(325,325), new Asteroid(540, 450), new Asteroid(740, 300), new Asteroid(500, 700), new Asteroid(800, 825), new Asteroid(1000, 800), new Asteroid(800, 600)];
 
@@ -78,19 +78,19 @@ class View{
          } else if(overlapAP) {
             counter--;
             switch(counter) {
-              case 200: { this.life.src = "Assets/hearts_5.png"; }
+              case 150: { this.life.src = "Assets/hearts_5.png"; }
               break;
 
-              case 160: { this.life.src = "Assets/hearts_4.png"; }
+              case 120: { this.life.src = "Assets/hearts_4.png"; }
               break;
 
-              case 120: { this.life.src = "Assets/hearts_3.png"; }
+              case 90: { this.life.src = "Assets/hearts_3.png"; }
               break;
 
-              case 80: { this.life.src = "Assets/hearts_2.png"; }
+              case 60: { this.life.src = "Assets/hearts_2.png"; }
               break;
 
-              case 40: { this.life.src = "Assets/hearts_1.png"; }
+              case 30: { this.life.src = "Assets/hearts_1.png"; }
               break;
 
               case 0: { this.life.src = "Assets/hearts_0.png"; }
