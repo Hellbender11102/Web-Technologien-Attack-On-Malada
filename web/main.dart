@@ -7,6 +7,7 @@ import 'mini_map.dart';
 import 'world.dart';
 import 'player.dart';
 import 'world_controller.dart';
+import 'asteroid.dart';
 
 import 'view.dart';
 
@@ -15,6 +16,11 @@ void main() {
   Player thatMe = new Player(0.05 * view.height, 0.50 * view.width);
   final double xSize = 100.0;
   final double ySize = 100.0;
+
+  List<Asteroid> enemies = [new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight), 
+  new Asteroid(1, 0.8 * window.innerWidth, 0.7 * window.innerHeight), new Asteroid(1, 0.45 * window.innerWidth, 0.8 * window.innerHeight), 
+  new Asteroid(1, 0.65 * window.innerWidth, 0.85 * window.innerHeight), new Asteroid(1, 0.78 * window.innerWidth, 0.9 * window.innerHeight), 
+  new Asteroid(1, 0.1 * window.innerWidth, 0.95 * window.innerHeight)];
 
   List<Enemy> enemiesList = new List<Enemy>();
   Casual Benedikt = new Casual(2, 10.0, 10.0, false);
@@ -33,7 +39,7 @@ void main() {
   int ScreenPosY = (maxSizeY / 2).floor();
   int deltaX = 0;
   int deltaY = 0;
-  var cross = querySelector('.cross');
+  view.crosshair = querySelector(".cross");
   var ship = querySelector('#player');
   bool mobile = false;
 
@@ -76,10 +82,14 @@ void main() {
         deltaX += (ev.gamma /xSpeed).floor()+2;
         print("Gamma >  5: "+ev.gamma.toString());
       }
+      Screen.onTouchEnd.listen((e) {
+        thatMe.shoot(enemies, view.crosshair);
+      });
+
       print('DeltaX aus Gamma: '+deltaX.toString());
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
-      view.update(ScreenPosX, ScreenPosY);
+      view.update(ScreenPosX, ScreenPosY, enemies);
       deltaX = 0;
       deltaY = 0;
     }
@@ -105,11 +115,11 @@ void main() {
       }
 
       else if (e.keyCode == 32) {
-        print("SpaceBar");
+        thatMe.shoot(enemies, view.crosshair);
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
-      view.update(ScreenPosX, ScreenPosY);
+      view.update(ScreenPosX, ScreenPosY, enemies);
       deltaX = 0;
       deltaY = 0;
     });
@@ -117,7 +127,7 @@ void main() {
   /* GameLoop */
   new Timer.periodic(new Duration(milliseconds: 60), (update) {
     ship.style.left = "${ScreenPosX}px";
-    view.update(ScreenPosX, ScreenPosY);
+    view.update(ScreenPosX, ScreenPosY, enemies);
     mMap.adjust(thatMe, space.enemies);
     // viewController.update();
   });
