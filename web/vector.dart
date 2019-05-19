@@ -29,7 +29,25 @@ class Vector {
     this.dy = -this.dy;
   }
 
+  //a^2+b^2=c^2
+  //thats easy btw
+  double length(){
+    return math.sqrt((this.dx * this.dx) + (this.dy * this.dy));
+  }
+
+  //change Vector based on two points
+  void betweenTwoPoints(x1,y1,x2,y2){
+    this.dx = x2 - x1;
+    this.dy = y2 - y1;
+  }
+
+  //This shall be used, if two vectors are of the same origin
+  double getRadiusTo(Vector v_in){
+    return math.acos(((this.dx * v_in.dx)+(this.dy * v_in.dy))/((math.sqrt((this.dx * this.dx) + (v_in.dx * v_in.dx)))*(math.sqrt((this.dy * this.dy) + (v_in.dy * v_in.dy)))));
+  }
+
   //Function for Displaying Units. x1,y1 for curr Pos. x3,y3 for Point coords
+  //no fun allowed for this, final destination!
   double shortestDistance(double x1, double y1, int renderDistance, double x3, double y3){
     double px = (this.dx * renderDistance) - x1;
     double py = (this.dy * renderDistance) - y1;
