@@ -82,7 +82,7 @@ void main() {
         deltaX += (ev.gamma /xSpeed).floor()+2;
         print("Gamma >  5: "+ev.gamma.toString());
       }
-      Screen.onTouchEnd.listen((e) {
+      Screen.onTouchStart.listen((e) {
         thatMe.shoot(enemies, view.crosshair);
       });
 
