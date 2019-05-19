@@ -13,13 +13,20 @@ import 'view.dart';
 
 void main() {
   View view = new View();
+  bool isStarted = false;
   view.startBtn.onTouchEnd.listen((e) {
-    start(view);
-    view.screen.children.remove(view.startBtn);
+    if (!isStarted) {
+      start(view);
+      view.screen.children.remove(view.startBtn);
+      isStarted = true;
+    }
   });
   window.onClick.listen((e) {
-    start(view);
-    view.screen.children.remove(view.startBtn);
+    if (!isStarted) {
+      start(view);
+      view.screen.children.remove(view.startBtn);
+      isStarted = true;
+    }
   });
 }
 
