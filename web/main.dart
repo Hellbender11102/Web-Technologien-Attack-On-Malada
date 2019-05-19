@@ -44,12 +44,14 @@ void start(View view) {
     new Asteroid(1, 0.1 * window.innerWidth, 0.95 * window.innerHeight)
   ];
 
+/*
   List<Enemy> enemiesList = new List<Enemy>();
   Casual Benedikt = new Casual(2, 10.0, 10.0, false);
   enemiesList.add(Benedikt);
   World space = new World(xSize, ySize, thatMe, enemiesList);
   WorldController worldController = new WorldController(space);
   MiniMap mMap = new MiniMap(space);
+*/
 
   var Screen = querySelector("#screen");
   int maxSizeX = Screen.clientWidth;
@@ -122,14 +124,14 @@ void start(View view) {
           ScreenPosX > 2) {
         deltaX -= 3;
 
-        print(space.player.vector.toString()); //DEBUG VECTOR
+        //print(space.player.vector.toString()); //DEBUG VECTOR
       } else if ((e.keyCode == 100 ||
               e.keyCode == KeyCode.D ||
               e.keyCode == KeyCode.RIGHT) &&
           ScreenPosX < (maxSizeX - 70)) {
         deltaX += 3;
 
-        print(space.player.vector.toString()); //DEBUG VECTOR
+        //print(space.player.vector.toString()); //DEBUG VECTOR
       }
       if ((e.keyCode == 119 ||
               e.keyCode == KeyCode.W ||
@@ -155,7 +157,7 @@ void start(View view) {
   new Timer.periodic(new Duration(milliseconds: 60), (update) {
     ship.style.left = "${ScreenPosX}px";
     view.update(ScreenPosX, ScreenPosY, enemies);
-    mMap.adjust(thatMe, space.enemies);
+    //mMap.adjust(thatMe, space.enemies);
     // viewController.update();
   });
 }
