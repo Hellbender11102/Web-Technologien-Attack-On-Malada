@@ -25,7 +25,7 @@ void main() {
   enemiesList.add(Benedikt);
   enemiesList.add(Marco);
   World space = new World(xSize, ySize, thatMe, enemiesList);
-  WorldController worldController = new WorldController(space);
+  WorldController worldController = new WorldController(space, view);
   MiniMap mMap = new MiniMap(space);
 /*
   List<Asteroid> enemies = [new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.25 * view.width), (0.80 * view.height), view),
