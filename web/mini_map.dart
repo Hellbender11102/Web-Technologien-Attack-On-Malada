@@ -16,6 +16,12 @@ class MiniMap{
     this.worldSizeY = world.boundaryY;
     this.playerDot.src = "Assets/MiniMap_Circle_Player.png";
     this.playerDot.className = "playerOnMap";
+    Element ul = new Element.ul();
+    for(int i = 0; i< 9; i++){
+      Element li = new Element.li();
+      ul.children.add(li);
+    }
+    MinimapElement.children.add(ul);
     MinimapElement.children.add(playerDot);
 
     //Alle Gegner hinzufügen
