@@ -13,14 +13,29 @@ import 'view.dart';
 
 void main() {
   View view = new View();
+  view.startBtn.onTouchEnd.listen((e) {
+    start(view);
+    view.screen.children.remove(view.startBtn);
+  });
+  window.onClick.listen((e) {
+    start(view);
+    view.screen.children.remove(view.startBtn);
+  });
+}
+
+void start(View view) {
   Player thatMe = new Player(0.05 * view.height, 0.50 * view.width);
   final double xSize = 100.0;
   final double ySize = 100.0;
 
-  List<Asteroid> enemies = [new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight), 
-  new Asteroid(1, 0.8 * window.innerWidth, 0.7 * window.innerHeight), new Asteroid(1, 0.45 * window.innerWidth, 0.8 * window.innerHeight), 
-  new Asteroid(1, 0.65 * window.innerWidth, 0.85 * window.innerHeight), new Asteroid(1, 0.78 * window.innerWidth, 0.9 * window.innerHeight), 
-  new Asteroid(1, 0.1 * window.innerWidth, 0.95 * window.innerHeight)];
+  List<Asteroid> enemies = [
+    new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight),
+    new Asteroid(1, 0.8 * window.innerWidth, 0.7 * window.innerHeight),
+    new Asteroid(1, 0.45 * window.innerWidth, 0.8 * window.innerHeight),
+    new Asteroid(1, 0.65 * window.innerWidth, 0.85 * window.innerHeight),
+    new Asteroid(1, 0.78 * window.innerWidth, 0.9 * window.innerHeight),
+    new Asteroid(1, 0.1 * window.innerWidth, 0.95 * window.innerHeight)
+  ];
 
   List<Enemy> enemiesList = new List<Enemy>();
   Casual Benedikt = new Casual(2, 10.0, 10.0, false);
@@ -28,10 +43,7 @@ void main() {
   World space = new World(xSize, ySize, thatMe, enemiesList);
   WorldController worldController = new WorldController(space);
   MiniMap mMap = new MiniMap(space);
-/*
-  List<Asteroid> enemies = [new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.25 * view.width), (0.80 * view.height), view),
-  new Asteroid((0.05 * view.width), (0.90 * view.height), view), new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.15 * view.width), (0.85 * view.height), view)];
-*/
+
   var Screen = querySelector("#screen");
   int maxSizeX = Screen.clientWidth;
   int maxSizeY = Screen.clientHeight;
@@ -44,7 +56,6 @@ void main() {
   bool mobile = false;
 
   window.onDeviceOrientation.listen((ev) {
-
     // No device orientation
     if (ev.alpha == null && ev.beta == null && ev.gamma == null) {
       bool mobile = false;
@@ -57,36 +68,37 @@ void main() {
       final dx = min(20, max(-20, ev.gamma));
       */
 
-
       //-180, 180
-      int ySpeed = 10;// Langsam > Schnell
-      if((ev.beta > 50 )&&( ScreenPosY > 2)){
-        deltaY -= (ev.beta/ySpeed).floor();
+      int ySpeed = 10; // Langsam > Schnell
+      if ((ev.beta > 50) && (ScreenPosY > 2)) {
+        deltaY -= (ev.beta / ySpeed).floor();
       }
-      if((ev.beta < 40 )&&( ScreenPosY < (maxSizeY-56))){
-        if(ev.beta >= 0){
-          deltaY += (ev.beta/ySpeed).floor()+2;
-          deltaY += deltaY == 5 ? 0 : deltaY == 4 ? 2 : deltaY == 3 ? 4 : deltaY == 2 ? 6 : -404 ;
-        } else{
-          deltaY -= ((ev.beta)).floor()-6;
+      if ((ev.beta < 40) && (ScreenPosY < (maxSizeY - 56))) {
+        if (ev.beta >= 0) {
+          deltaY += (ev.beta / ySpeed).floor() + 2;
+          deltaY += deltaY == 5
+              ? 0
+              : deltaY == 4 ? 2 : deltaY == 3 ? 4 : deltaY == 2 ? 6 : -404;
+        } else {
+          deltaY -= ((ev.beta)).floor() - 6;
         }
       }
       //-90, 90
       int xSpeed = 5;
-      if((ev.gamma < -5 )&&( ScreenPosX > 2)){
-        deltaX += (ev.gamma /xSpeed).floor()-2;
+      if ((ev.gamma < -5) && (ScreenPosX > 2)) {
+        deltaX += (ev.gamma / xSpeed).floor() - 2;
 
-        print("Gamma < -5: "+ev.gamma.toString());
+        print("Gamma < -5: " + ev.gamma.toString());
       }
-      if((ev.gamma > 5 )&&( ScreenPosX < (maxSizeX-13))){
-        deltaX += (ev.gamma /xSpeed).floor()+2;
-        print("Gamma >  5: "+ev.gamma.toString());
+      if ((ev.gamma > 5) && (ScreenPosX < (maxSizeX - 13))) {
+        deltaX += (ev.gamma / xSpeed).floor() + 2;
+        print("Gamma >  5: " + ev.gamma.toString());
       }
       Screen.onTouchStart.listen((e) {
         thatMe.shoot(enemies, view.crosshair);
       });
 
-      print('DeltaX aus Gamma: '+deltaX.toString());
+      print('DeltaX aus Gamma: ' + deltaX.toString());
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
       view.update(ScreenPosX, ScreenPosY, enemies);
@@ -95,26 +107,34 @@ void main() {
     }
   });
 
-  if(mobile == false){
+  if (mobile == false) {
     window.onKeyDown.listen((KeyboardEvent e) {
-      if ((e.keyCode == 97 ||e.keyCode == KeyCode.A || e.keyCode == KeyCode.LEFT) &&ScreenPosX > 2) {
+      if ((e.keyCode == 97 ||
+              e.keyCode == KeyCode.A ||
+              e.keyCode == KeyCode.LEFT) &&
+          ScreenPosX > 2) {
         deltaX -= 3;
 
         print(space.player.vector.toString()); //DEBUG VECTOR
-      }
-      else if ((e.keyCode == 100 ||e.keyCode == KeyCode.D || e.keyCode == KeyCode.RIGHT)&&ScreenPosX < (maxSizeX-70)) {
+      } else if ((e.keyCode == 100 ||
+              e.keyCode == KeyCode.D ||
+              e.keyCode == KeyCode.RIGHT) &&
+          ScreenPosX < (maxSizeX - 70)) {
         deltaX += 3;
 
         print(space.player.vector.toString()); //DEBUG VECTOR
       }
-      if ((e.keyCode == 119 ||e.keyCode == KeyCode.W || e.keyCode == KeyCode.UP) &&ScreenPosY < (maxSizeY-70)) {
+      if ((e.keyCode == 119 ||
+              e.keyCode == KeyCode.W ||
+              e.keyCode == KeyCode.UP) &&
+          ScreenPosY < (maxSizeY - 70)) {
         deltaY += 3;
-      }
-      else if ((e.keyCode == 115 ||e.keyCode == KeyCode.S || e.keyCode == KeyCode.DOWN) &&ScreenPosY > 5) {
+      } else if ((e.keyCode == 115 ||
+              e.keyCode == KeyCode.S ||
+              e.keyCode == KeyCode.DOWN) &&
+          ScreenPosY > 5) {
         deltaY -= 3;
-      }
-
-      else if (e.keyCode == 32) {
+      } else if (e.keyCode == 32) {
         thatMe.shoot(enemies, view.crosshair);
       }
       ScreenPosX += deltaX;
@@ -132,4 +152,3 @@ void main() {
     // viewController.update();
   });
 }
-

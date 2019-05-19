@@ -51,6 +51,10 @@ li {
 	bottom: 5%;
 }
 
+#start{
+	position: absolute;
+}
+
 #life{
 	position: absolute;
 	bottom: 90%;
