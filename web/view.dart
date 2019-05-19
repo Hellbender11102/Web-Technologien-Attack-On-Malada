@@ -56,6 +56,11 @@ class View {
     this.screen.children.add(life);
   }
 
+  Asteroid spawnAsteroid(double offset){
+    Asteroid newAst = new Asteroid(1, offset, window.innerHeight.toDouble());
+    return newAst;
+  }
+
   void update(int xPos, int yPos, List<Asteroid> enemyList) {
     this.crosshair = querySelector(".cross");
     this.crosshair.style.bottom = "${yPos}px";
