@@ -1,10 +1,10 @@
 import 'dart:html';
 import 'enemy.dart';
 
-class Asteroid extends Enemy{
+class Asteroid extends Enemy {
   var enemy = querySelector("#enemy_asteroid");
   var screen = querySelector("#screen");
-  
+
   double ast_x;
   double ast_y;
   int life;
@@ -16,7 +16,7 @@ class Asteroid extends Enemy{
 
   ImageElement asteroid = new ImageElement();
 
-  Asteroid(int life, double x, double y) : super(0, 0.0, 0.0){
+  Asteroid(int life, double x, double y) : super(0, 0.0, 0.0) {
     this.asteroid.src = "Assets/asteroid_fix.png";
     this.asteroid.className = "enemy_asteroid";
     this.asteroid.style.position = "absolute";
@@ -29,8 +29,8 @@ class Asteroid extends Enemy{
     ast_y = y;
   }
 
-  moveDown(){
-    if((ast_y - 1) > 0){
+  moveDown() {
+    if ((ast_y - 1) > 0) {
       ast_y -= 1;
     } else {
       this.asteroid.src = "";
