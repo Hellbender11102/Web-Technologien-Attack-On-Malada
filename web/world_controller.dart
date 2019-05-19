@@ -80,7 +80,7 @@ class WorldController{
         e.vector.invertY();
       }
       e.move();
-      //Hier müssen noch Anbindungen zum View rein??
+      //Hier müssen noch Anbindungen zum View rein?
     }
   }
 }
