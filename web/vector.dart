@@ -28,6 +28,28 @@ class Vector {
   void invertY(){
     this.dy = -this.dy;
   }
+
+  //Function for Displaying Units. x1,y1 for curr Pos. x3,y3 for Point coords
+  double shortestDistance(double x1, double y1, int renderDistance, double x3, double y3){
+    double px = (this.dx * renderDistance) - x1;
+    double py = (this.dy * renderDistance) - y1;
+    double temp = (px * px) + (py * py);
+    double u = ((x3 - x1) * px + (y3 - y1) * py) / (temp);
+    if(u > 1) {
+        u = 1;
+    }
+    else if(u < 0){
+        u = 0;
+    }
+    double x = x1 + u * px;
+    double y = y1 + u * py;
+
+    double dx = x - x3;
+    double dy = y - y3;
+    double dist = math.sqrt(dx * dx + dy * dy);
+    return dist;
+  }
+ 
   //toString for debug purpose
   String toString() => "($dx, $dy)";
 }

@@ -27,14 +27,10 @@ void main() {
   World space = new World(xSize, ySize, thatMe, enemiesList);
   WorldController worldController = new WorldController(space);
   MiniMap mMap = new MiniMap(space);
-<<<<<<< HEAD
-  
-=======
 /*
   List<Asteroid> enemies = [new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.25 * view.width), (0.80 * view.height), view),
   new Asteroid((0.05 * view.width), (0.90 * view.height), view), new Asteroid((0.05 * view.width), (0.95 * view.height), view), new Asteroid((0.15 * view.width), (0.85 * view.height), view)];
 */
->>>>>>> 82c09bcfe78c7a494b010f19e9c0f2039fdb30d8
   var Screen = querySelector("#screen");
   int maxSizeX = Screen.clientWidth;
   int maxSizeY = Screen.clientHeight;
@@ -96,30 +92,6 @@ void main() {
 
   /* Keyboard Kontrolle */
   if(mobile == false){
-<<<<<<< HEAD
-  window.onKeyDown.listen((KeyboardEvent e) {
-    if ((e.keyCode == 97 ||e.keyCode == KeyCode.A || e.keyCode == KeyCode.LEFT) &&ScreenPosX > 2) {        
-       deltaX -= 3;
-    }
-     else if ((e.keyCode == 100 ||e.keyCode == KeyCode.D || e.keyCode == KeyCode.RIGHT)&&ScreenPosX < (maxSizeX-70)) {
-       deltaX += 3;
-    }
-      if ((e.keyCode == 119 ||e.keyCode == KeyCode.W || e.keyCode == KeyCode.UP) &&ScreenPosY < (maxSizeY-70)) {        
-       deltaY += 3;
-    }
-      else if ((e.keyCode == 115 ||e.keyCode == KeyCode.S || e.keyCode == KeyCode.DOWN) &&ScreenPosY > 5) {        
-       deltaY -= 3;
-    }
-  
-    else if (e.keyCode == 32) {
-       print("SpaceBar");
-    }
-    ScreenPosX += deltaX;
-    ScreenPosY += deltaY;
-    deltaX = 0;
-    deltaY = 0;
-  });
-=======
     window.onKeyDown.listen((KeyboardEvent e) {
       if ((e.keyCode == 97 ||e.keyCode == KeyCode.A || e.keyCode == KeyCode.LEFT) &&ScreenPosX > 2) {
         deltaX -= 3;
@@ -147,17 +119,13 @@ void main() {
       deltaX = 0;
       deltaY = 0;
     });
->>>>>>> 82c09bcfe78c7a494b010f19e9c0f2039fdb30d8
   }
 
   /* GameLoop */
   new Timer.periodic(new Duration(milliseconds: 30), (update) {
     view.update(ScreenPosX, ScreenPosY);
     ship.style.left = "${ScreenPosX}px";
-<<<<<<< HEAD
-=======
     view.update(ScreenPosX, ScreenPosY);
->>>>>>> 82c09bcfe78c7a494b010f19e9c0f2039fdb30d8
     mMap.adjust(thatMe, space.enemies);
   });
 

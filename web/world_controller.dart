@@ -1,11 +1,6 @@
-<<<<<<< HEAD:web/WorldController.dart
-import 'Enemy.dart';
-import 'World.dart';
-=======
 import 'dart:html';
 import 'enemy.dart';
 import 'world.dart';
->>>>>>> 82c09bcfe78c7a494b010f19e9c0f2039fdb30d8:web/world_controller.dart
 
 class WorldController{
   WorldController(World world){
