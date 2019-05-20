@@ -46,13 +46,7 @@ void start(View view,Level lvl,bool isStart) {
   final double ySize = 100.0;
 
   List<Asteroid> enemies = [
-    new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight),
-    new Asteroid(1, 0.8 * window.innerWidth, 0.7 * window.innerHeight)];/*
-    new Asteroid(1, 0.45 * window.innerWidth, 0.8 * window.innerHeight),
-    new Asteroid(1, 0.65 * window.innerWidth, 0.85 * window.innerHeight),
-    new Asteroid(1, 0.78 * window.innerWidth, 0.9 * window.innerHeight),
-    new Asteroid(1, 0.1 * window.innerWidth, 0.95 * window.innerHeight)
-  ];*/
+    new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight)];
 
 /*
   List<Enemy> enemiesList = new List<Enemy>();
@@ -167,7 +161,6 @@ void start(View view,Level lvl,bool isStart) {
 print(enemies.length.toString()+"Enemies list length");
       for (int i = 0; i < lvl.numberOnScreen && lvl.numberOnScreen>enemies.length; i++) {
         double rand = Random.secure().nextDouble();
-        rand = rand > 0.9 ? rand - 1.77: rand;
         n++;
         print("Spawn :"+i.toString()+" Rand"+rand.toString() +" Overall:"+n.toString());
         enemies.add(view.spawnAsteroid(rand * window.innerWidth));
@@ -177,6 +170,7 @@ print(enemies.length.toString()+"Enemies list length");
         isStart=false;
         tspawn.cancel();
         loop.cancel();
+        view.showEndWin();
       }
       view.update(ScreenPosX, ScreenPosY, enemies);
   });

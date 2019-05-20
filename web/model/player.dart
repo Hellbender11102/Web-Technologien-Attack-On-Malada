@@ -13,7 +13,7 @@ class Player extends Actor {
     this.vector = new Vector(0.0, 1.0);
   }
   //Player function to shoot enemy. Whether it hits or not is up to controller/world
-  void shoot(List<Asteroid> enemyList, var cross) {
+  bool shoot(List<Asteroid> enemyList, var cross) {
     cross = querySelector(".cross");
     var rectC = cross.getBoundingClientRect();
 
@@ -31,6 +31,7 @@ class Player extends Actor {
         }
       }
     }
+    return false;
   }
 
   String toString() {
