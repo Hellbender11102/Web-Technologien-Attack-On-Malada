@@ -31,6 +31,8 @@ class View {
   ImageElement win = new ImageElement();
   ImageElement restart = new ImageElement();
   ImageElement lose = new ImageElement();
+  ImageElement l1 = new ImageElement();
+  ImageElement l2 = new ImageElement();
 
   View() {
     cross_x = center_x;
@@ -161,5 +163,23 @@ class View {
     restart.style.bottom = "${45}%";
     restart.style.left = "${46}%";
     screen.children.add(restart);
+  }
+
+  void showLevelMenu(){
+    l1.src = "Assets/Level1.jpg";
+    l1.className = "level1";
+    l1.style.position = "absolute";
+    l1.style.zIndex = "5";
+    l1.style.bottom = "${55}%";
+    l1.style.left = "${46}%";
+    screen.children.add(l1);
+
+    l2.src = "Assets/Level2.jpg";
+    l2.className = "level2";
+    l2.style.position = "absolute";
+    l2.style.zIndex = "5";
+    l2.style.bottom = "${45}%";
+    l2.style.left = "${46}%";
+    screen.children.add(l2);
   }
 }

@@ -27,6 +27,7 @@ class Player extends Actor {
         enemyList[k].dead = true;
         enemyList[k].asteroid.remove();
         enemyList.removeAt(k);
+        return true;
       }
     }
     return false;

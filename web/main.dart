@@ -14,41 +14,57 @@ import 'model/asteroid.dart';
 import 'view/view.dart';
 
 void main() {
-  String lvl1 = '{"fortschritt": 0,"name": "Aller","spawnTime": 2,"numberOnScreen":5,"type":["asteroid","casual"],"numberTilFinish":20}';
-  String lvl2 = '{"fortschritt": 1,"name": "Anfang","spawnTime": 1,"numberOnScreen":10,"type":["asteroid","casual"],"numberTilFinish":40}';
-  String lvl3 = '{"fortschritt": 1,"name": "ist","spawnWidth": 100,"spawnTime": 3,"number":20,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
-  String lvl4 = '{"fortschritt": 1,"name": "schwer","spawnWidth": 100,"spawnTime": 2,"number":40,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
-  Map<String,dynamic> lvlMap;
+  String lvl1 =
+      '{"fortschritt": 0,"name": "Aller","spawnTime": 2,"numberOnScreen":5,"type":["asteroid","casual"],"numberTilFinish":20}';
+  String lvl2 =
+      '{"fortschritt": 1,"name": "Anfang","spawnTime": 1,"numberOnScreen":10,"type":["asteroid","casual"],"numberTilFinish":40}';
+  String lvl3 =
+      '{"fortschritt": 1,"name": "ist","spawnWidth": 100,"spawnTime": 3,"number":20,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
+  String lvl4 =
+      '{"fortschritt": 1,"name": "schwer","spawnWidth": 100,"spawnTime": 2,"number":40,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
+  Map<String, dynamic> lvlMap;
   Level lvl;
   View view = new View();
   bool isStarted = false;
+  int level = 0;
   view.startBtn.onTouchEnd.listen((e) {
-    if (!isStarted) {
-      lvlMap = lvlMap== null ? JSON.jsonDecode(lvl1):JSON.jsonDecode(lvl2);
+    view.screen.children.remove(view.startBtn);
+    if (isStarted) {
+      lvlMap = lvlMap == null ? JSON.jsonDecode(lvl1) : JSON.jsonDecode(lvl2);
       lvl = Level.fromJson(lvlMap);
-      start(view,lvl,isStarted);
-      view.screen.children.remove(view.startBtn);
-      isStarted = true;
+      start(view, lvl, isStarted);
     }
   });
-  window.onClick.listen((e) {
-    if (!isStarted) {
-      lvlMap =lvlMap == null ? JSON.jsonDecode(lvl1) : JSON.jsonDecode(lvl2);
-      lvl = Level.fromJson(lvlMap);
-      start(view,lvl,isStarted);
-      view.screen.children.remove(view.startBtn);
-      isStarted = true;
-    }
+  view.startBtn.onClick.listen((e) {
+    view.screen.children.remove(view.startBtn);
+    view.showLevelMenu();
+  });
+  view.l1.onClick.listen((e) {
+    level = 1;
+    view.screen.children.remove(view.l1);
+    view.screen.children.remove(view.l2);
+    lvlMap = level == 1 ? JSON.jsonDecode(lvl1) : JSON.jsonDecode(lvl2);
+    lvl = Level.fromJson(lvlMap);
+    start(view, lvl, isStarted);
+  });
+  view.l2.onClick.listen((e) {
+    level = 2;
+    view.screen.children.remove(view.l1);
+    view.screen.children.remove(view.l2);
+    lvlMap = level == 1 ? JSON.jsonDecode(lvl1) : JSON.jsonDecode(lvl2);
+    lvl = Level.fromJson(lvlMap);
+    start(view, lvl, isStarted);
   });
 }
 
-void start(View view,Level lvl,bool isStart) {
+void start(View view, Level lvl, bool isStart) {
   Player player = new Player(0.05 * view.height, 0.50 * view.width);
   final double xSize = 100.0;
   final double ySize = 100.0;
 
   List<Asteroid> enemies = [
-    new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight)];
+    new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight)
+  ];
 
 /*
   List<Enemy> enemiesList = new List<Enemy>();
@@ -111,7 +127,7 @@ void start(View view,Level lvl,bool isStart) {
         print("Gamma >  5: " + ev.gamma.toString());
       }
       Screen.onTouchStart.listen((e) {
-        if(player.shoot(enemies, view.crosshair)) hits++;
+        if (player.shoot(enemies, view.crosshair) == true) hits++;
       });
 
       print('DeltaX aus Gamma: ' + deltaX.toString());
@@ -128,8 +144,8 @@ void start(View view,Level lvl,bool isStart) {
       if ((e.keyCode == 97 ||
               e.keyCode == KeyCode.A ||
               e.keyCode == KeyCode.LEFT) &&
-          ScreenPosX > 9) {
-        deltaX -= 9;
+          ScreenPosX > 11) {
+        deltaX -= 11;
 
         //print(space.player.vector.toString()); //DEBUG VECTOR
       }
@@ -137,7 +153,7 @@ void start(View view,Level lvl,bool isStart) {
               e.keyCode == KeyCode.D ||
               e.keyCode == KeyCode.RIGHT) &&
           ScreenPosX < (maxSizeX - 70)) {
-        deltaX += 9;
+        deltaX += 11;
 
         //print(space.player.vector.toString()); //DEBUG VECTOR
       }
@@ -145,16 +161,16 @@ void start(View view,Level lvl,bool isStart) {
               e.keyCode == KeyCode.W ||
               e.keyCode == KeyCode.UP) &&
           ScreenPosY < (maxSizeY - 70)) {
-        deltaY += 9;
+        deltaY += 11;
       }
       if ((e.keyCode == 115 ||
               e.keyCode == KeyCode.S ||
               e.keyCode == KeyCode.DOWN) &&
-          ScreenPosY > 9) {
-        deltaY -= 9;
+          ScreenPosY > 11) {
+        deltaY -= 11;
       }
       if (e.keyCode == 32) {
-        if(player.shoot(enemies, view.crosshair)) hits++;
+        if (player.shoot(enemies, view.crosshair) == true) hits++;
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
@@ -166,28 +182,36 @@ void start(View view,Level lvl,bool isStart) {
   Timer loop;
   Timer tspawn;
   Timer collision;
-  tspawn= new Timer.periodic(new Duration(seconds: lvl.spawnTime), (update){
-      if(n <= lvl.number*3){
-        for (int i = 0; i < lvl.number && lvl.number>enemies.length; i++) {
+  tspawn = new Timer.periodic(new Duration(seconds: lvl.spawnTime), (update) {
+    if (n <= lvl.numberTilFinish &&
+        (n + (5 - enemies.length)) <= lvl.numberTilFinish) {
+      for (int i = 0;
+          i < lvl.numberOnScreen && lvl.numberOnScreen > enemies.length;
+          i++) {
         double rand = Random.secure().nextDouble();
-        if(rand > 0.9) rand = 0.9;
+        if (rand > 0.9) rand = 0.9;
         n++;
-        print("Spawn :"+i.toString()+" Rand"+rand.toString() +" Overall:"+n.toString());
+        print("Spawn :" +
+            i.toString() +
+            " Rand" +
+            rand.toString() +
+            " Overall:" +
+            n.toString());
         enemies.add(view.spawnAsteroid(rand * window.innerWidth));
-        }
-      } else {
-        if(enemies.length == 0){
-          isStart=false;
-          tspawn.cancel();
-          loop.cancel();
-          if(hits == lvl.number * 3){
-            view.showEndWin(); 
-          }else {
-            view.showEndLose();
-          }
-        }
       }
-      view.update(ScreenPosX, ScreenPosY, enemies);
+    } else {
+      if (enemies.length == 0) {
+        isStart = false;
+        if (hits == lvl.numberTilFinish) {
+          view.showEndWin();
+        } else {
+          view.showEndLose();
+        }
+        tspawn.cancel();
+        loop.cancel();
+      }
+    }
+    view.update(ScreenPosX, ScreenPosY, enemies);
   });
   /*
   gameLoop
@@ -201,11 +225,24 @@ void start(View view,Level lvl,bool isStart) {
 
   collision = new Timer.periodic(new Duration(milliseconds: 20), (update) {
     view.collisionCheck(enemies);
-    for(int i = 0; i < enemies.length; i++){
-      if(enemies[i].dead == true){
+    for (int i = 0; i < enemies.length; i++) {
+      if (enemies[i].dead == true) {
         enemies[i].asteroid.remove();
         enemies.removeAt(i);
       }
     }
+  });
+}
+
+void restart(View view, Level lvl) {
+  view.restart.onTouchStart.listen((e) {
+    view.screen.children.remove(restart);
+    View viewNew = new View();
+    start(viewNew, lvl, false);
+  });
+  view.restart.onClick.listen((e) {
+    view.screen.children.remove(restart);
+    View viewNew = new View();
+    start(viewNew, lvl, false);
   });
 }
