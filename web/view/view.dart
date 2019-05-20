@@ -29,6 +29,9 @@ class View {
   int counter = 180;
 
   ImageElement startBtn = new ImageElement();
+  ImageElement win = new ImageElement();
+  ImageElement restart = new ImageElement();
+  ImageElement lose = new ImageElement();
 
   View() {
     cross_x = center_x;
@@ -121,5 +124,41 @@ class View {
         }
       }
     }
+  }
+
+  void showEndWin(){
+    win.src = "Assets/Win.jpg";
+    win.className = "win";
+    win.style.position = "absolute";
+    win.style.zIndex = "5";
+    win.style.bottom = "${55}%";
+    win.style.left = "${46}%";
+    screen.children.add(win);
+
+    restart.src = "Assets/Restart.jpg";
+    restart.className = "restart";
+    restart.style.position = "absolute";
+    restart.style.zIndex = "5";
+    restart.style.bottom = "${45}%";
+    restart.style.left = "${46}%";
+    screen.children.add(restart);
+  }
+
+  void showEndLose(){
+    lose.src = "Assets/GameOver.jpg";
+    lose.className = "lose";
+    lose.style.position = "absolute";
+    lose.style.zIndex = "5";
+    lose.style.bottom = "${55}%";
+    lose.style.left = "${46}%";
+    screen.children.add(lose);
+
+    restart.src = "Assets/Restart.jpg";
+    restart.className = "restart";
+    restart.style.position = "absolute";
+    restart.style.zIndex = "5";
+    restart.style.bottom = "${45}%";
+    restart.style.left = "${46}%";
+    screen.children.add(restart);
   }
 }
