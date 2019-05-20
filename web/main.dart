@@ -14,17 +14,15 @@ import 'model/asteroid.dart';
 import 'view/view.dart';
 
 void main() {
-  String lvl1 = '{"fortschritt": 0,"name": "Aller","spawnWidth": 100,"spawnTime": 5,"number":5,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
-  String lvl2 = '{"fortschritt": 1,"name": "Anfang","spawnWidth": 100,"spawnTime": 4,"number":10,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
-  String lvl3 = '{"fortschritt": 1,"name": "ist","spawnWidth": 100,"spawnTime": 3,"number":20,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
-  String lvl4 = '{"fortschritt": 1,"name": "schwer","spawnWidth": 100,"spawnTime": 2,"number":40,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
-  Map<String,dynamic> lvlMap;
+  String lvl1 = '{"fortschritt": 0,"name": "Aller","spawnTime": 2,"numberOnScreen":5,"type":["asteroid","casual"],"numberTilFinish":20}';
+
+   Map<String,dynamic> lvlMap;
   Level lvl;
   View view = new View();
   bool isStarted = false;
   view.startBtn.onTouchEnd.listen((e) {
     if (!isStarted) {
-      lvlMap = lvlMap== null ? JSON.jsonDecode(lvl1):JSON.jsonDecode(lvl2);
+      lvlMap = JSON.jsonDecode(lvl1);
       lvl = Level.fromJson(lvlMap);
       start(view,lvl,isStarted);
       view.screen.children.remove(view.startBtn);
@@ -33,7 +31,7 @@ void main() {
   });
   window.onClick.listen((e) {
     if (!isStarted) {
-      lvlMap =lvlMap == null ? JSON.jsonDecode(lvl1) : JSON.jsonDecode(lvl2);
+      lvlMap =JSON.jsonDecode(lvl1);
       lvl = Level.fromJson(lvlMap);
       start(view,lvl,isStarted);
       view.screen.children.remove(view.startBtn);
@@ -108,18 +106,13 @@ void start(View view,Level lvl,bool isStart) {
       int xSpeed = 5;
       if ((ev.gamma < -5) && (ScreenPosX > 2)) {
         deltaX += (ev.gamma / xSpeed).floor() - 2;
-
-        print("Gamma < -5: " + ev.gamma.toString());
       }
       if ((ev.gamma > 5) && (ScreenPosX < (maxSizeX - 13))) {
         deltaX += (ev.gamma / xSpeed).floor() + 2;
-        print("Gamma >  5: " + ev.gamma.toString());
       }
       Screen.onTouchStart.listen((e) {
         player.shoot(enemies, view.crosshair);
       });
-
-      print('DeltaX aus Gamma: ' + deltaX.toString());
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
 
@@ -171,14 +164,15 @@ void start(View view,Level lvl,bool isStart) {
   Timer loop;
   Timer tspawn;
   tspawn= new Timer.periodic(new Duration(seconds: lvl.spawnTime), (update){
-
-      for (int i = 0; i < lvl.number && lvl.number>enemies.length; i++) {
+print(enemies.length.toString()+"Enemies list length");
+      for (int i = 0; i < lvl.numberOnScreen && lvl.numberOnScreen>enemies.length; i++) {
         double rand = Random.secure().nextDouble();
+        rand = rand > 0.9 ? rand - 1.77: rand;
         n++;
         print("Spawn :"+i.toString()+" Rand"+rand.toString() +" Overall:"+n.toString());
         enemies.add(view.spawnAsteroid(rand * window.innerWidth));
     }
-      if(n >= lvl.number*3){
+      if(n >= lvl.numberTilFinish){
         view.screen.children.add(view.startBtn);
         isStart=false;
         tspawn.cancel();

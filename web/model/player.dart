@@ -24,8 +24,11 @@ class Player extends Actor {
           rectA.bottom < rectC.top ||
           rectA.top > rectC.bottom);
       if (overlapAC) {
-        enemyList[k].dead = true;
-        enemyList[k].asteroid.remove();
+        if (overlapAC) {
+          enemyList[k].dead = true;
+          enemyList[k].asteroid.remove();
+          enemyList.removeAt(k);
+        }
       }
     }
   }

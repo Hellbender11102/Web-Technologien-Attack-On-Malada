@@ -57,8 +57,8 @@ class View {
     this.screen.children.add(life);
   }
 
-  Enemy spawnAsteroid(double offset){
-    Enemy newAst = new Asteroid(1, offset, window.innerHeight.toDouble());
+  Asteroid spawnAsteroid(double offset){
+    Asteroid newAst = new Asteroid(1, offset, window.innerHeight.toDouble());
     return newAst;
   }
 
@@ -69,6 +69,9 @@ class View {
 
     for (int a = 0; a < enemyList.length; a++) {
       enemyList[a].move();
+      if(enemyList[a].life<=0){
+        enemyList.removeAt(a);
+      }
     }
 
     var rectP = player.getBoundingClientRect();
