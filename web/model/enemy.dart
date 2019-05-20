@@ -1,7 +1,14 @@
+import 'dart:html';
+
 import 'actors.dart';
 import 'vector.dart';
 
+
+
 abstract class Enemy extends Actor {
+
+  ImageElement enemy = new ImageElement();
+
   Enemy(int life_start, double posX, double posY) {
     this.curr_pos_X = posX;
     this.curr_pos_Y = posY;
