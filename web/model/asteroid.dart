@@ -23,11 +23,8 @@ class Asteroid extends Enemy {
 
     this.life = life;
   }
-  Asteroid.fromJson(Map<String, dynamic> json) : super(json['life'], json['curr_pos_X'], json['curr_pos_Y']) {
-    this.life = json['life'];
-  }
 
-  
+
   move() {
     if ((curr_pos_Y - 3) > 0) {
       curr_pos_Y -= 3;

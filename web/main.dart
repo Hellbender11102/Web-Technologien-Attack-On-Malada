@@ -14,8 +14,8 @@ import 'model/asteroid.dart';
 import 'view/view.dart';
 
 void main() {
-  String lvl1 = '{"fortschritt": 0,"name": "Aller","spawnWidth": 100,"spawnTime": 5,"number":5,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
-  String lvl2 = '{"fortschritt": 1,"name": "Anfang","spawnWidth": 100,"spawnTime": 4,"number":10,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
+  String lvl1 = '{"fortschritt": 0,"name": "Aller","spawnTime": 2,"numberOnScreen":5,"type":["asteroid","casual"],"numberTilFinish":20}';
+  String lvl2 = '{"fortschritt": 1,"name": "Anfang","spawnTime": 1,"numberOnScreen":10,"type":["asteroid","casual"],"numberTilFinish":40}';
   String lvl3 = '{"fortschritt": 1,"name": "ist","spawnWidth": 100,"spawnTime": 3,"number":20,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
   String lvl4 = '{"fortschritt": 1,"name": "schwer","spawnWidth": 100,"spawnTime": 2,"number":40,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
   Map<String,dynamic> lvlMap;
