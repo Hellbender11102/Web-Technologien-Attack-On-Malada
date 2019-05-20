@@ -29,11 +29,7 @@ void main() {
   int level = 0;
   view.startBtn.onTouchEnd.listen((e) {
     view.screen.children.remove(view.startBtn);
-    if (isStarted) {
-      lvlMap = lvlMap == null ? JSON.jsonDecode(lvl1) : JSON.jsonDecode(lvl2);
-      lvl = Level.fromJson(lvlMap);
-      start(view, lvl, isStarted);
-    }
+    view.showLevelMenu();
   });
   view.startBtn.onClick.listen((e) {
     view.screen.children.remove(view.startBtn);
