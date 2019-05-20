@@ -29,11 +29,10 @@ class Asteroid extends Enemy {
 
   
   move() {
-    if ((curr_pos_Y - 4) > 0) {
-      curr_pos_Y -= 4;
+    if ((curr_pos_Y - 3) > 0) {
+      curr_pos_Y -= 3;
     } else {
       dead = true;
-      this.asteroid.remove();
     }
     this.asteroid.querySelector(".enemy_asteroid");
     this.asteroid.style.bottom = "${curr_pos_Y}px";

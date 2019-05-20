@@ -66,6 +66,7 @@ void start(View view,Level lvl,bool isStart) {
   int ScreenPosY = (maxSizeY / 2).floor();
   int deltaX = 0;
   int deltaY = 0;
+  int hits = 0;
   view.crosshair = querySelector(".cross");
   var ship = querySelector('#player');
   bool mobile = false;
@@ -110,7 +111,7 @@ void start(View view,Level lvl,bool isStart) {
         print("Gamma >  5: " + ev.gamma.toString());
       }
       Screen.onTouchStart.listen((e) {
-        player.shoot(enemies, view.crosshair);
+        if(player.shoot(enemies, view.crosshair)) hits++;
       });
 
       print('DeltaX aus Gamma: ' + deltaX.toString());
@@ -127,8 +128,8 @@ void start(View view,Level lvl,bool isStart) {
       if ((e.keyCode == 97 ||
               e.keyCode == KeyCode.A ||
               e.keyCode == KeyCode.LEFT) &&
-          ScreenPosX > 2) {
-        deltaX -= 5;
+          ScreenPosX > 9) {
+        deltaX -= 9;
 
         //print(space.player.vector.toString()); //DEBUG VECTOR
       }
@@ -136,7 +137,7 @@ void start(View view,Level lvl,bool isStart) {
               e.keyCode == KeyCode.D ||
               e.keyCode == KeyCode.RIGHT) &&
           ScreenPosX < (maxSizeX - 70)) {
-        deltaX += 5;
+        deltaX += 9;
 
         //print(space.player.vector.toString()); //DEBUG VECTOR
       }
@@ -144,16 +145,16 @@ void start(View view,Level lvl,bool isStart) {
               e.keyCode == KeyCode.W ||
               e.keyCode == KeyCode.UP) &&
           ScreenPosY < (maxSizeY - 70)) {
-        deltaY += 5;
+        deltaY += 9;
       }
       if ((e.keyCode == 115 ||
               e.keyCode == KeyCode.S ||
               e.keyCode == KeyCode.DOWN) &&
-          ScreenPosY > 5) {
-        deltaY -= 5;
+          ScreenPosY > 9) {
+        deltaY -= 9;
       }
       if (e.keyCode == 32) {
-        player.shoot(enemies, view.crosshair);
+        if(player.shoot(enemies, view.crosshair)) hits++;
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
@@ -161,22 +162,30 @@ void start(View view,Level lvl,bool isStart) {
       deltaY = 0;
     });
   }
-  int n =0;
+  int n = 0;
   Timer loop;
   Timer tspawn;
+  Timer collision;
   tspawn= new Timer.periodic(new Duration(seconds: lvl.spawnTime), (update){
-
-      for (int i = 0; i < lvl.number && lvl.number>enemies.length; i++) {
+      if(n <= lvl.number*3){
+        for (int i = 0; i < lvl.number && lvl.number>enemies.length; i++) {
         double rand = Random.secure().nextDouble();
+        if(rand > 0.9) rand = 0.9;
         n++;
         print("Spawn :"+i.toString()+" Rand"+rand.toString() +" Overall:"+n.toString());
         enemies.add(view.spawnAsteroid(rand * window.innerWidth));
-    }
-      if(n >= lvl.number*3){
-        isStart=false;
-        tspawn.cancel();
-        loop.cancel();
-        view.showEndWin();
+        }
+      } else {
+        if(enemies.length == 0){
+          isStart=false;
+          tspawn.cancel();
+          loop.cancel();
+          if(hits == lvl.number * 3){
+            view.showEndWin(); 
+          }else {
+            view.showEndLose();
+          }
+        }
       }
       view.update(ScreenPosX, ScreenPosY, enemies);
   });
@@ -188,5 +197,15 @@ void start(View view,Level lvl,bool isStart) {
     view.update(ScreenPosX, ScreenPosY, enemies);
     //mMap.adjust(thatMe, space.enemies);
     // viewController.update();
+  });
+
+  collision = new Timer.periodic(new Duration(milliseconds: 20), (update) {
+    view.collisionCheck(enemies);
+    for(int i = 0; i < enemies.length; i++){
+      if(enemies[i].dead == true){
+        enemies[i].asteroid.remove();
+        enemies.removeAt(i);
+      }
+    }
   });
 }

@@ -65,15 +65,7 @@ class View {
     return newAst;
   }
 
-  void update(int xPos, int yPos, List<Asteroid> enemyList) {
-    this.crosshair = querySelector(".cross");
-    this.crosshair.style.bottom = "${yPos}px";
-    this.crosshair.style.left = "${xPos}px";
-
-    for (int a = 0; a < enemyList.length; a++) {
-      enemyList[a].move();
-    }
-
+  void collisionCheck(List<Asteroid> enemyList){
     var rectP = player.getBoundingClientRect();
 
     for (int k = 0; k < enemyList.length; k++) {
@@ -122,6 +114,16 @@ class View {
             break;
         }
       }
+    }
+  }
+
+  void update(int xPos, int yPos, List<Asteroid> enemyList) {
+    this.crosshair = querySelector(".cross");
+    this.crosshair.style.bottom = "${yPos}px";
+    this.crosshair.style.left = "${xPos}px";
+
+    for (int a = 0; a < enemyList.length; a++) {
+      enemyList[a].move();
     }
   }
 
