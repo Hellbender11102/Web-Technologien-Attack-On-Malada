@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:html';
 import 'dart:math';
-import 'casuals.dart';
-import 'enemy.dart';
-import 'mini_map.dart';
-import 'world.dart';
-import 'player.dart';
+import 'model/casuals.dart';
+import 'model/enemy.dart';
+import 'model/mini_map.dart';
+import 'model/world.dart';
+import 'model/player.dart';
 import 'world_controller.dart';
-import 'asteroid.dart';
+import 'model/asteroid.dart';
 
 import 'view.dart';
 

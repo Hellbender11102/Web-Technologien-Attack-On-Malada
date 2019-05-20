@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'asteroid.dart';
+import 'model/asteroid.dart';
 
 class View {
   var screen = querySelector("#screen");
