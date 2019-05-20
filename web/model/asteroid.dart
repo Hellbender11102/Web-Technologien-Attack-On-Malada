@@ -4,6 +4,8 @@ import 'enemy.dart';
 class Asteroid extends Enemy {
   var enemy = querySelector("#enemy_asteroid");
   var screen = querySelector("#screen");
+  double _height = 40;
+  double _width = 40;
 
   int life;
   bool dead = false;
@@ -25,15 +27,19 @@ class Asteroid extends Enemy {
     this.life = json['life'];
   }
 
-
-  moveDown() {
-    if ((curr_pos_Y - 1) > 0) {
-      curr_pos_Y -= 1;
+  
+  move() {
+    if ((curr_pos_Y - 4) > 0) {
+      curr_pos_Y -= 4;
     } else {
-      this.asteroid.src = "";
       dead = true;
+      this.asteroid.remove();
     }
     this.asteroid.querySelector(".enemy_asteroid");
     this.asteroid.style.bottom = "${curr_pos_Y}px";
+    this.asteroid.width = _width.floor();
+    this.asteroid.height = _height.floor();
+    _width += 0.2;
+    _height += 0.2;
   }
 }

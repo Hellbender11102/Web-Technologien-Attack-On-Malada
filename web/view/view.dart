@@ -1,7 +1,6 @@
 import 'dart:html';
-
 import '../model/asteroid.dart';
-
+import '../model/enemy.dart';
 
 class View {
   var screen = querySelector("#screen");
@@ -58,8 +57,8 @@ class View {
     this.screen.children.add(life);
   }
 
-  Asteroid spawnAsteroid(double offset){
-    Asteroid newAst = new Asteroid(1, offset, window.innerHeight.toDouble());
+  Enemy spawnAsteroid(double offset){
+    Enemy newAst = new Asteroid(1, offset, window.innerHeight.toDouble());
     return newAst;
   }
 
@@ -69,7 +68,7 @@ class View {
     this.crosshair.style.left = "${xPos}px";
 
     for (int a = 0; a < enemyList.length; a++) {
-      enemyList[a].moveDown();
+      enemyList[a].move();
     }
 
     var rectP = player.getBoundingClientRect();
