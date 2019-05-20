@@ -1,48 +1,60 @@
 import 'dart:async';
 import 'dart:html';
+import 'dart:convert' as JSON;
 import 'dart:math';
 import 'model/casuals.dart';
 import 'model/enemy.dart';
+import 'model/level.dart';
 import 'model/mini_map.dart';
 import 'model/world.dart';
 import 'model/player.dart';
-import 'world_controller.dart';
+import 'controller/world_controller.dart';
 import 'model/asteroid.dart';
 
-import 'view.dart';
+import 'view/view.dart';
 
 void main() {
+  String lvl1 = '{"fortschritt": 0,"name": "Aller","spawnWidth": 100,"spawnTime": 5,"number":5,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
+  String lvl2 = '{"fortschritt": 1,"name": "Anfang","spawnWidth": 100,"spawnTime": 4,"number":10,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
+  String lvl3 = '{"fortschritt": 1,"name": "ist","spawnWidth": 100,"spawnTime": 3,"number":20,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
+  String lvl4 = '{"fortschritt": 1,"name": "schwer","spawnWidth": 100,"spawnTime": 2,"number":40,"enemies":[{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1},{"curr_pos_X":100,"curr_pos_Y":100,"life":2,"damage":1}]}';
+  Map<String,dynamic> lvlMap;
+  Level lvl;
   View view = new View();
   bool isStarted = false;
   view.startBtn.onTouchEnd.listen((e) {
     if (!isStarted) {
-      start(view);
+      lvlMap = lvlMap== null ? JSON.jsonDecode(lvl1):JSON.jsonDecode(lvl2);
+      lvl = Level.fromJson(lvlMap);
+      start(view,lvl,isStarted);
       view.screen.children.remove(view.startBtn);
       isStarted = true;
     }
   });
   window.onClick.listen((e) {
     if (!isStarted) {
-      start(view);
+      lvlMap =lvlMap == null ? JSON.jsonDecode(lvl1) : JSON.jsonDecode(lvl2);
+      lvl = Level.fromJson(lvlMap);
+      start(view,lvl,isStarted);
       view.screen.children.remove(view.startBtn);
       isStarted = true;
     }
   });
 }
 
-void start(View view) {
-  Player thatMe = new Player(0.05 * view.height, 0.50 * view.width);
+void start(View view,Level lvl,bool isStart) {
+  Player player = new Player(0.05 * view.height, 0.50 * view.width);
   final double xSize = 100.0;
   final double ySize = 100.0;
 
   List<Asteroid> enemies = [
     new Asteroid(1, 0.25 * window.innerWidth, 0.9 * window.innerHeight),
-    new Asteroid(1, 0.8 * window.innerWidth, 0.7 * window.innerHeight),
+    new Asteroid(1, 0.8 * window.innerWidth, 0.7 * window.innerHeight)];/*
     new Asteroid(1, 0.45 * window.innerWidth, 0.8 * window.innerHeight),
     new Asteroid(1, 0.65 * window.innerWidth, 0.85 * window.innerHeight),
     new Asteroid(1, 0.78 * window.innerWidth, 0.9 * window.innerHeight),
     new Asteroid(1, 0.1 * window.innerWidth, 0.95 * window.innerHeight)
-  ];
+  ];*/
 
 /*
   List<Enemy> enemiesList = new List<Enemy>();
@@ -104,13 +116,13 @@ void start(View view) {
         print("Gamma >  5: " + ev.gamma.toString());
       }
       Screen.onTouchStart.listen((e) {
-        thatMe.shoot(enemies, view.crosshair);
+        player.shoot(enemies, view.crosshair);
       });
 
       print('DeltaX aus Gamma: ' + deltaX.toString());
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
-      view.update(ScreenPosX, ScreenPosY, enemies);
+
       deltaX = 0;
       deltaY = 0;
     }
@@ -122,14 +134,15 @@ void start(View view) {
               e.keyCode == KeyCode.A ||
               e.keyCode == KeyCode.LEFT) &&
           ScreenPosX > 2) {
-        deltaX -= 3;
+        deltaX -= 5;
 
         //print(space.player.vector.toString()); //DEBUG VECTOR
-      } else if ((e.keyCode == 100 ||
+      }
+      if ((e.keyCode == 100 ||
               e.keyCode == KeyCode.D ||
               e.keyCode == KeyCode.RIGHT) &&
           ScreenPosX < (maxSizeX - 70)) {
-        deltaX += 3;
+        deltaX += 5;
 
         //print(space.player.vector.toString()); //DEBUG VECTOR
       }
@@ -137,24 +150,46 @@ void start(View view) {
               e.keyCode == KeyCode.W ||
               e.keyCode == KeyCode.UP) &&
           ScreenPosY < (maxSizeY - 70)) {
-        deltaY += 3;
-      } else if ((e.keyCode == 115 ||
+        deltaY += 5;
+      }
+      if ((e.keyCode == 115 ||
               e.keyCode == KeyCode.S ||
               e.keyCode == KeyCode.DOWN) &&
           ScreenPosY > 5) {
-        deltaY -= 3;
-      } else if (e.keyCode == 32) {
-        thatMe.shoot(enemies, view.crosshair);
+        deltaY -= 5;
+      }
+      if (e.keyCode == 32) {
+        player.shoot(enemies, view.crosshair);
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;
-      view.update(ScreenPosX, ScreenPosY, enemies);
       deltaX = 0;
       deltaY = 0;
     });
   }
-  /* GameLoop */
-  new Timer.periodic(new Duration(milliseconds: 60), (update) {
+  int n =0;
+  Timer loop;
+  Timer tspawn;
+  tspawn= new Timer.periodic(new Duration(seconds: lvl.spawnTime), (update){
+
+      for (int i = 0; i < lvl.number && lvl.number>enemies.length; i++) {
+        double rand = Random.secure().nextDouble();
+        n++;
+        print("Spawn :"+i.toString()+" Rand"+rand.toString() +" Overall:"+n.toString());
+        enemies.add(view.spawnAsteroid(rand * window.innerWidth));
+    }
+      if(n >= lvl.number*3){
+        view.screen.children.add(view.startBtn);
+        isStart=false;
+        tspawn.cancel();
+        loop.cancel();
+      }
+      view.update(ScreenPosX, ScreenPosY, enemies);
+  });
+  /*
+  gameLoop
+   */
+  loop = new Timer.periodic(new Duration(milliseconds: 60), (update) {
     ship.style.left = "${ScreenPosX}px";
     view.update(ScreenPosX, ScreenPosY, enemies);
     //mMap.adjust(thatMe, space.enemies);
