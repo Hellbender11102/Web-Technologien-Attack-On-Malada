@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:html';
-import 'dart:convert' as JSON;
 import 'dart:math';
 import 'model/casuals.dart';
 import 'model/enemy.dart';
@@ -10,7 +9,7 @@ import 'model/world.dart';
 import 'model/player.dart';
 import 'controller/world_controller.dart';
 import 'model/asteroid.dart';
-
+import 'dart:convert' as JSON;
 import 'view/view.dart';
 
 void main() {
@@ -54,7 +53,8 @@ void main() {
 }
 
 void start(View view, Level lvl, bool isStart) {
-  Player player = new Player(0.05 * view.height, 0.50 * view.width);
+  Player thatMe = new Player(0.05 * view.height, 0.50 * view.width);
+  thatMe.vector.rotate(new Random().nextInt(180));
   final double xSize = 100.0;
   final double ySize = 100.0;
 
@@ -65,9 +65,13 @@ void start(View view, Level lvl, bool isStart) {
 /*
   List<Enemy> enemiesList = new List<Enemy>();
   Casual Benedikt = new Casual(2, 10.0, 10.0, false);
+  Benedikt.vector.rotate(new Random().nextInt(45));
+  Casual Marco = new Casual(2, 15.0, 15.0, false);
+  Marco.vector.rotate(new Random().nextInt(45));
   enemiesList.add(Benedikt);
+  enemiesList.add(Marco);
   World space = new World(xSize, ySize, thatMe, enemiesList);
-  WorldController worldController = new WorldController(space);
+  WorldController worldController = new WorldController(space, view);
   MiniMap mMap = new MiniMap(space);
 */
 
@@ -208,15 +212,27 @@ void start(View view, Level lvl, bool isStart) {
       }
     }
     view.update(ScreenPosX, ScreenPosY, enemies);
+    mMap.adjust(thatMe, space.enemies);
   });
   /*
   gameLoop
    */
   loop = new Timer.periodic(new Duration(milliseconds: 60), (update) {
     ship.style.left = "${ScreenPosX}px";
-    view.update(ScreenPosX, ScreenPosY, enemies);
-    //mMap.adjust(thatMe, space.enemies);
-    // viewController.update();
+    view.update(ScreenPosX, ScreenPosY ,enemies);
+    mMap.adjust(thatMe, space.enemies);
+  });
+
+  new Timer.periodic(new Duration(milliseconds: 60), (update) {
+    worldController.simulate();
+  });
+
+  new Timer.periodic(new Duration(milliseconds: 240), (update) {
+    for(Enemy e in worldController.getEnemiesFromWorld()){
+      if(new Random().nextInt(10) < 2){
+        e.vector.rotate(new Random().nextInt(90) - 45);
+      }
+    }
   });
 
   collision = new Timer.periodic(new Duration(milliseconds: 20), (update) {
