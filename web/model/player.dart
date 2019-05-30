@@ -3,8 +3,11 @@ import 'enemy.dart';
 import 'vector.dart';
 import 'asteroid.dart';
 import 'dart:html';
+import 'dart:math';
 
 class Player extends Actor {
+ static final int renderDistance = 15, renderWidth = 5;
+ int bufferCap = sqrt((renderDistance * renderDistance)+(renderWidth * renderWidth)).floor();
   Player(double curr_x, double curr_y) {
     this.curr_pos_X = curr_x;
     this.curr_pos_Y = curr_y;
