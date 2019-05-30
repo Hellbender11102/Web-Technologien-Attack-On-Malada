@@ -53,6 +53,9 @@ void main() {
 }
 
 void start(View view, Level lvl, bool isStart) {
+  World space;
+  WorldController worldController;
+  MiniMap mMap;
   Player thatMe = new Player(0.05 * view.height, 0.50 * view.width);
   thatMe.vector.rotate(new Random().nextInt(180));
   final double xSize = 100.0;
@@ -127,7 +130,7 @@ void start(View view, Level lvl, bool isStart) {
         print("Gamma >  5: " + ev.gamma.toString());
       }
       Screen.onTouchStart.listen((e) {
-        if (player.shoot(enemies, view.crosshair) == true) hits++;
+        if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
       });
 
       print('DeltaX aus Gamma: ' + deltaX.toString());
@@ -170,7 +173,7 @@ void start(View view, Level lvl, bool isStart) {
         deltaY -= 11;
       }
       if (e.keyCode == 32) {
-        if (player.shoot(enemies, view.crosshair) == true) hits++;
+        if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
       }
       ScreenPosX += deltaX;
       ScreenPosY += deltaY;

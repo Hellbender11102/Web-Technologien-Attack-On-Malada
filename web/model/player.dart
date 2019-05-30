@@ -36,4 +36,7 @@ class Player extends Actor {
   String toString() {
     return "Player on position: $curr_pos_X  $curr_pos_Y";
   }
+  Vector getVector(){
+    return this.vector;
+  }
 }

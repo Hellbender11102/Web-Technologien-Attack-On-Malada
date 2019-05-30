@@ -1,6 +1,9 @@
-import 'dart:html';
+
 import '../model/enemy.dart';
+import '../model/vector.dart';
 import '../model/world.dart';
+import '../view/view.dart';
+import 'dart:math';
 
 class WorldController{
   WorldController(World world, View view){
