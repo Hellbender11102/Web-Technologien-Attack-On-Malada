@@ -189,10 +189,10 @@ void start(View view, Level lvl, bool isStart) {
       if (e.keyCode == 32) {
         if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
       }
-      ScreenPosX = deltaX;
-      ScreenPosY = deltaY;
-      deltaX = +0;
-      deltaY = +0;
+      ScreenPosX += deltaX;
+      ScreenPosY += deltaY;
+      deltaX = 0;
+      deltaY = 0;
     });
   }
   int n = 0;
