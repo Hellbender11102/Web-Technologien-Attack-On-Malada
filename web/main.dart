@@ -139,10 +139,10 @@ void start(View view, Level lvl, bool isStart) {
         print("Gamma >  5: " + ev.gamma.toString());
       }
       */
-        nextY = math.pow((ev.beta+ 35),3)*0.25;
-        nextX = math.pow(ev.gamma,3)*0.25;
-        nextY = nextY.abs() < maxSizeY ? nextY : maxSizeY;
-        nextX = nextX.abs() < maxSizeX ? nextX : maxSizeX;
+        deltaY = math.pow((ev.beta+ 35),3)*0.25;
+        deltaX = math.pow(ev.gamma,3)*0.25;
+        deltaY = deltaY.abs() < maxSizeY ? deltaY : maxSizeY;
+        deltaX = deltaX.abs() < maxSizeX ? deltaX : maxSizeX;
       Screen.onTouchStart.listen((e) {
         if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
       });
