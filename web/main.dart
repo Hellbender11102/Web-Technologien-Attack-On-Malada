@@ -11,6 +11,7 @@ import 'controller/world_controller.dart';
 import 'model/asteroid.dart';
 import 'dart:convert' as JSON;
 import 'view/view.dart';
+import 'dart:math' as math;
 
 void main() {
   String lvl1 =
@@ -102,40 +103,27 @@ void start(View view, Level lvl, bool isStart) {
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
       */
+      double xPos;
+      print(ev.gamma.toString()+" EV GAMMA");
+      if (ev.gamma > 0) {
+        xPos = (maxSizeX/2)*(ev.gamma/70);
+        xPos += maxSizeX/2;
+      } else{
+        xPos = -((maxSizeX/2)*(ev.gamma/70));
+        xPos += maxSizeX/2;
+        print(xPos.toString() +"   -Xpos");
+      }
 
-      //-180, 180
-      int ySpeed = 10; // Langsam > Schnell
-      if ((ev.beta > 50) && (ScreenPosY > 2)) {
-        deltaY -= (ev.beta / ySpeed).floor();
-      }
-      if ((ev.beta < 40) && (ScreenPosY < (maxSizeY - 56))) {
-        if (ev.beta >= 0) {
-          deltaY += (ev.beta / ySpeed).floor() + 2;
-          deltaY += deltaY == 5
-              ? 0
-              : deltaY == 4 ? 2 : deltaY == 3 ? 4 : deltaY == 2 ? 6 : -404;
-        } else {
-          deltaY -= ((ev.beta)).floor() - 6;
-        }
-      }
-      //-90, 90
-      int xSpeed = 5;
-      if ((ev.gamma < -5) && (ScreenPosX > 2)) {
-        deltaX += (ev.gamma / xSpeed).floor() - 2;
-
-        print("Gamma < -5: " + ev.gamma.toString());
-      }
-      if ((ev.gamma > 5) && (ScreenPosX < (maxSizeX - 13))) {
-        deltaX += (ev.gamma / xSpeed).floor() + 2;
-        print("Gamma >  5: " + ev.gamma.toString());
-      }
+      deltaY = (math.pow((ev.beta + 35), 3) * 0.25).round();
+      deltaX = (math.pow(ev.gamma, 3) * 0.25).round();
+      deltaY = deltaY.abs() < maxSizeY ? deltaY : maxSizeY;
+      deltaX = deltaX.abs() < maxSizeX ? deltaX : maxSizeX;
       Screen.onTouchStart.listen((e) {
         if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
       });
-
-      print('DeltaX aus Gamma: ' + deltaX.toString());
-      ScreenPosX += deltaX;
-      ScreenPosY += deltaY;
+      xPos = xPos > maxSizeX ?maxSizeX :xPos;
+      ScreenPosX = xPos.round();
+      ScreenPosY = deltaY;
 
       deltaX = 0;
       deltaY = 0;
@@ -222,7 +210,7 @@ void start(View view, Level lvl, bool isStart) {
    */
   loop = new Timer.periodic(new Duration(milliseconds: 60), (update) {
     ship.style.left = "${ScreenPosX}px";
-    view.update(ScreenPosX, ScreenPosY ,enemies);
+    view.update(ScreenPosX, ScreenPosY, enemies);
     mMap.adjust(thatMe, space.enemies);
   });
 
@@ -231,8 +219,8 @@ void start(View view, Level lvl, bool isStart) {
   });
 
   new Timer.periodic(new Duration(milliseconds: 240), (update) {
-    for(Enemy e in worldController.getEnemiesFromWorld()){
-      if(new Random().nextInt(10) < 2){
+    for (Enemy e in worldController.getEnemiesFromWorld()) {
+      if (new Random().nextInt(10) < 2) {
         e.vector.rotate(new Random().nextInt(90) - 45);
       }
     }
