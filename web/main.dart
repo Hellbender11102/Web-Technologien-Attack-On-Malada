@@ -102,18 +102,34 @@ void start(View view, Level lvl, bool isStart) {
       /*
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
+
+        gamma = ev.gamma;
+        beta = ev.beta;
+        deltaY = math.pow((beta+ 35),3)*0.25;
+        deltaX = math.pow(gamma,3)*0.25;
+        deltaY = deltaY.abs() < maxSizeY ? deltaY : maxSizeY;
+        deltaX = deltaX.abs() < maxSizeX ? deltaX : maxSizeX;
       */
       double xPos;
       print(ev.gamma.toString()+" EV GAMMA");
       if (ev.gamma > 0) {
         xPos = (maxSizeX/2)*(ev.gamma/70);
         xPos += maxSizeX/2;
-      } else{
-        xPos = -((maxSizeX/2)*(ev.gamma/70));
-        xPos += maxSizeX/2;
-        print(xPos.toString() +"   -Xpos");
+      } else {
+        xPos = -((maxSizeX / 2) * (ev.gamma / 70));
+        xPos += maxSizeX / 2;
+        print(xPos.toString() + "   -Xpos");
       }
 
+      //-180, 180
+      /*
+      int ySpeed = 10; // Langsam > Schnell
+      if ((ev.beta > 50) && (ScreenPosY > 2)) {
+        deltaY -= (ev.beta / ySpeed).floor();
+>>>>>>> b95ace97ccd642ed655dfb34ccc4279b82f5e53d
+      }
+
+<<<<<<< HEAD
       deltaY = (math.pow((ev.beta + 35), 3) * 0.25).round();
       deltaX = (math.pow(ev.gamma, 3) * 0.25).round();
       deltaY = deltaY.abs() < maxSizeY ? deltaY : maxSizeY;
@@ -123,6 +139,25 @@ void start(View view, Level lvl, bool isStart) {
       });
       xPos = xPos > maxSizeX ?maxSizeX :xPos;
       ScreenPosX = xPos.round();
+=======
+        print("Gamma < -5: " + ev.gamma.toString());
+      }
+      if ((ev.gamma > 5) && (ScreenPosX < (maxSizeX - 13))) {
+        deltaX += (ev.gamma / xSpeed).floor() + 2;
+        print("Gamma >  5: " + ev.gamma.toString());
+      }
+      */
+   
+        deltaY = math.pow((ev.beta+ 35),3)*0.25;
+        deltaX = math.pow(ev.gamma,3)*0.25;
+        deltaY = deltaY.abs() < maxSizeY ? deltaY : maxSizeY;
+        deltaX = deltaX.abs() < maxSizeX ? deltaX : maxSizeX;
+      Screen.onTouchStart.listen((e) {
+        if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
+      });
+
+      print('DeltaX aus Gamma: ' + deltaX.toString());
+      ScreenPosX = deltaX;
       ScreenPosY = deltaY;
 
       deltaX = 0;
