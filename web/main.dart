@@ -139,6 +139,12 @@ void start(View view, Level lvl, bool isStart) {
         print("Gamma >  5: " + ev.gamma.toString());
       }
       */
+      double xPos;
+      if(gamma > 0)
+       { xPos = (50*(((100/90)*ev.gamma)/100))+50;}
+  if(gamma < 0)
+       { xPos = (-50*(((100/90)*ev.gamma)/100))+50;}
+
         deltaY = math.pow((ev.beta+ 35),3)*0.25;
         deltaX = math.pow(ev.gamma,3)*0.25;
         deltaY = deltaY.abs() < maxSizeY ? deltaY : maxSizeY;
@@ -148,7 +154,8 @@ void start(View view, Level lvl, bool isStart) {
       });
 
       print('DeltaX aus Gamma: ' + deltaX.toString());
-      ScreenPosX = deltaX;
+      //ScreenPosX = deltaX;
+      ScreenPosX = xPos;
       ScreenPosY = deltaY;
 
       deltaX = 0;
