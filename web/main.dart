@@ -103,12 +103,12 @@ void start(View view, Level lvl, bool isStart) {
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
 
-              gamma = ev.gamma;
+        gamma = ev.gamma;
         beta = ev.beta;
-        nextY = math.pow((beta+ 35),3)*0.25;
-        nextX = math.pow(gamma,3)*0.25;
-        nextY = nextY.abs() < maxSizeY ? nextY : maxSizeY;
-        nextX = nextX.abs() < maxSizeX ? nextX : maxSizeX;
+        deltaY = math.pow((beta+ 35),3)*0.25;
+        deltaX = math.pow(gamma,3)*0.25;
+        deltaY = deltaY.abs() < maxSizeY ? deltaY : maxSizeY;
+        deltaX = deltaX.abs() < maxSizeX ? deltaX : maxSizeX;
       */
 
       //-180, 180
