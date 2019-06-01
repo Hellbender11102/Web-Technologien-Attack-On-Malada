@@ -141,9 +141,9 @@ void start(View view, Level lvl, bool isStart) {
       */
       double xPos =0.0;
       if(ev.gamma > 0)
-       { xPos = (50*(((100/90)*ev.gamma)/100))+50;}
+       { xPos = (50*(((100/90)*ev.gamma)/100))+50; prin(xPos);}
   if(ev.gamma < 0)
-       { xPos = (-50*(((100/90)*ev.gamma)/100))+50;}
+       { xPos = (-50*(((100/90)*ev.gamma)/100))+50; print(xPos);}
 
         deltaY = math.pow((ev.beta+ 35),3)*0.25;
         deltaX = math.pow(ev.gamma,3)*0.25;
