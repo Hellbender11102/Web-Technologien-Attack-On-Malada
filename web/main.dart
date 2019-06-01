@@ -139,7 +139,7 @@ void start(View view, Level lvl, bool isStart) {
         print("Gamma >  5: " + ev.gamma.toString());
       }
       */
-      double xPos;
+      double xPos =0.0;
       if(gamma > 0)
        { xPos = (50*(((100/90)*ev.gamma)/100))+50;}
   if(gamma < 0)
@@ -155,7 +155,7 @@ void start(View view, Level lvl, bool isStart) {
 
       print('DeltaX aus Gamma: ' + deltaX.toString());
       //ScreenPosX = deltaX;
-      ScreenPosX = xPos;
+      ScreenPosX = xPos.floor();
       ScreenPosY = deltaY;
 
       deltaX = 0;
