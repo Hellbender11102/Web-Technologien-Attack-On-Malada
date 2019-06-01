@@ -11,6 +11,7 @@ import 'controller/world_controller.dart';
 import 'model/asteroid.dart';
 import 'dart:convert' as JSON;
 import 'view/view.dart';
+import 'dart:math' as math;
 
 void main() {
   String lvl1 =
@@ -101,9 +102,17 @@ void start(View view, Level lvl, bool isStart) {
       /*
       final dy = min(50, max(10, ev.beta)) - 30;
       final dx = min(20, max(-20, ev.gamma));
+
+              gamma = ev.gamma;
+        beta = ev.beta;
+        nextY = math.pow((beta+ 35),3)*0.25;
+        nextX = math.pow(gamma,3)*0.25;
+        nextY = nextY.abs() < maxSizeY ? nextY : maxSizeY;
+        nextX = nextX.abs() < maxSizeX ? nextX : maxSizeX;
       */
 
       //-180, 180
+      /*
       int ySpeed = 10; // Langsam > Schnell
       if ((ev.beta > 50) && (ScreenPosY > 2)) {
         deltaY -= (ev.beta / ySpeed).floor();
@@ -129,13 +138,18 @@ void start(View view, Level lvl, bool isStart) {
         deltaX += (ev.gamma / xSpeed).floor() + 2;
         print("Gamma >  5: " + ev.gamma.toString());
       }
+      */
+        nextY = math.pow((ev.beta+ 35),3)*0.25;
+        nextX = math.pow(ev.gamma,3)*0.25;
+        nextY = nextY.abs() < maxSizeY ? nextY : maxSizeY;
+        nextX = nextX.abs() < maxSizeX ? nextX : maxSizeX;
       Screen.onTouchStart.listen((e) {
         if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
       });
 
       print('DeltaX aus Gamma: ' + deltaX.toString());
-      ScreenPosX += deltaX;
-      ScreenPosY += deltaY;
+      ScreenPosX = deltaX;
+      ScreenPosY = deltaY;
 
       deltaX = 0;
       deltaY = 0;
@@ -175,10 +189,10 @@ void start(View view, Level lvl, bool isStart) {
       if (e.keyCode == 32) {
         if (thatMe.shoot(enemies, view.crosshair) == true) hits++;
       }
-      ScreenPosX += deltaX;
-      ScreenPosY += deltaY;
-      deltaX = 0;
-      deltaY = 0;
+      ScreenPosX = deltaX;
+      ScreenPosY = deltaY;
+      deltaX = +0;
+      deltaY = +0;
     });
   }
   int n = 0;
