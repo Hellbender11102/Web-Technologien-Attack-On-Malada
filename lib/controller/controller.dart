@@ -226,9 +226,8 @@ class Controller {
       view.screen.children.remove(view.life);
       view.screen.children.remove(view.crosshair);
       miniMap.playerDot.remove();
-      for(Enemy e in world.enemies){
-        e.getImage().remove();
-        world.enemies.remove(e);
+      for(int i = 0; i < world.enemies.length; i++){
+        world.enemies[i].getImage().remove();
       }
       for(int i = 0; i < miniMap.enemyDots.length; i++){
         miniMap.enemyDots[i].remove();
