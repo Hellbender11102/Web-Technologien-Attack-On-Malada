@@ -63,6 +63,7 @@ class View {
     this.life.style.position = "absolute";
     this.life.style.bottom = "${90}%";
     this.life.style.left = "${center_x - 96}px";
+    this.life.style.zIndex = "5";
     this.screen.children.add(life);
   }
 

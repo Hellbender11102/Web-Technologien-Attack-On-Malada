@@ -1,13 +1,14 @@
 import 'dart:html';
 import 'enemy.dart';
+import 'dart:math';
 
 class Asteroid extends Enemy {
   var enemy = querySelector("#enemy_asteroid");
   var screen = querySelector("#screen");
-  double _height = 40;
-  double _width = 40;
+  double _height = 1;
+  double _width = 1;
 
-  int life;
+  int life, x;
   bool dead = false;
 
   ImageElement asteroid = new ImageElement();
@@ -31,9 +32,11 @@ class Asteroid extends Enemy {
       dead = true;
     }
     if(curr_pos_Y <= screen.clientHeight){
-      _height += 0.15;
-      _width += 0.15;
+      _height += 0.5;
+      _width += 0.5;
+      //x++;
     }
+
     this.asteroid.querySelector(".enemy_asteroid");
     this.asteroid.style.bottom = "${curr_pos_Y}px";
     this.asteroid.width = _width.floor();
