@@ -6,12 +6,12 @@ import '../model/player.dart';
 import '../model/world.dart';
 import 'world_controller.dart';
 import 'dart:html';
+import 'dart:math';
 import '../view/view.dart';
 import 'dart:convert' as JSON;
 import '../model/vector.dart';
 import '../model/enemy.dart';
 import '../model/casual.dart';
-import '../model/asteroid.dart';
 import '../model/shot.dart';
 import '../model/elite.dart';
 
@@ -160,8 +160,11 @@ class Controller {
       yPos = 0.0;
     });
 
+    double sinTemp = 0;
     gameLoop = new Timer.periodic(new Duration(milliseconds: 60), (update) {
       ship.style.left = "${crossX}px";
+      ship.style.bottom = "${sin(sinTemp)*10+30}px";
+      sinTemp >= 6.28 ? sinTemp = 0.00 : sinTemp += 0.1 ;
       player.curr_pos_X = crossX as double;
       view.update(crossX, crossY, world.enemies);
       view.updateShots(shotList);
@@ -220,20 +223,25 @@ class Controller {
     collision.cancel();
     worldLoop.cancel();
     view.showEndLose();
+
+
     view.restart.onTouchStart.listen((e) {
       view.screen.children.remove(view.restart);
       view.screen.children.remove(view.lose);
       view.screen.children.remove(view.life);
       view.screen.children.remove(view.crosshair);
       miniMap.playerDot.remove();
-      for(int i = 0; i < world.enemies.length; i++){
-        world.enemies[i].getImage().remove();
+      for(Enemy e in world.enemies){
+        querySelector("#screen").children.removeWhere((x) => x.className == "enemy_asteroid");
+        world.enemies.remove(e);
       }
       for(int i = 0; i < miniMap.enemyDots.length; i++){
         miniMap.enemyDots[i].remove();
       }
-      new Controller(new View(), 1);
+      new Controller(new View(), currLevel);
     });
+
+
     view.restart.onClick.listen((e) {
       view.screen.children.remove(view.restart);
       view.screen.children.remove(view.lose);
@@ -241,13 +249,13 @@ class Controller {
       view.screen.children.remove(view.crosshair);
       miniMap.playerDot.remove();
       for(Enemy e in world.enemies){
-        e.getImage().remove();
+        querySelector("#screen").children.removeWhere((x) => x.className == "enemy_asteroid");
         world.enemies.remove(e);
       }
       for(int i = 0; i < miniMap.enemyDots.length; i++){
         miniMap.enemyDots[i].remove();
       }
-      new Controller(new View(), 1);
+      new Controller(new View(), currLevel);
     });
   }
 

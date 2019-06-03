@@ -37,6 +37,7 @@ class MiniMap {
       enemyDots.add(enemy);
       MinimapElement.children.add(enemy);
     }
+    MinimapElement.style.zIndex = "5";
   }
 
   void adjust(Player thatMe, List<Enemy> enemies) {
