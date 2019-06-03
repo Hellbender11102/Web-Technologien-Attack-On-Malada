@@ -25,7 +25,7 @@ class Player extends Actor {
   
   
   ///Shoot function
-  bool shoot(List<Enemy> enemyList, var cross, MiniMap mMap) {
+  void shoot(List<Enemy> enemyList, var cross, MiniMap mMap) {
     cross = querySelector(".cross");
     var rectC = cross.getBoundingClientRect();
 
@@ -43,10 +43,8 @@ class Player extends Actor {
           enemyList.removeAt(k);
           mMap.deletDot(k);
         }
-        return true;
       }
     }
-    return false;
   }
 
   String toString() {

@@ -99,7 +99,7 @@ class Controller {
     window.onDeviceOrientation.listen((ev) {
       if (ev.beta != null && ev.gamma != null) {
         Screen.onTouchStart.listen((e) {
-          if (player.shoot(world.enemies, view.crosshair, miniMap) == true) ;
+          player.shoot(world.enemies, view.crosshair, miniMap);
         });
 
         window.onDeviceOrientation.listen((ev) {
@@ -143,7 +143,7 @@ class Controller {
         yPos += 25;
       }
       if (e.keyCode == 32) {
-        if (player.shoot(world.enemies, view.crosshair, miniMap) == true) ;
+        player.shoot(world.enemies, view.crosshair, miniMap);
       }
       if (crossX >= maxSizeX / 2) {
         player.vector.rotate((25 * 1.125).floor());

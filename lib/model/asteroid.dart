@@ -5,8 +5,8 @@ import 'dart:math';
 class Asteroid extends Enemy {
   var enemy = querySelector("#enemy_asteroid");
   var screen = querySelector("#screen");
-  double _height = 1;
-  double _width = 1;
+  double _height = 20;
+  double _width = 20;
 
   int life, x;
   bool dead = false;
@@ -32,8 +32,8 @@ class Asteroid extends Enemy {
       dead = true;
     }
     if(curr_pos_Y <= screen.clientHeight){
-      _height += 0.5;
-      _width += 0.5;
+      _height += 0.3;
+      _width += 0.3;
       //x++;
     }
 
