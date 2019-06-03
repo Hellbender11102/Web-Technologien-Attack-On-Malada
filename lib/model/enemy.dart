@@ -47,5 +47,5 @@ abstract class Enemy extends Actor {
     return true;
   }
 
-  void cleverMove(ImageElement image){}
+  void cleverMove(int posX, int posY){}
 }
