@@ -238,7 +238,7 @@ class Controller {
       for(int i = 0; i < miniMap.enemyDots.length; i++){
         miniMap.enemyDots[i].remove();
       }
-      new Controller(new View(), currLevel);
+      new Controller(new View(), 1);
     });
 
 
@@ -255,7 +255,7 @@ class Controller {
       for(int i = 0; i < miniMap.enemyDots.length; i++){
         miniMap.enemyDots[i].remove();
       }
-      new Controller(new View(), currLevel);
+      new Controller(new View(), 1);
     });
   }
 
