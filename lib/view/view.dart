@@ -151,7 +151,7 @@ class View {
 
     for (int a = 0; a < enemyList.length; a++) {
       if(enemyList[a] is Elite){
-        enemyList[a].cleverMove(this.crosshair);
+        enemyList[a].cleverMove(xPos, yPos);
       } else {
         enemyList[a].move();
       }
@@ -205,7 +205,7 @@ class View {
   }
 
   void clearScreen(){
-    for(int i = 1; i < screen.children.length; i++){
+    for(int i = 2; i < screen.children.length; i++){
       screen.children[i].remove();
     }
   }

@@ -188,7 +188,7 @@ class Controller {
           world.enemies[i].getImage().remove();
           miniMap.deletDot(i);
           world.enemies.removeAt(i);
-          lose();
+          player.life--;
         }
       }
       if (view.noHpLeft == true) {
@@ -223,15 +223,12 @@ class Controller {
     collision.cancel();
     worldLoop.cancel();
     view.showEndLose();
+
+
     view.restart.onTouchStart.listen((e) {
       view.screen.children.remove(view.restart);
       view.screen.children.remove(view.lose);
-      view.screen.children.remove(view.crosshair);
-      new Controller(new View(), currLevel);
-    });
-    view.restart.onClick.listen((e) {
-      view.screen.children.remove(view.restart);
-      view.screen.children.remove(view.lose);
+      view.screen.children.remove(view.life);
       view.screen.children.remove(view.crosshair);
       miniMap.playerDot.remove();
       for(Enemy e in world.enemies){
@@ -241,7 +238,24 @@ class Controller {
       for(int i = 0; i < miniMap.enemyDots.length; i++){
         miniMap.enemyDots[i].remove();
       }
-      new Controller(new View(), 1);
+      new Controller(new View(), currLevel);
+    });
+
+
+    view.restart.onClick.listen((e) {
+      view.screen.children.remove(view.restart);
+      view.screen.children.remove(view.lose);
+      view.screen.children.remove(view.life);
+      view.screen.children.remove(view.crosshair);
+      miniMap.playerDot.remove();
+      for(Enemy e in world.enemies){
+        querySelector("#screen").children.removeWhere((x) => x.className == "enemy_asteroid");
+        world.enemies.remove(e);
+      }
+      for(int i = 0; i < miniMap.enemyDots.length; i++){
+        miniMap.enemyDots[i].remove();
+      }
+      new Controller(new View(), currLevel);
     });
   }
 
@@ -254,6 +268,7 @@ class Controller {
     view.next.onTouchStart.listen((e) {
       view.screen.children.remove(view.next);
       view.screen.children.remove(view.win);
+      view.screen.children.remove(view.life);
       view.screen.children.remove(view.crosshair);
       miniMap.playerDot.remove();
       currLevel++;
@@ -262,6 +277,7 @@ class Controller {
     view.next.onClick.listen((e) {
       view.screen.children.remove(view.next);
       view.screen.children.remove(view.win);
+      view.screen.children.remove(view.life);
       view.screen.children.remove(view.crosshair);
       miniMap.playerDot.remove();
       currLevel++;
