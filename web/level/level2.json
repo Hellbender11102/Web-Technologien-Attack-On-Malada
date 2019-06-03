@@ -1,0 +1,11 @@
+{
+  "fortschritt": 1,
+  "name": "Das erste Level",
+  "maxY": 3000,
+  "entityList":
+  [
+    "asteroid","2000","asteroid","2500","asteroid","1000","asteroid","1200",
+    "asteroid","2400","asteroid","1400","asteroid","1800","asteroid","1600",
+    "asteroid","3000","asteroid","2800","asteroid","1500","asteroid","2700"
+  ]
+  }

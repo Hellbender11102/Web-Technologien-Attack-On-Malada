@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-//This Class is still WIP and not tested
 //I call all the Lazy-Rangers for this! Lend me your strength!
 class Vector {
   //2 Dimensional dx, dy

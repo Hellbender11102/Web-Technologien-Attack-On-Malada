@@ -49,25 +49,21 @@ li {
 #player{
 	position: absolute;
 	left: 50%;
-	bottom: 5%;
+	bottom: 40px;
 }
 
 #start{
 	position: absolute;
+	alignment: center;
 }
 
 #life{
 	position: absolute;
 	bottom: 90%;
-	left: 47%;
 }
 
 #cross{
 	position: relative;
-}
-
-#enemy_asteroid{
-	position: absolute;
 }
 
 #background{
@@ -79,4 +75,19 @@ li {
 	position: absolute;
 	height: 100%;
 	width: 100%;
+}
+
+.Asteroid{
+	position: absolute;
+	background-image: url(Assets/asteroid.png);
+}
+	
+.Boss{
+	position: absolute;
+	background-image: url(Assets/boss.png);
+}
+	
+.Casual{
+	position: absolute;
+	background-image: url(Assets/casual.png);
 }

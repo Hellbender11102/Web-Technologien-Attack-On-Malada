@@ -1,3 +1,4 @@
+import 'level.dart';
 import 'player.dart';
 import 'enemy.dart';
 
@@ -7,17 +8,18 @@ class World {
   //Image background;
   double boundaryX;
   double boundaryY;
-
-  World(double boundaryX,double boundaryY,Player player,List<Enemy> enemies){
-    this.boundaryX = boundaryX;
-    this.boundaryY = boundaryY;
-    this.player = player;
-    this.enemies = enemies;
-  }
+  Level level;
+  World(this.boundaryX,this.boundaryY,this.player,this.enemies);
 
 
 String toString(){
   return "World: X: $boundaryX Y: $boundaryY EnemyList:  ${enemies.toString()}\nPlayer:${player.toString()}";
+}
+void setLevel(Level level){
+  this.level= level;
+}
+List<Enemy> getEnemies(){
+  return this.enemies.toList();
 }
   
 }

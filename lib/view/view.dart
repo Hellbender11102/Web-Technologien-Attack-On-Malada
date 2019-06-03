@@ -1,12 +1,16 @@
 import 'dart:html';
 import '../model/asteroid.dart';
 import '../model/enemy.dart';
+import '../model/shot.dart';
+import '../model/player.dart';
+import '../model/elite.dart';
 
 class View {
   var screen = querySelector("#screen");
   var player = querySelector("#player");
   var cross = querySelector("#cross");
   var start = querySelector("#start");
+  bool noHpLeft = false;
   /**
    * Breite des Views
    */
@@ -31,8 +35,8 @@ class View {
   ImageElement win = new ImageElement();
   ImageElement restart = new ImageElement();
   ImageElement lose = new ImageElement();
-  ImageElement l1 = new ImageElement();
-  ImageElement l2 = new ImageElement();
+  ImageElement level = new ImageElement();
+  ImageElement next = new ImageElement();
 
   View() {
     cross_x = center_x;
@@ -46,64 +50,85 @@ class View {
     this.crosshair.style.left = "${cross_x}px";
     this.screen.children.add(crosshair);
 
-    this.startBtn.src = "Assets/startButton.png";
+    this.startBtn.src = "Assets/start.png";
     this.startBtn.className = "start";
     this.startBtn.style.position = "absolute";
     this.startBtn.style.zIndex = "3";
     this.startBtn.style.bottom = "${50}%";
-    this.startBtn.style.left = "${45}%";
+    this.startBtn.style.left = "${center_x - 165}px";
     this.screen.children.add(startBtn);
 
     this.life.src = "Assets/hearts_6.png";
     this.life.className = "life";
     this.life.style.position = "absolute";
     this.life.style.bottom = "${90}%";
-    this.life.style.left = "${46}%";
+    this.life.style.left = "${center_x - 96}px";
     this.screen.children.add(life);
   }
 
-  Enemy spawnAsteroid(double offset){
-    Enemy newAst = new Asteroid(1, offset, window.innerHeight.toDouble());
-    return newAst;
+  void collisionCheckShots(List<Shot> shots, Player toCheck){
+    var rectP = player.getBoundingClientRect();
+
+    for (int i = 0; i < shots.length; i++) {
+      var rectA = shots[i].getImage().getBoundingClientRect();
+      var overlapAP = !(rectA.right < rectP.left ||
+          rectA.left > rectP.right ||
+          rectA.bottom < rectP.top ||
+          rectA.top > rectP.bottom);
+      if (overlapAP) {
+        if(toCheck.life >= 2){
+          toCheck.life -= 2;
+        } else {
+          toCheck.life = 0;
+        }
+        shots[i].getImage().remove();
+        shots.removeAt(i);
+      }
+    }
   }
 
-  void collisionCheck(List<Asteroid> enemyList){
+  void collisionCheck(List<Enemy> enemyList, Player toCheck){
     var rectP = player.getBoundingClientRect();
 
     for (int k = 0; k < enemyList.length; k++) {
-      var rectA = enemyList[k].asteroid.getBoundingClientRect();
+      var rectA = enemyList[k].getImage().getBoundingClientRect();
       var overlapAP = !(rectA.right < rectP.left ||
           rectA.left > rectP.right ||
           rectA.bottom < rectP.top ||
           rectA.top > rectP.bottom);
       if (overlapAP) {
         counter--;
-        switch (counter) {
-          case 150:
+        if(counter < 180 && counter % 30 == 0){
+          toCheck.life--;
+        }
+      }
+    }
+    switch (toCheck.life) {
+          case 5:
             {
               this.life.src = "Assets/hearts_5.png";
             }
             break;
 
-          case 120:
+          case 4:
             {
               this.life.src = "Assets/hearts_4.png";
             }
             break;
 
-          case 90:
+          case 3:
             {
               this.life.src = "Assets/hearts_3.png";
             }
             break;
 
-          case 60:
+          case 2:
             {
               this.life.src = "Assets/hearts_2.png";
             }
             break;
 
-          case 30:
+          case 1:
             {
               this.life.src = "Assets/hearts_1.png";
             }
@@ -112,74 +137,75 @@ class View {
           case 0:
             {
               this.life.src = "Assets/hearts_0.png";
+              noHpLeft = true;
             }
             break;
         }
-      }
-    }
   }
 
-  void update(int xPos, int yPos, List<Asteroid> enemyList) {
+  void update(int xPos, int yPos, List<Enemy> enemyList) {
     this.crosshair = querySelector(".cross");
     this.crosshair.style.bottom = "${yPos}px";
     this.crosshair.style.left = "${xPos}px";
 
     for (int a = 0; a < enemyList.length; a++) {
-      enemyList[a].move();
+      if(enemyList[a] is Elite){
+        enemyList[a].cleverMove(this.crosshair);
+      } else {
+        enemyList[a].move();
+      }
+    }
+  }
+
+  void updateShots(List<Shot> shots){
+    for(int i = 0; i < shots.length; i++){
+      shots[i].move();
+      if(shots[i].missed == true){
+        shots[i].getImage().remove();
+        shots.removeAt(i);
+      }
     }
   }
 
   void showEndWin(){
-    win.src = "Assets/Win.jpg";
+    win.src = "Assets/Win.png";
     win.className = "win";
     win.style.position = "absolute";
     win.style.zIndex = "5";
-    win.style.bottom = "${55}%";
-    win.style.left = "${46}%";
+    win.style.bottom = "${center_y + 65}px";
+    win.style.left = "${center_x - 165}px";
     screen.children.add(win);
 
-    restart.src = "Assets/Restart.jpg";
-    restart.className = "restart";
-    restart.style.position = "absolute";
-    restart.style.zIndex = "5";
-    restart.style.bottom = "${45}%";
-    restart.style.left = "${46}%";
-    screen.children.add(restart);
+    next.src = "Assets/Next.png";
+    next.className = "next";
+    next.style.position = "absolute";
+    next.style.zIndex = "5";
+    next.style.bottom = "${center_y - 65}px";
+    next.style.left = "${center_x - 165}px";
+    screen.children.add(next);
   }
 
   void showEndLose(){
-    lose.src = "Assets/GameOver.jpg";
+    lose.src = "Assets/GameOver.png";
     lose.className = "lose";
     lose.style.position = "absolute";
     lose.style.zIndex = "5";
-    lose.style.bottom = "${55}%";
-    lose.style.left = "${46}%";
+    lose.style.bottom = "${center_y + 65}px";
+    lose.style.left = "${center_x - 165}px";
     screen.children.add(lose);
 
-    restart.src = "Assets/Restart.jpg";
+    restart.src = "Assets/restart.png";
     restart.className = "restart";
     restart.style.position = "absolute";
     restart.style.zIndex = "5";
-    restart.style.bottom = "${45}%";
-    restart.style.left = "${46}%";
+    restart.style.bottom = "${center_y - 65}px";
+    restart.style.left = "${center_x - 165}px";
     screen.children.add(restart);
   }
 
-  void showLevelMenu(){
-    l1.src = "Assets/Level1.jpg";
-    l1.className = "level1";
-    l1.style.position = "absolute";
-    l1.style.zIndex = "5";
-    l1.style.bottom = "${55}%";
-    l1.style.left = "${46}%";
-    screen.children.add(l1);
-
-    l2.src = "Assets/Level2.jpg";
-    l2.className = "level2";
-    l2.style.position = "absolute";
-    l2.style.zIndex = "5";
-    l2.style.bottom = "${45}%";
-    l2.style.left = "${46}%";
-    screen.children.add(l2);
+  void clearScreen(){
+    for(int i = 1; i < screen.children.length; i++){
+      screen.children[i].remove();
+    }
   }
 }

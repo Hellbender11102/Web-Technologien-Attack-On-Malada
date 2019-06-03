@@ -1,9 +1,11 @@
 import 'vector.dart';
+import 'dart:html';
 
-abstract class Actor{
-  
+ abstract class Actor{
+  Actor(this.curr_pos_X,this.curr_pos_Y);
   //Vector is for movement
   Vector vector;
+  ImageElement image;
 
   //Curr positions for actual placement
   double curr_pos_X;
@@ -19,8 +21,10 @@ abstract class Actor{
 
   //simple function to move. Shall not be used by the asteroid
   void move(){
-    this.curr_pos_X += this.vector.dx;
-    this.curr_pos_Y += this.vector.dy;
+  }
+
+  ImageElement getImage() {
+    return this.image;
   }
 
   double get X => this.curr_pos_X;

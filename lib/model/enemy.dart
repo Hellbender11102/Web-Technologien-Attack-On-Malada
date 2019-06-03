@@ -1,21 +1,20 @@
-import 'dart:html';
+import 'package:dartmotion_master/model/shot.dart';
 
 import 'actors.dart';
 import 'vector.dart';
+import 'dart:html';
 
 
 
 abstract class Enemy extends Actor {
+  bool dead = false;
+  ImageElement image;
 
 
-
-  Enemy(int life_start, double posX, double posY) {
-    this.curr_pos_X = posX;
-    this.curr_pos_Y = posY;
+  Enemy(int life_start, double posX, double posY) : super(posX, posY) {
     this.life = life_start;
     this.vector = new Vector(1.0, 0.0);
     this.damage = 1;
-    //Icon Image //TBD
   }
   double get xPos => curr_pos_X;
 
@@ -29,9 +28,24 @@ abstract class Enemy extends Actor {
     data['damage'] = damage;
     return data;
   }
-  void move(){
+  @override void move(){
     this.curr_pos_X += this.vector.dx;
     this.curr_pos_Y += this.vector.dy;
   }
 
+  @override ImageElement getImage(){
+    return this.image;
+  }
+
+  bool isDead(){
+    return dead;
+  }
+
+  Shot shoot(){}
+
+  bool isInView(){
+    return true;
+  }
+
+  void cleverMove(ImageElement image){}
 }

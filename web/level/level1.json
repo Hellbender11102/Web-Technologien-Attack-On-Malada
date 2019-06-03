@@ -1,0 +1,10 @@
+{
+  "fortschritt": 0,
+  "name": "Aller Anfang ist schwer",
+  "maxY": 2500,
+  "entityList":
+  [
+  "asteroid","2000","asteroid","2500","asteroid","1000","asteroid","1200",
+  "asteroid","2400","asteroid","1400","asteroid","1800","asteroid","1600"
+  ]
+  }

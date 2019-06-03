@@ -11,9 +11,6 @@ class Boss extends Enemy{
   }
   
   //Shooting function. Whether it hits or not is up to controller/world
-  void shoot(Player player){
-    player.life -= this.damage;
-  }
 
   //TBD
   void specialAttack(){
