@@ -99,6 +99,10 @@ class Controller {
       Map<String, dynamic> gameMap = JSON.jsonDecode(json);
       this.game = Game.fromJson(gameMap);
       view.game = game;
+
+      //TODO so soll es nicht bleiben ist nur ein schmankerle füür marcel
+      game.worldSizeX = view.getViewWidth() -40;
+      game.worldSizeY = view.getViewHeight() -40;
       print(game.name +
           " " +
           game.fortschritt.toString() +
