@@ -1,12 +1,39 @@
 {
-  "fortschritt": 4,
-  "name": "Das vierte Level",
-  "maxY": 3500,
-  "entityList":
+  "fortschritt": 5,
+  "name": "Aller Anfang ist schwer",
+  "worldSizeX": 1000,
+  "worldSizeY": 1000,
+  "actorList":
   [
-  "casual","2500","asteroid","1450","asteroid","1000","asteroid","2200",
-  "casual","3000","asteroid","700","asteroid","1900","casual","3500",
-  "casual","2000","asteroid","1990","asteroid","2000","casual","3250",
-  "casual","1500","elite","1000","asteroid","950","elite","2250"
+    "elite","casual","asteroid","elite",
+    "casual","elite","casual","asteroid"
+  ],
+  "posXList": [
+    200,900,100,320,
+    880,760,500,20
+  ],
+  "posYList" : [
+    900,700,700,800,
+    650,780,500,980
+  ],
+  "sizeXList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "sizeYList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "healthList" : [
+    1,1,1,1,
+    1,1,1,1
+  ],
+  "heavyList": [
+    false,false,false,false,
+    false,false,false,false
+  ],
+  "damageList" : [
+    1,1,1,1,
+    1,1,1,1
   ]
-  }
+}

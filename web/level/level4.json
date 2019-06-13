@@ -1,14 +1,39 @@
 {
-  "fortschritt": 3,
-  "name": "Das dritte Level",
-  "maxY": 3500,
-  "entityList":
+  "fortschritt": 4,
+  "name": "Aller Anfang ist schwer",
+  "worldSizeX": 1000,
+  "worldSizeY": 1000,
+  "actorList":
   [
-    "asteroid","2000","asteroid","2500","asteroid","1000","asteroid","1200",
-    "asteroid","2400","asteroid","1400","asteroid","1800","asteroid","1600",
-    "asteroid","3000","asteroid","2800","asteroid","1500","asteroid","2700",
-    "casual","2000","casual","3000","casual","1000","casual","2100",
-    "asteroid","2100","asteroid","2150","asteroid","2050","asteroid","1650",
-    "asteroid","2950","asteroid","1150","asteroid","1350","asteroid","2775"
+    "asteroid","casual","asteroid","elite",
+    "casual","asteroid","casual","asteroid"
+  ],
+  "posXList": [
+    200,900,100,320,
+    880,760,500,20
+  ],
+  "posYList" : [
+    900,700,700,800,
+    650,780,500,980
+  ],
+  "sizeXList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "sizeYList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "healthList" : [
+    1,1,1,1,
+    1,1,1,1
+  ],
+  "heavyList": [
+    false,false,false,false,
+    false,false,true,true
+  ],
+  "damageList" : [
+    1,1,1,1,
+    1,1,1,1
   ]
 }

@@ -1,33 +1,22 @@
-import 'dart:html';
 
-class Shot{
-  bool missed = false;
-  int speed;
-  double posX, posY;
-  ImageElement shot = new ImageElement();
-  var screen = querySelector("#screen");
+import 'package:dartmotion_master/model/actor.dart';
+import 'package:dartmotion_master/model/constants.dart';
 
-  Shot(this.speed, this.posX, this.posY){
-    this.shot.src = "Assets/laserBeam.png";
-    this.shot.className = "shot";
-    this.shot.style.position = "absolute";
-    this.shot.style.bottom = "${posY}px";
-    this.shot.style.left = "${posX}px";
-    this.screen.children.add(shot);
+class Shot extends Actor{
+  Shot(var game,int id,double posX, double posY, double posX2, double posY2) : super(game, id,posX, posY, 4, 8, 1){
+    speedX = (posX2 - posX)/ticks;
+    speedY = posY2 - posY > 0 ? shotSpeed : -shotSpeed; //bestimmen der richtung in die der schuss fleigt
+    classes.add("shot");
   }
-
-  void move(){
-    if((posY - speed) > 0){
-      posY -= speed;
-    } else {
-      missed = true;
+  //muss überschrieben werden da ein schuss keine beschleunigung erfährt
+  @override
+  void accelerate(){
+    if (posY <=  0 || posY >= game.worldSizeY || posX <=  0 || posX >= game.worldSizeX){
+      life = 0;
+      collisionDetect = false;
     }
-    this.shot.querySelector(".shot");
-    this.shot.style.bottom = "${posY}px";
-    this.shot.style.left = "${posX}px";
+    speedX;
+    speedY;
   }
 
-  ImageElement getImage(){
-    return this.shot;
-  }
 }

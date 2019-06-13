@@ -1,51 +1,19 @@
+
+import 'package:dartmotion_master/model/actor.dart';
+import 'package:dartmotion_master/model/player.dart';
 import 'package:dartmotion_master/model/shot.dart';
 
-import 'actors.dart';
-import 'vector.dart';
-import 'dart:html';
-
-
-
-abstract class Enemy extends Actor {
-  bool dead = false;
-  ImageElement image;
-
-
-  Enemy(int life_start, double posX, double posY) : super(posX, posY) {
-    this.life = life_start;
-    this.vector = new Vector(1.0, 0.0);
-    this.damage = 1;
+class Enemy extends Actor{
+  bool isHeavy;
+  int damage;
+  Enemy(var game,int id, double posX, double posY, double sizeX, double sizeY, int life, this.isHeavy,this.damage) : super(game,id, posX, posY, sizeX, sizeY, life){
+    classes.add("casual");
   }
-  double get xPos => curr_pos_X;
-
-  double get yPos => curr_pos_Y;
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['curr_pos_X'] = curr_pos_X;
-    data['curr_pos_Y'] = curr_pos_Y;
-    data['life'] = life;
-    data['damage'] = damage;
-    return data;
-  }
-  @override void move(){
-    this.curr_pos_X += this.vector.dx;
-    this.curr_pos_Y += this.vector.dy;
+  
+  void shootPlayer(){
+    Player a = game.player;
+    game.actors.add(Shot(game,game.currentEntityID++,posX,posY,a.posX,a.posY)..damage = this.damage);
+    game.enemyShots.add(game.currentEntityID);
   }
 
-  @override ImageElement getImage(){
-    return this.image;
-  }
-
-  bool isDead(){
-    return dead;
-  }
-
-  Shot shoot(){}
-
-  bool isInView(){
-    return true;
-  }
-
-  void cleverMove(int posX, int posY){}
 }
