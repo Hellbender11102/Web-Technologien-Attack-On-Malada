@@ -1,6 +1,3 @@
-
-
-
 import 'package:dartmotion_master/model/game.dart';
 import 'package:dartmotion_master/model/player.dart';
 
@@ -14,7 +11,8 @@ abstract class Actor {
   List<String> classes = ["actor"];
   int id;
   Game game;
-int damage = 1;
+  int damage = 1;
+
   Actor(this.game, this.id, this.posX, this.posY, this.sizeX, this.sizeY,
       this.life);
 
@@ -36,7 +34,6 @@ int damage = 1;
   int life;
 
   bool get isDead => life <= 0;
-
 
   ///nächste position += speed
   void accelerate() {
@@ -71,11 +68,11 @@ int damage = 1;
 
   ///überprüft ob 2 objekte überschneiden
   bool collision(Actor actor) {
-    return collisionDetect
-        ? actor.posX > posX &&
-            posX < actor.posX + actor.sizeX &&
-            actor.posY > posY &&
-            posY < actor.posY + actor.sizeY
+    return collisionDetect && actor.collisionDetect
+        ? (actor.posX < posX + sizeX &&
+            actor.posX + actor.sizeX > posX &&
+            actor.posY < posY + sizeY &&
+            actor.posY + actor.sizeY > posY)
         : false;
   }
 
@@ -94,10 +91,20 @@ int damage = 1;
   }
 
   void damageOnCollision(List<Actor> actors) {
-    for(Actor a in actors) {
-      if (collision(a) && a.life > 0 && !game.enemyShots.contains(a.id) && a != this) {
-        a.life - this.damage;
-        life -= a.damage;
+    for (Actor a in actors) {
+      if (collision(a) &&
+          !a.isDead &&
+          !isDead &&
+          !game.enemyShots.contains(a.id) &&
+          a != this &&
+          collisionDetect) {
+        if (game.player.shotId.contains(id) &&
+            a.classes.contains("player")) {
+            print(a.classes.toString() + classes.toString());
+        }else {
+          a.life -= damage;
+          life -= a.damage;
+        }
       }
     }
   }

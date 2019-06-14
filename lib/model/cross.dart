@@ -6,11 +6,10 @@ class Cross extends Actor {
   @override
   List<String> classes = ["cross"];
   Cross(var game,int id, double posX, double posY)
-      : super(game,id, posX, posY, 62,62,0) {
-    collisionDetect = false;
-  }
+      : super(game,id, posX, posY, 62,62,0);
 
   @override
   bool get isDead => false;
-
+@override
+  bool collisionDetect = false;
 }

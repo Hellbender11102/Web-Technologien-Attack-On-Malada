@@ -40,9 +40,6 @@ class Game {
     worldSizeX = json['worldSizeX'];
     worldSizeY = json['worldSizeY'];
 
-
-    //todo der player spawnt nicht auf der map beim json einladen
-    //er existiert aber wird nicht in der view gerendert und nicht in die actors lsite eingetragen
     cross = Cross(this, currentEntityID++, 150, 50);
     player = Player(this, currentEntityID++, cross.posX, 20);
     player.cross = cross;

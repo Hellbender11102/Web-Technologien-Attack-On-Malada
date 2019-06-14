@@ -22,7 +22,7 @@ class Asteroid extends Actor {
     sizeX += growth;
     sizeY += growth;
 
-    if (posY <=  0 || posY >= game.worldSizeY || posX <=  0 || posX >= game.worldSizeX){
+    if (posY <=  0 || posX <=  0 || posX >= game.worldSizeX){
       life = 0;
       collisionDetect = false;
     }

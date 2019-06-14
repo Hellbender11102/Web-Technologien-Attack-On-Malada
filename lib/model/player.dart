@@ -18,19 +18,18 @@ class Player extends Actor {
 
   ///erstellt einen schuss der in richtung fadenkreutz fliegt
   void shoot() {
-    game.actors.add(Shot(game, game.currentEntityID++, posX + sizeX / 2,
+    int id = game.currentEntityID++;
+    game.actors.add(Shot(game, id, posX + sizeX / 2,
         posY + sizeY / 2, cross.posX + cross.sizeX / 2, cross.posY)
       ..classes.add("friendlyFire")
       ..damage = this.damage);
-    print(shotId);
-    shotId.add(game.currentEntityID -1);
+    shotId.add(id);
   }
 
   @override
   void damageOnCollision(List<Actor> actors) {
     for(Actor a in actors) {
-      if (collision(a) && a.life > 0 && !shotId.contains(a.id) && a != this) {
-        print("damage ${a.id}");
+      if (collision(a) && !a.isDead && !shotId.contains(a.id) && a != this && !isDead) {
         a.life - this.damage;
         life -= a.damage;
       }

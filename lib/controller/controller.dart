@@ -11,6 +11,7 @@ class Controller {
   View view;
   Timer modelTimer;
   int level = 1;
+  int _live;
 
   Controller(this.game, this.view) {
     view.startBtn.onClick.listen((e) {
@@ -87,10 +88,17 @@ class Controller {
     ///timer der Model und view updatet
     modelTimer = new Timer.periodic(
         new Duration(microseconds: ((1000 / ticks).round().toInt())),
-        (Timer t) => {
-              game.update(),
-              view.update(),
-              //game.player.life <= 0 ? retryLevel() : game.actors.length <= 2 ? nextLevel() : view.setLife(game.player.life),
+        (Timer t){
+              if(game.player.life <= 0){
+                retryLevel();
+              } else if( game.actors.length <= 2 ){
+                _live = game.player.life;
+                nextLevel();
+              } else{
+                view.setLife(game.player.life);
+                game.update();
+                view.update();
+              }
             });
   }
 
@@ -99,6 +107,7 @@ class Controller {
       Map<String, dynamic> gameMap = JSON.jsonDecode(json);
       this.game = Game.fromJson(gameMap);
       view.game = game;
+      print(game.actors);
       //TODO so soll es nicht bleiben ist nur ein schmankerle füür marcel
       game.worldSizeX = view.getViewWidth() -40;
       game.worldSizeY = view.getViewHeight() -40;
@@ -108,17 +117,18 @@ class Controller {
   void nextLevel() {
     view.showEndWin();
     level++;
-    loadLevel("level/level$level.json");
     view.next.onClick.listen((_) {
+      loadLevel("level/level$level.json");
       view.next.remove();
       startGame();
+      game.player.life = _live;
     });
   }
 
   void retryLevel() {
     view.showEndLose();
-    loadLevel("level/level$level.json");
     view.restart.onClick.listen((_) {
+      loadLevel("level/level$level.json");
       view.restart.remove();
       startGame();
     });
