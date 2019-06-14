@@ -79,7 +79,7 @@ int damage = 1;
         : false;
   }
 
-  String toString() => "Position x:$posX  Position y:$posY";
+  String toString() => "ID:$id Position x:$posX  Position y:$posY";
 
   ///lässt den nächsten move nicht aus den worldbounds
   double keepInBounds(double speed, double pos, double max) {
@@ -93,10 +93,12 @@ int damage = 1;
     return pos;
   }
 
-  void damageOnCollision(Actor a) {
-    if (collision(a) && a is Player && a.life > 0) {
-      a.life - this.damage;
-      life -= a.damage;
+  void damageOnCollision(List<Actor> actors) {
+    for(Actor a in actors) {
+      if (collision(a) && a.life > 0 && !game.enemyShots.contains(a.id) && a != this) {
+        a.life - this.damage;
+        life -= a.damage;
+      }
     }
   }
 }

@@ -3,9 +3,7 @@
 import 'dart:async';
 import 'dart:html';
 import 'package:dartmotion_master/model/constants.dart';
-import 'package:dartmotion_master/model/cross.dart';
 import 'package:dartmotion_master/model/game.dart';
-import 'package:dartmotion_master/model/player.dart';
 import 'package:dartmotion_master/view/view.dart';
 import'dart:convert'as JSON;
 class Controller {
@@ -90,7 +88,6 @@ class Controller {
     modelTimer = new Timer.periodic(
         new Duration(microseconds: ((1000 / ticks).round().toInt())),
         (Timer t) => {
-          print(game.player.toString()),
               game.update(),
               view.update(),
               //game.player.life <= 0 ? retryLevel() : game.actors.length <= 2 ? nextLevel() : view.setLife(game.player.life),
@@ -102,18 +99,9 @@ class Controller {
       Map<String, dynamic> gameMap = JSON.jsonDecode(json);
       this.game = Game.fromJson(gameMap);
       view.game = game;
-
-
       //TODO so soll es nicht bleiben ist nur ein schmankerle füür marcel
       game.worldSizeX = view.getViewWidth() -40;
       game.worldSizeY = view.getViewHeight() -40;
-      print(game.name +
-          " " +
-          game.fortschritt.toString() +
-          " " +
-          game.actors.toString()+
-          " "
-          +game.player.toString());
     });
   }
 

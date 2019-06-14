@@ -26,14 +26,12 @@ class Player extends Actor {
   }
 
   @override
-  void damageOnCollision(Actor a) {
-    if (collision(a) && this != a && !shotId.contains(a.id)) {
-      a.life - this.damage;
-      life -= a.damage;
+  void damageOnCollision(List<Actor> actors) {
+    for(Actor a in actors) {
+      if (collision(a) && a.life > 0 && !shotId.contains(a.id) && a != this) {
+        a.life - this.damage;
+        life -= a.damage;
+      }
     }
-  }
-
-  String toString() {
-    return "ID: $id Position($posX , $posY)";
   }
 }

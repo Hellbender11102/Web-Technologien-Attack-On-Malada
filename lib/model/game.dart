@@ -15,11 +15,12 @@ class Game {
   int fortschritt;
   String name;
   int currentEntityID = 0;
-  Player player;
   Cross cross;
+  Player player;
   List<Actor> actors = [];
   List<int> enemyShots =[];
   Game();
+
 
   ///updates each actor
   void update() {
@@ -28,27 +29,26 @@ class Game {
         actors.remove(a);
       } else {
         a.update();
-        actors.forEach((actor) {
-          //todo
-           actor.damageOnCollision(a);
-           //print(actor.isDead.toString() + " " +actor.classes.toString());
-        });
       }
     }
+    actors.forEach((actor) => actor.damageOnCollision(actors));
   }
   ///maps an JSON file on a game + enemies
   Game.fromJson(Map<String, dynamic> json) {
-    cross = Cross(this, currentEntityID++, 150, 50);
-    player = Player(this, currentEntityID++, cross.posX, 10);
-    player.cross = cross;
-    actors.add(player);
-    actors.add(cross);
-
     fortschritt = json['fortschritt'];
     name = json['name'];
     worldSizeX = json['worldSizeX'];
     worldSizeY = json['worldSizeY'];
-    _fillActorList(
+
+
+    //todo der player spawnt nicht auf der map beim json einladen
+    //er existiert aber wird nicht in der view gerendert und nicht in die actors lsite eingetragen
+    cross = Cross(this, currentEntityID++, 150, 50);
+    player = Player(this, currentEntityID++, cross.posX, 20);
+    player.cross = cross;
+    actors.addAll([player, cross]);
+
+    actors.addAll(_fillActorList(
         json['actorList'].cast<String>(),
         json['posXList'].cast<double>(),
         json['posYList'].cast<double>(),
@@ -56,12 +56,12 @@ class Game {
         json['sizeYList'].cast<double>(),
         json['healthList'].cast<int>(),
         json['heavyList'].cast<bool>(),
-        json['damageList'].cast<int>());
-  }
+        json['damageList'].cast<int>()));
 
+  }
   ///wird mit den lsiten der JSON datei gefüllt
   ///erstellt gegner mit deren attributen
-    void _fillActorList(List<String> actorList,
+    List<Actor> _fillActorList(List<String> actorList,
         List<double> posXList,
         List<double> posYList,
         List<double> sizeXList,
@@ -69,6 +69,7 @@ class Game {
         List<int> healthList,
         List<bool> heavyList,
         List<int> damageList) {
+    List<Actor> actors = [];
       for (int i = 0; i < actorList.length; i++) {
         if (actorList[i] == 'casual') {
           actors.add(Enemy(
@@ -111,5 +112,6 @@ class Game {
               damageList[i]));
         }
       }
+      return actors;
     }
   }
