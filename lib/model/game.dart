@@ -9,6 +9,7 @@ import 'package:dartmotion_master/model/enemy.dart';
 import 'package:dartmotion_master/model/player.dart';
 
 class Game {
+
   int worldSizeX = 1000,
       worldSizeY = 1000;
   int fortschritt;
@@ -20,7 +21,6 @@ class Game {
   List<int> enemyShots =[];
   Game();
 
-
   ///updates each actor
   void update() {
     for (Actor a in actors) {
@@ -30,19 +30,25 @@ class Game {
         a.update();
         actors.forEach((actor) {
           //todo
-           //actor.damageOnCollision(a);
+           actor.damageOnCollision(a);
            //print(actor.isDead.toString() + " " +actor.classes.toString());
         });
       }
     }
   }
-
+  ///maps an JSON file on a game + enemies
   Game.fromJson(Map<String, dynamic> json) {
+    cross = Cross(this, currentEntityID++, 150, 50);
+    player = Player(this, currentEntityID++, cross.posX, 10);
+    player.cross = cross;
+    actors.add(player);
+    actors.add(cross);
+
     fortschritt = json['fortschritt'];
     name = json['name'];
     worldSizeX = json['worldSizeX'];
     worldSizeY = json['worldSizeY'];
-    fillActorList(
+    _fillActorList(
         json['actorList'].cast<String>(),
         json['posXList'].cast<double>(),
         json['posYList'].cast<double>(),
@@ -51,15 +57,11 @@ class Game {
         json['healthList'].cast<int>(),
         json['heavyList'].cast<bool>(),
         json['damageList'].cast<int>());
-
-    cross = Cross(this, currentEntityID++, 150, 50);
-    player = Player(this, currentEntityID++, cross.posX, 10);
-    player.cross = cross;
-    actors.add(player);
-    actors.add(cross);
   }
 
-    void fillActorList(List<String> actorList,
+  ///wird mit den lsiten der JSON datei gefüllt
+  ///erstellt gegner mit deren attributen
+    void _fillActorList(List<String> actorList,
         List<double> posXList,
         List<double> posYList,
         List<double> sizeXList,

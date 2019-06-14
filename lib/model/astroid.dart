@@ -13,7 +13,7 @@ class Asteroid extends Actor {
 
   ///überschreibt den return von classes
   @override
-  List<String> get classes => ['asteroid'];
+  List<String> classes = ['asteroid'];
 
 
   @override
@@ -21,5 +21,10 @@ class Asteroid extends Actor {
     speedY = -0.5;
     sizeX += growth;
     sizeY += growth;
+
+    if (posY <=  0 || posY >= game.worldSizeY || posX <=  0 || posX >= game.worldSizeX){
+      life = 0;
+      collisionDetect = false;
+    }
   }
 }
