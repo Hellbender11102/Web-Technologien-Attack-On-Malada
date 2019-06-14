@@ -89,17 +89,18 @@ class Controller {
     modelTimer = new Timer.periodic(
         new Duration(microseconds: ((1000 / ticks).round().toInt())),
         (Timer t){
-              if(game.player.life <= 0){
+            if(game.player != null) {
+              if (game.player.life <= 0) {
                 retryLevel();
-              } else if( game.actors.length <= 2 ){
+              } else if (game.actors.length <= 2) {
                 _live = game.player.life;
                 nextLevel();
-              } else{
+              } else {
                 view.setLife(game.player.life);
                 game.update();
                 view.update();
               }
-            });
+            }});
   }
 
   void loadLevel(String levelName) async {
@@ -120,6 +121,7 @@ class Controller {
     view.next.onClick.listen((_) {
       loadLevel("level/level$level.json");
       view.next.remove();
+      view.win.remove();
       startGame();
       game.player.life = _live;
     });
@@ -130,6 +132,7 @@ class Controller {
     view.restart.onClick.listen((_) {
       loadLevel("level/level$level.json");
       view.restart.remove();
+      view.lose.remove();
       startGame();
     });
   }
