@@ -22,13 +22,15 @@ class Player extends Actor {
         posY + sizeY / 2, cross.posX + cross.sizeX / 2, cross.posY)
       ..classes.add("friendlyFire")
       ..damage = this.damage);
-    shotId.add(game.currentEntityID);
+    print(shotId);
+    shotId.add(game.currentEntityID -1);
   }
 
   @override
   void damageOnCollision(List<Actor> actors) {
     for(Actor a in actors) {
       if (collision(a) && a.life > 0 && !shotId.contains(a.id) && a != this) {
+        print("damage ${a.id}");
         a.life - this.damage;
         life -= a.damage;
       }
