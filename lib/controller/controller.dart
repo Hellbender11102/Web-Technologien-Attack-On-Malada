@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:dartmotion_master/model/constants.dart';
 import 'package:dartmotion_master/model/game.dart';
 import 'package:dartmotion_master/view/view.dart';
+// ignore: library_prefixes
 import 'dart:convert' as JSON;
 
 class Controller {
@@ -10,7 +11,7 @@ class Controller {
   View view;
   Timer modelTimer;
   int level = 1;
-  int _live;
+  int _life;
   StreamSubscription pauseBtnListener;
   StreamSubscription startBtnListener;
   StreamSubscription nextBtnListener;
@@ -39,7 +40,7 @@ class Controller {
       }
     });
     window.onTouchStart.listen((_) {
-      game.player.shoot();
+      game.player.shootPlayer();
     });
 
 // Keylistener WASD
@@ -61,7 +62,7 @@ class Controller {
           game.cross.accelerationX = 0;
           break;
         case KeyCode.SPACE:
-          game.player.shoot();
+          game.player.shootPlayer();
       }
     });
 
@@ -122,7 +123,7 @@ class Controller {
           //todo friendly shots müssen ignoriert werden sonst kann man machen das das level nicht beendet wird
         } else if (game.actors.length <= 2) {
           timerStop();
-          _live = game.player.life;
+          _life = game.player.life;
           nextLevel();
         } else {
           view.setLife(game.player.life);
@@ -148,7 +149,7 @@ class Controller {
         loadLevel("level/level$level.json");
         view.next.remove();
         view.win.remove();
-        game.player.life = _live;
+        game.player.life = _li#fe;
         timerStart();
       });
 

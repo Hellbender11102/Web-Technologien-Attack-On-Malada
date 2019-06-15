@@ -104,7 +104,6 @@ abstract class Actor {
           print(a.classes.toString() + classes.toString());
         } else {
           a.life -= damage;
-          life -= a.damage;
         }
       }
     }
