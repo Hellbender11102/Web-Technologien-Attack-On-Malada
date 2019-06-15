@@ -149,7 +149,7 @@ class Controller {
         loadLevel("level/level$level.json");
         view.next.remove();
         view.win.remove();
-        game.player.life = _li#fe;
+        game.player.life = _life;
         timerStart();
       });
 

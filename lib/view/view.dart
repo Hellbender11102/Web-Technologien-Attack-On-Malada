@@ -82,6 +82,7 @@ class View {
         actorInView.style.width = actor.sizeX.toString() + "px";
         actorInView.style.bottom = actor.posY.toString() + "px";
         actorInView.style.left = actor.posX.toString() + "px";
+
       }
     }
   }
@@ -141,5 +142,12 @@ class View {
     startBtn.style.bottom = "${50}%";
     startBtn.style.left = "${getViewWidth() / 2 - 165}px";
     output.children.add(startBtn);
+  }
+  //todo
+  void playerAnimation(){
+
+  }
+  void minimap(){
+
   }
 }
