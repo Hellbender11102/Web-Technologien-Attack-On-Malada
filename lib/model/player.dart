@@ -18,7 +18,7 @@ class Player extends Actor {
 
   ///erstellt einen schuss der in richtung fadenkreutz fliegt
   ///shotet jetzt auch kein player mehr
-  void shootPlayer() {
+  void shoot() {
     int id = game.currentEntityID++;
     game.actors.add(Shot(game, id, posX + sizeX / 2,
         posY + sizeY / 2, cross.posX + cross.sizeX / 2, cross.posY)
@@ -33,7 +33,8 @@ class Player extends Actor {
   void damageOnCollision(List<Actor> actors) {
     for(Actor a in actors) {
       if (collision(a) && !a.isDead && !shotId.contains(a.id) && a != this && !isDead) {
-        a.life - this.damage;
+        a.life -=  damage;
+        life -= a.damage;
       }
     }
   }

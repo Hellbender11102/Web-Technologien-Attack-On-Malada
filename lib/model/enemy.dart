@@ -5,7 +5,6 @@ import 'package:dartmotion_master/model/shot.dart';
 class Enemy extends Actor {
   bool isHeavy;
   int damage;
-
   @override
   List<String> classes = ["casual"];
 

@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:dartmotion_master/model/constants.dart';
 import 'package:dartmotion_master/model/game.dart';
 import 'package:dartmotion_master/view/view.dart';
+
 // ignore: library_prefixes
 import 'dart:convert' as JSON;
 
@@ -12,10 +13,6 @@ class Controller {
   Timer modelTimer;
   int level = 1;
   int _life;
-  StreamSubscription pauseBtnListener;
-  StreamSubscription startBtnListener;
-  StreamSubscription nextBtnListener;
-  StreamSubscription retryBtnListener;
 
   Controller(this.game, this.view) {
     _setListener();
@@ -40,7 +37,7 @@ class Controller {
       }
     });
     window.onTouchStart.listen((_) {
-      game.player.shootPlayer();
+      game.player.shoot();
     });
 
 // Keylistener WASD
@@ -62,7 +59,7 @@ class Controller {
           game.cross.accelerationX = 0;
           break;
         case KeyCode.SPACE:
-          game.player.shootPlayer();
+          game.player.shoot();
       }
     });
 
@@ -103,7 +100,7 @@ class Controller {
   }
 
   void nextLevel() {
-    level = level > 9 ? 1 : level+1;
+    level = level > 9 ? 1 : level + 1;
     view.showEndWin();
   }
 
@@ -135,36 +132,36 @@ class Controller {
   }
 
   void timerStop() => modelTimer.cancel();
-
+///erstellt die listener der knöpfe und legt deren funktion fest
   void _setListener() {
-      pauseBtnListener = view.pause.onClick.listen((_) {
-        if (modelTimer.isActive) {
-          timerStop();
-        } else {
-          timerStart();
-        }
-      });
-
-     nextBtnListener = view.next.onClick.listen((_) {
-        loadLevel("level/level$level.json");
-        view.next.remove();
-        view.win.remove();
-        game.player.life = _life;
+    view.pause.onClick.listen((_) {
+      if (modelTimer.isActive) {
+        timerStop();
+      } else {
         timerStart();
-      });
+      }
+    });
 
-      retryBtnListener = view.restart.onClick.listen((_) {
-        loadLevel("level/level$level.json");
-        view.restart.remove();
-        view.lose.remove();
-        startGame();
-        timerStart();
-      });
+    view.next.onClick.listen((_) {
+      loadLevel("level/level$level.json");
+      view.next.remove();
+      view.win.remove();
+      game.player.life = _life;
+      timerStart();
+    });
 
-      startBtnListener = view.startBtn.onClick.listen((e) {
-        loadLevel("level/level$level.json");
-        view.startBtn.remove();
-        startGame();
-      });
+    view.restart.onClick.listen((_) {
+      loadLevel("level/level$level.json");
+      view.restart.remove();
+      view.lose.remove();
+      startGame();
+      timerStart();
+    });
+
+    view.startBtn.onClick.listen((e) {
+      loadLevel("level/level$level.json");
+      view.startBtn.remove();
+      startGame();
+    });
   }
 }
