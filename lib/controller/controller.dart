@@ -92,8 +92,7 @@ class Controller {
       Map<String, dynamic> gameMap = JSON.jsonDecode(json);
       this.game = Game.fromJson(gameMap);
       view.game = game;
-      print(game.actors);
-      //TODO so soll es nicht bleiben ist nur ein schmankerle füür marcel
+      //TODO so soll es nicht bleiben ist nur ein schmankerle für marcel
       game.worldSizeX = view.getViewWidth() - 40;
       game.worldSizeY = view.getViewHeight() - 40;
     });

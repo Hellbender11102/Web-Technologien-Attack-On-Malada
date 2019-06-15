@@ -1,5 +1,6 @@
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/shot.dart';
+import 'dart:math';
 
 class Player extends Actor {
   @override
@@ -9,15 +10,17 @@ class Player extends Actor {
       : super(game, id, posX, posY, 56, 27, 6);
   List<int> shotId = List();
   Actor cross;
+  double sinVal = 0; //Wird genutzt für Animation
 
-  ///move wird überschreieben da der player nur dem Fadenkreutz folgt
+  ///move wird überschrieben da der player nur dem Fadenkreutz folgt
   @override
   void move() {
     posX = cross.posX + (cross.sizeX - sizeX) / 2;
+    posY = sin(sinVal)*10+30;
+    sinVal >= 6.28 ? sinVal = 0.00 : sinVal += 0.01 ;
   }
 
   ///erstellt einen schuss der in richtung fadenkreutz fliegt
-  ///shotet jetzt auch kein player mehr
   void shoot() {
     int id = game.currentEntityID++;
     game.actors.add(Shot(game, id, posX + sizeX / 2,

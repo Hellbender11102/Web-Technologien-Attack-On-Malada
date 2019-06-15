@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:math';
 
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/game.dart';
@@ -9,6 +10,7 @@ class View {
   Game game;
   int centerX = (window.innerWidth / 2).round();
   int centerY = (window.innerHeight / 2).round();
+  int sinVal = 0;
 
   ImageElement life = new ImageElement();
   ImageElement startBtn = new ImageElement();
@@ -71,19 +73,19 @@ class View {
         output.insertAdjacentElement("afterbegin", actorInView);
       }
 
-      /// falls tot soll es nciht mehr angezeigt werde
+      /// falls tot soll es nicht mehr angezeigt werde
       /// und entfernen aus der Liste
       if (actor.isDead && actorInView != null) {
         actorInView.remove();
         domElements.remove(actor.id);
       } else if (actorInView != null) {
-        /// Quelle generate und update  der Dartsnake
+        /// Quelle generate und update der Dartsnake
         actorInView.style.height = actor.sizeY.toString() + "px";
         actorInView.style.width = actor.sizeX.toString() + "px";
         actorInView.style.bottom = actor.posY.toString() + "px";
         actorInView.style.left = actor.posX.toString() + "px";
-
       }
+
     }
   }
 
@@ -143,10 +145,11 @@ class View {
     startBtn.style.left = "${getViewWidth() / 2 - 165}px";
     output.children.add(startBtn);
   }
-  //todo
+
   void playerAnimation(){
 
   }
+
   void minimap(){
 
   }

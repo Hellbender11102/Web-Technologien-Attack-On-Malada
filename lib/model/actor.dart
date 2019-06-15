@@ -101,7 +101,7 @@ abstract class Actor {
           a != this &&
           collisionDetect) {
         if (game.player.shotId.contains(id) && a.classes.contains("player")) {
-          print(a.classes.toString() + classes.toString());
+          //print(a.classes.toString() + classes.toString());
         } else {
           a.life -= damage;
           life -= a.damage;
