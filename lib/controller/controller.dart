@@ -119,6 +119,7 @@ class Controller {
         if (game.player.life <= 0) {
           timerStop();
           retryLevel();
+          //todo friendly shots müssen ignoriert werden sonst kann man machen das das level nicht beendet wird
         } else if (game.actors.length <= 2) {
           timerStop();
           _live = game.player.life;

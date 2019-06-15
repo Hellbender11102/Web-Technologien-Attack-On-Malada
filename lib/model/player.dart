@@ -17,6 +17,7 @@ class Player extends Actor {
   }
 
   ///erstellt einen schuss der in richtung fadenkreutz fliegt
+ @override
   void shoot() {
     int id = game.currentEntityID++;
     game.actors.add(Shot(game, id, posX + sizeX / 2,

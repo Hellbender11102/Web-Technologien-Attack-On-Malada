@@ -90,6 +90,8 @@ abstract class Actor {
     return pos;
   }
 
+  void shootPlayer() {}
+
   void damageOnCollision(List<Actor> actors) {
     for (Actor a in actors) {
       if (collision(a) &&
@@ -98,10 +100,9 @@ abstract class Actor {
           !game.enemyShots.contains(a.id) &&
           a != this &&
           collisionDetect) {
-        if (game.player.shotId.contains(id) &&
-            a.classes.contains("player")) {
-            print(a.classes.toString() + classes.toString());
-        }else {
+        if (game.player.shotId.contains(id) && a.classes.contains("player")) {
+          print(a.classes.toString() + classes.toString());
+        } else {
           a.life -= damage;
           life -= a.damage;
         }

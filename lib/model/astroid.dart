@@ -27,4 +27,5 @@ class Asteroid extends Actor {
       collisionDetect = false;
     }
   }
+
 }

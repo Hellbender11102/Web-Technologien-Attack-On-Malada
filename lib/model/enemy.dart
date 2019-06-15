@@ -14,6 +14,7 @@ class Enemy extends Actor {
       : super(game, id, posX, posY, sizeX, sizeY, life);
 
   ///nimmt die x und y coordinate des spielers und erstellt einen schuss der in die richtung fliegt
+  @override
   void shootPlayer() {
     int id = game.currentEntityID++;
     Player a = game.player;
