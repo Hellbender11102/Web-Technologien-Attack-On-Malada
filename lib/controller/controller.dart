@@ -1,24 +1,23 @@
-
-
 import 'dart:async';
 import 'dart:html';
 import 'package:dartmotion_master/model/constants.dart';
 import 'package:dartmotion_master/model/game.dart';
 import 'package:dartmotion_master/view/view.dart';
-import'dart:convert'as JSON;
+import 'dart:convert' as JSON;
+
 class Controller {
   Game game;
   View view;
   Timer modelTimer;
   int level = 1;
   int _live;
+  StreamSubscription pauseBtnListener;
+  StreamSubscription startBtnListener;
+  StreamSubscription nextBtnListener;
+  StreamSubscription retryBtnListener;
 
   Controller(this.game, this.view) {
-    view.startBtn.onClick.listen((e) {
-      loadLevel("level/level$level.json");
-      view.startBtn.remove();
-      startGame();
-    });
+    _setListener();
   }
 
   void startGame() {
@@ -84,23 +83,10 @@ class Controller {
           break;
       }
     });
+    view.addPauseBtn();
 
     ///timer der Model und view updatet
-    modelTimer = new Timer.periodic(
-        new Duration(microseconds: ((1000 / ticks).round().toInt())),
-        (Timer t){
-            if(game.player != null) {
-              if (game.player.life <= 0) {
-                retryLevel();
-              } else if (game.actors.length <= 2) {
-                _live = game.player.life;
-                nextLevel();
-              } else {
-                view.setLife(game.player.life);
-                game.update();
-                view.update();
-              }
-            }});
+    timerStart();
   }
 
   void loadLevel(String levelName) async {
@@ -110,30 +96,73 @@ class Controller {
       view.game = game;
       print(game.actors);
       //TODO so soll es nicht bleiben ist nur ein schmankerle füür marcel
-      game.worldSizeX = view.getViewWidth() -40;
-      game.worldSizeY = view.getViewHeight() -40;
+      game.worldSizeX = view.getViewWidth() - 40;
+      game.worldSizeY = view.getViewHeight() - 40;
     });
   }
 
   void nextLevel() {
+    level = level > 9 ? 1 : level+1;
     view.showEndWin();
-    level++;
-    view.next.onClick.listen((_) {
-      loadLevel("level/level$level.json");
-      view.next.remove();
-      view.win.remove();
-      startGame();
-      game.player.life = _live;
-    });
   }
 
   void retryLevel() {
     view.showEndLose();
-    view.restart.onClick.listen((_) {
-      loadLevel("level/level$level.json");
-      view.restart.remove();
-      view.lose.remove();
-      startGame();
+  }
+
+  void timerStart() {
+    ///timer der Model und view updatet
+    modelTimer = new Timer.periodic(
+        new Duration(microseconds: ((1000 / ticks).round().toInt())),
+        (Timer t) {
+      if (game.player != null) {
+        if (game.player.life <= 0) {
+          timerStop();
+          retryLevel();
+        } else if (game.actors.length <= 2) {
+          timerStop();
+          _live = game.player.life;
+          nextLevel();
+        } else {
+          view.setLife(game.player.life);
+          game.update();
+          view.update();
+        }
+      }
     });
+  }
+
+  void timerStop() => modelTimer.cancel();
+
+  void _setListener() {
+      pauseBtnListener = view.pause.onClick.listen((_) {
+        if (modelTimer.isActive) {
+          timerStop();
+        } else {
+          timerStart();
+        }
+      });
+
+     nextBtnListener = view.next.onClick.listen((_) {
+        loadLevel("level/level$level.json");
+        view.next.remove();
+        view.win.remove();
+        game.player.life = _live;
+        timerStart();
+      });
+
+      retryBtnListener = view.restart.onClick.listen((_) {
+        loadLevel("level/level$level.json");
+        view.restart.remove();
+        view.lose.remove();
+        startGame();
+        timerStart();
+      });
+
+      startBtnListener = view.startBtn.onClick.listen((e) {
+        loadLevel("level/level$level.json");
+        view.startBtn.remove();
+        startGame();
+      });
   }
 }

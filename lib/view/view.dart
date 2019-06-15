@@ -1,6 +1,3 @@
-
-
-
 import 'dart:html';
 
 import 'package:dartmotion_master/model/actor.dart';
@@ -20,15 +17,10 @@ class View {
   ImageElement lose = new ImageElement();
   ImageElement level = new ImageElement();
   ImageElement next = new ImageElement();
+  ImageElement pause = new ImageElement();
 
   View(this.game) {
-    startBtn.src = "Assets/start.png";
-    startBtn.className = "start";
-    startBtn.style.position = "absolute";
-    startBtn.style.zIndex = "3";
-    startBtn.style.bottom = "${50}%";
-    startBtn.style.left = "${getViewWidth() / 2 - 165}px";
-    output.children.add(startBtn);
+    addStartBtn();
 
     life.src = "Assets/hearts_6.png";
     life.className = "life";
@@ -84,7 +76,7 @@ class View {
       if (actor.isDead && actorInView != null) {
         actorInView.remove();
         domElements.remove(actor.id);
-      } else if(actorInView != null){
+      } else if (actorInView != null) {
         /// Quelle generate und update  der Dartsnake
         actorInView.style.height = actor.sizeY.toString() + "px";
         actorInView.style.width = actor.sizeX.toString() + "px";
@@ -112,6 +104,17 @@ class View {
     output.children.add(next);
   }
 
+  void addPauseBtn() {
+    pause.src = "Assets/pause.png";
+    pause.className = "pauseBtn";
+    pause.style.position = "absolute";
+    pause.style.width = "100px";
+    pause.style.height = "100px";
+    pause.style.bottom = "${getViewHeight() - 100}px";
+    pause.style.left = "${getViewWidth() - 100}px";
+    output.children.add(pause);
+  }
+
   void showEndLose() {
     lose.src = "Assets/GameOver.png";
     lose.className = "lose";
@@ -130,4 +133,13 @@ class View {
     output.children.add(restart);
   }
 
+  void addStartBtn() {
+    startBtn.src = "Assets/start.png";
+    startBtn.className = "start";
+    startBtn.style.position = "absolute";
+    startBtn.style.zIndex = "3";
+    startBtn.style.bottom = "${50}%";
+    startBtn.style.left = "${getViewWidth() / 2 - 165}px";
+    output.children.add(startBtn);
+  }
 }

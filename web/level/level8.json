@@ -1,0 +1,39 @@
+{
+  "fortschritt": 5,
+  "name": "Aller Anfang ist schwer",
+  "worldSizeX": 1000,
+  "worldSizeY": 1000,
+  "actorList":
+  [
+    "elite","casual","asteroid","elite",
+    "casual","elite","casual","asteroid"
+  ],
+  "posXList": [
+    200,900,100,320,
+    880,760,500,20
+  ],
+  "posYList" : [
+    900,700,700,800,
+    650,780,500,980
+  ],
+  "sizeXList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "sizeYList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "healthList" : [
+    1,1,1,1,
+    1,1,1,1
+  ],
+  "heavyList": [
+    false,false,false,false,
+    false,false,false,false
+  ],
+  "damageList" : [
+    1,1,1,1,
+    1,1,1,1
+  ]
+}
