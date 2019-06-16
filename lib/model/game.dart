@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/astroid.dart';
 import 'package:dartmotion_master/model/boss.dart';
@@ -25,10 +27,17 @@ class Game {
         actors.remove(a);
       } else {
         a.update();
-        a.shootPlayer();
       }
     }
     actors.forEach((actor) => actor.damageOnCollision(actors));
+  }
+
+  void shoot() {
+    for (Actor a in actors) {
+      if (!a.isDead) {
+      a.shootPlayer();
+      }
+    }
   }
 
   ///maps an JSON file on a game + enemies
@@ -38,7 +47,7 @@ class Game {
     worldSizeX = json['worldSizeX'];
     worldSizeY = json['worldSizeY'];
 
-    cross = Cross(this, currentEntityID++, 150, 50);
+    cross = Cross(this, currentEntityID++, 300, 100);
     player = Player(this, currentEntityID++, cross.posX, 20);
     player.cross = cross;
     actors.addAll([player, cross]);
@@ -78,12 +87,9 @@ class Game {
             healthList[i],
             heavyList[i],
             damageList[i]));
-      } else if (actorList[i] == 'asteroid') {
-        heavyList[i]
-            ? actors.add(Asteroid.mega(
-                this, currentEntityID++, posXList[i], posYList[i]))
-            : actors.add(
-                Asteroid(this, currentEntityID++, posXList[i], posYList[i]));
+      } else if (actorList[i] == 'asteroid') {actors.add(Asteroid(
+                this, currentEntityID++, posXList[i], posYList[i],sizeXList[i],
+          sizeYList[i],healthList[i]));
       } else if (actorList[i] == 'elite') {
         actors.add(Elite(
             this,

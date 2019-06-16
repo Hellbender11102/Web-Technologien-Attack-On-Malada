@@ -13,7 +13,7 @@ class Shot extends Actor{
   //muss überschrieben werden da ein schuss keine beschleunigung erfährt
   @override
   void accelerate(){
-    if (posY <=  0 || posY >= game.worldSizeY || posX <=  0 || posX >= game.worldSizeX){
+    if (posY <=  0 || posY >= game.worldSizeY || posX <=  0 || posX >= game.worldSizeX + game.cross.sizeY / 2){
       life = 0;
       collisionDetect = false;
     }

@@ -1,5 +1,4 @@
 import 'dart:html';
-import 'dart:math';
 
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/game.dart';
@@ -85,7 +84,6 @@ class View {
         actorInView.style.bottom = actor.posY.toString() + "px";
         actorInView.style.left = actor.posX.toString() + "px";
       }
-
     }
   }
 
@@ -146,11 +144,17 @@ class View {
     output.children.add(startBtn);
   }
 
-  void playerAnimation(){
 
-  }
-
-  void minimap(){
-
+  ///löscht alle actoren die im Spiel und im Dom tree vorhanden sind
+  void deletAllFromDom() {
+    for (Actor actor in game.actors) {
+      List entries = domElements.entries.toList();
+      for (MapEntry entry in entries) {
+        if (entry.key == actor.id) {
+          entry.value.remove();
+          domElements.remove(actor.id);
+        }
+      }
+    }
   }
 }

@@ -43,8 +43,8 @@ abstract class Actor {
 
   ///nächste position += speed
   void move() {
-    posX = keepInBounds(speedX, posX, game.worldSizeX.toDouble());
-    posY = keepInBounds(speedY, posY, game.worldSizeY.toDouble());
+    posX = _keepInBounds(speedX, posX, game.worldSizeX.toDouble());
+    posY = _keepInBounds(speedY, posY, game.worldSizeY.toDouble());
   }
 
   ///überprüft ob die beschläunigung über den maximalwert 15 steigt
@@ -79,10 +79,10 @@ abstract class Actor {
   String toString() => "ID:$id Position x:$posX  Position y:$posY";
 
   ///lässt den nächsten move nicht aus den worldbounds
-  double keepInBounds(double speed, double pos, double max) {
+  double _keepInBounds(double speed, double pos, double max) {
     if (pos + speed > max) {
-      pos = max;
-    } else if (pos + speed < 0) {
+      pos = max - 25;
+    } else if (pos + speed <= 0) {
       pos = 0;
     } else {
       pos += speed;
@@ -98,11 +98,10 @@ abstract class Actor {
           !a.isDead &&
           !isDead &&
           !game.enemyShots.contains(a.id) &&
+          !game.enemyShots.contains(id) &&
           a != this &&
           collisionDetect) {
-        if (game.player.shotId.contains(id) && a.classes.contains("player")) {
-          //print(a.classes.toString() + classes.toString());
-        } else {
+        if (!game.player.shotId.contains(id) && !a.classes.contains("player")) {
           a.life -= damage;
           life -= a.damage;
         }

@@ -31,7 +31,7 @@ class Player extends Actor {
   }
 
 
-  ///überprüft ob er dem objekt schaden machen darf und zieht dann dem anderen objekt leben ab
+  ///überprüft ob er dem objekt schaden machen darf und zieht dann beiden objekt leben ab
   @override
   void damageOnCollision(List<Actor> actors) {
     for(Actor a in actors) {
