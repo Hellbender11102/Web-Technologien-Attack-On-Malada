@@ -35,7 +35,7 @@ class Game {
   void shoot() {
     for (Actor a in actors) {
       if (!a.isDead) {
-      a.shootPlayer();
+        a.shootPlayer();
       }
     }
   }
@@ -77,41 +77,40 @@ class Game {
     List<Actor> actors = [];
     for (int i = 0; i < actorList.length; i++) {
       if (actorList[i] == 'casual') {
-        actors.add(Enemy(
-            this,
-            currentEntityID++,
-            posXList[i],
-            posYList[i],
-            sizeXList[i],
-            sizeYList[i],
-            healthList[i],
-            heavyList[i],
-            damageList[i]));
-      } else if (actorList[i] == 'asteroid') {actors.add(Asteroid(
-                this, currentEntityID++, posXList[i], posYList[i],sizeXList[i],
-          sizeYList[i],healthList[i]));
+        actors.add(heavyList[i]
+            ? (Enemy(
+                this,
+                currentEntityID++,
+                posXList[i],
+                posYList[i],
+                sizeXList[i],
+                sizeYList[i],
+                healthList[i] * 2,
+                damageList[i] * 2))
+            : Enemy(this, currentEntityID++, posXList[i], posYList[i],
+                sizeXList[i], sizeYList[i], healthList[i], damageList[i]));
+      } else if (actorList[i] == 'asteroid') {
+        actors.add(heavyList[i]
+            ? Asteroid(this, currentEntityID++, posXList[i], posYList[i],
+                sizeXList[i], sizeYList[i], healthList[i] * 2)
+            : Asteroid(this, currentEntityID++, posXList[i], posYList[i],
+                sizeXList[i], sizeYList[i], healthList[i]));
       } else if (actorList[i] == 'elite') {
-        actors.add(Elite(
-            this,
-            currentEntityID++,
-            posXList[i],
-            posYList[i],
-            sizeXList[i],
-            sizeYList[i],
-            healthList[i],
-            heavyList[i],
-            damageList[i]));
+        actors.add(heavyList[i]
+            ? Elite(
+                this,
+                currentEntityID++,
+                posXList[i],
+                posYList[i],
+                sizeXList[i],
+                sizeYList[i],
+                healthList[i] * 2,
+                damageList[i] * 2)
+            : Elite(this, currentEntityID++, posXList[i], posYList[i],
+                sizeXList[i], sizeYList[i], healthList[i], damageList[i]));
       } else if (actorList[i] == 'boss') {
-        actors.add(Boss(
-            this,
-            currentEntityID++,
-            posXList[i],
-            posYList[i],
-            sizeXList[i],
-            sizeYList[i],
-            healthList[i],
-            heavyList[i],
-            damageList[i]));
+        actors.add(Boss(this, currentEntityID++, posXList[i], posYList[i],
+            sizeXList[i], sizeYList[i], healthList[i], damageList[i]));
       }
     }
     return actors;

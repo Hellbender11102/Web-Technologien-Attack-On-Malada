@@ -32,7 +32,7 @@ class View {
     output.children.add(life);
   }
 
-  void setLife(int life) {
+  void setLifeBar(int life) {
     if (life >= 0 && life <= 6) {
       this.life.src = "Assets/hearts_$life.png";
     }

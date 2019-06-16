@@ -5,7 +5,7 @@ class Elite extends Enemy{
 
   @override
   List<String> classes = ["elite"];
-  Elite(var game,int id, double posX, double posY, double sizeX, double sizeY, int life,bool isHeavy,int damage) : super(game,id, posX, posY, sizeX, sizeY, life, isHeavy ,damage);
+  Elite(var game,int id, double posX, double posY, double sizeX, double sizeY, int life,int damage) : super(game,id, posX, posY, sizeX, sizeY, life,damage);
 
   ///Elite gegner bekommen ein besonderes movment welches sich auf das Fadenkreuz bezieht
   @override

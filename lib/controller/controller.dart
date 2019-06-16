@@ -14,7 +14,6 @@ class Controller {
   Timer modelTimer;
   Timer shootTimer;
   int level = 1;
-  int _life;
 
   Controller(this.game, this.view) {
     _setListener();
@@ -118,7 +117,7 @@ class Controller {
       if (game.player != null) {
         if (game.player.life <= 0) {
           view.deletAllFromDom();
-          view.setLife(game.player.life);
+          view.setLifeBar(game.player.life);
           modelTimerStop();
           shootTimerCancel();
           retryLevel();
@@ -127,11 +126,10 @@ class Controller {
           view.deletAllFromDom();
           modelTimerStop();
           shootTimerCancel();
-          _life = game.player.life;
-          view.setLife(game.player.life);
+          view.setLifeBar(game.player.life);
           nextLevel();
         } else {
-          view.setLife(game.player.life);
+          view.setLifeBar(game.player.life);
           game.update();
           view.update();
         }
@@ -168,7 +166,6 @@ class Controller {
       loadLevel("level/level$level.json");
       view.next.remove();
       view.win.remove();
-      game.player.life = _life;
       modelTimerStart();
       shootTimerStart();
     });
