@@ -1,25 +1,30 @@
-
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/constants.dart';
 import 'dart:math' as Math;
 
-class Shot extends Actor{
+class Shot extends Actor {
   @override
   List<String> classes = ["shot"];
 
-  Shot(var game,int id,double posX, double posY, double posX2, double posY2) : super(game, id,posX, posY, 4, 8, 1){
-    speedX = (posX2 - posX) * (1 / (Math.sqrt(posX2) + Math.sqrt(posX)));
-    speedY = (posY2 - posY) * (1 / (Math.sqrt(posY2) + Math.sqrt(posY)));
+  Shot(var game, int id, double posX, double posY, double posX2, double posY2)
+      : super(game, id, posX, posY, 4, 8, 1) {
+    double _betrag =
+        Math.sqrt(Math.pow(posX2 - posX, 2) + Math.pow(posY2 - posY, 2));
+    speedX = (posX2 - posX) * (1 / _betrag);
+    speedY = (posY2 - posY) * (1 / _betrag);
   }
+
   //muss überschrieben werden da ein schuss keine beschleunigung erfährt
   @override
-  void accelerate(){
-    if (posY + speedY <=  0 || posY + speedY>= game.worldSizeY || posX+ speedX <=  0 || posX+ speedX >= game.worldSizeX + game.cross.sizeY / 2){
+  void accelerate() {
+    if (posY + speedY <= 0 ||
+        posY + speedY >= game.worldSizeY ||
+        posX + speedX <= 0 ||
+        posX + speedX >= game.worldSizeX + game.cross.sizeY / 2) {
       life = 0;
       collisionDetect = false;
     }
     speedX;
     speedY;
   }
-
 }
