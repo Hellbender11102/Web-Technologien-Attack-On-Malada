@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/astroid.dart';
