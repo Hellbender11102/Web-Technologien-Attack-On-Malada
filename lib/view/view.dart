@@ -20,7 +20,7 @@ class View {
   ImageElement next = new ImageElement();
   ImageElement pause = new ImageElement();
 
-  View(this.game) {
+  View() {
     addStartBtn();
 
     life.src = "Assets/hearts_6.png";

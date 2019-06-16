@@ -14,8 +14,9 @@ class Controller {
   Timer modelTimer;
   Timer shootTimer;
   int level = 1;
+  int _life;
 
-  Controller(this.game, this.view) {
+  Controller(this.view) {
     _setListener();
   }
 
@@ -85,8 +86,7 @@ class Controller {
     view.addPauseBtn();
 
     ///timer der Model und view updatet
-    modelTimerStart();
-    shootTimerStart();
+    startTimer();
   }
 
   void loadLevel(String levelName) async {
@@ -109,78 +109,67 @@ class Controller {
     view.showEndLose();
   }
 
-  void modelTimerStart() {
+  void startTimer() {
     ///timer der Model und view updatet
     modelTimer = new Timer.periodic(
         new Duration(microseconds: ((1000 / ticks).round().toInt())),
         (Timer t) {
-      if (game.player != null) {
-        if (game.player.life <= 0) {
-          view.deletAllFromDom();
-          view.setLifeBar(game.player.life);
-          modelTimerStop();
-          shootTimerCancel();
-          retryLevel();
-          //todo friendly shots müssen ignoriert werden sonst kann man machen das das level nicht beendet wird
-        } else if (game.actors.length <= 2) {
-          view.deletAllFromDom();
-          modelTimerStop();
-          shootTimerCancel();
-          view.setLifeBar(game.player.life);
-          nextLevel();
-        } else {
-          view.setLifeBar(game.player.life);
-          game.update();
-          view.update();
-        }
+      view.setLifeBar(game.player.life);
+      if (game.player.life <= 0) {
+        view.deletAllFromDom();
+        stopAllTimer();
+        retryLevel();
+        //todo friendly shots müssen ignoriert werden sonst kann man machen das das level nicht beendet wird
+      } else if (game.actors.length <= 2) {
+        _life = game.player.life;
+        view.deletAllFromDom();
+        stopAllTimer();
+        nextLevel();
+      } else {
+        game.update();
+        view.update();
       }
+    });
+    ///timer der Model und view updatet
+    shootTimer = new Timer.periodic(new Duration(seconds: (3)), (Timer t) {
+      game.shoot();
     });
   }
 
-  void shootTimerStart() {
-    ///timer der Model und view updatet
-    shootTimer = new Timer.periodic(
-        new Duration(seconds: (3)),
-            (Timer t) {
-            game.shoot();
-        });
+
+  void stopAllTimer() {
+    shootTimer.cancel();
+    modelTimer.cancel();
   }
 
-
-  void shootTimerCancel() => shootTimer.cancel();
-  void modelTimerStop() => modelTimer.cancel();
-
-///erstellt die listener der knöpfe und legt deren funktion fest
+  ///erstellt die listener der knöpfe und legt deren funktion fest
   void _setListener() {
     view.pause.onClick.listen((_) {
       if (modelTimer.isActive) {
-        shootTimerCancel();
-        modelTimerStop();
+        stopAllTimer();
       } else {
-        shootTimerStart();
-        modelTimerStart();
+        startTimer();
       }
     });
 
-    view.next.onClick.listen((_) {
-      loadLevel("level/level$level.json");
+    view.next.onClick.listen((_) async {
+      await loadLevel("level/level$level.json");
       view.next.remove();
       view.win.remove();
-      modelTimerStart();
-      shootTimerStart();
+      game.player.life = _life;
+      startTimer();
     });
 
-    view.restart.onClick.listen((_) {
-      loadLevel("level/level$level.json");
+    view.restart.onClick.listen((_) async {
+      await loadLevel("level/level$level.json");
       view.restart.remove();
       view.lose.remove();
       startGame();
-      modelTimerStart();
-      shootTimerStart();
+      startTimer();
     });
 
-    view.startBtn.onClick.listen((e) {
-      loadLevel("level/level$level.json");
+    view.startBtn.onClick.listen((e) async {
+      await loadLevel("level/level$level.json");
       view.startBtn.remove();
       startGame();
     });

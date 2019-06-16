@@ -5,8 +5,7 @@ import 'package:dartmotion_master/view/view.dart';
 
 void main() {
 
-    Game game = Game();
-    View view = View(game);
+    View view = View();
     // ignore: unused_local_variable
-    Controller con = Controller(game, view);
+    Controller con = Controller(view);
 }
