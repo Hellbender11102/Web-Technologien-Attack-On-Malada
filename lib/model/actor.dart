@@ -1,5 +1,7 @@
+import 'dart:math';
+
 import 'package:dartmotion_master/model/game.dart';
-import 'package:dartmotion_master/model/player.dart';
+import 'package:dartmotion_master/model/healthUp.dart';
 
 abstract class Actor {
   /// constants
@@ -131,6 +133,16 @@ abstract class Actor {
           life -= a.damage;
         }
       }
+    }
+  }
+  void dropHealthUp(){
+    print('kein spawn');
+    double random =Random().nextDouble();
+    if(random >= 0.0){
+      print('spawn');
+      HealthUp healthUp = HealthUp(game,game.currentEntityID++,posX-sizeX/2,posY-sizeY/2);
+      game.actors.add(healthUp);
+      game.enemies.add(healthUp);
     }
   }
 }
