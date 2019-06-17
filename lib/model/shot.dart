@@ -25,6 +25,7 @@ class Shot extends Actor {
       life = 0;
       collisionDetect = false;
     }
+
     speedX;
     speedY;
   }
