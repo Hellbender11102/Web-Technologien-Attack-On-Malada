@@ -15,13 +15,13 @@ class Boss extends Elite {
     super.shootPlayer();
     var a = game.player;
     if (tickCount % (tick * 5) == 0) {
-      Shot shot = Shot(game, game.currentEntityID++, posX + sizeX / 2,
+      Shot shot = Shot(game, game.currentEntityID++, posX + sizeX,
           posY + sizeY / 2, a.posX + a.sizeX * 3 / 2, a.posY)
         ..damage = this.damage
         ..classes.addAll(["enemyShot", "enemy"]);
       game.actors.add(shot);
       game.enemies.add(shot);
-      shot = Shot(game, game.currentEntityID++, posX + sizeX / 2,
+      shot = Shot(game, game.currentEntityID++, posX,
           posY + sizeY / 2, a.posX - a.sizeX * 3 / 2, a.posY)
         ..damage = this.damage
         ..classes.addAll(["enemyShot", "enemy"]);

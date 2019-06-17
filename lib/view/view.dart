@@ -22,6 +22,7 @@ class View {
   ImageElement level = new ImageElement();
   ImageElement next = new ImageElement();
   ImageElement pause = new ImageElement();
+  ImageElement youWon =new ImageElement();
 
   DivElement minimapElement = new DivElement();
   ImageElement playerDot = new ImageElement();
@@ -221,4 +222,5 @@ class View {
     life.style.zIndex = "5";
     output.children.add(life);
   }
+
 }

@@ -97,7 +97,7 @@ class Controller {
   }
 
   void nextLevel() {
-    level = level >= 10 ? 1 : level + 1;
+    level = level > 10 ? 1: level+1;
     view.showEndWin();
   }
 

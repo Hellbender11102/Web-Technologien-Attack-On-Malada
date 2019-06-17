@@ -5,7 +5,7 @@ class HealthUp extends Actor {
   HealthUp(Game game, int id, double posX, double posY)
       : super(game, id, posX, posY, 40, 40, 1) {
     damage = 0;
-    classes.add('healthUp');
+    classes.addAll(['healthUp','shot']);
   }
 
   @override
