@@ -82,7 +82,8 @@ class Controller {
       }
     });
     view.addPauseBtn();
-
+    view.addMiniMap();
+    view.addLifeBar();
     ///timer der Model und view updatet
     startTimer();
   }

@@ -30,15 +30,6 @@ class View {
 
   View() {
     addStartBtn();
-    addMiniMap();
-
-    life.src = "Assets/hearts_6.png";
-    life.className = "life";
-    life.style.position = "absolute";
-    life.style.bottom = "${90}%";
-    life.style.left = "${getViewWidth() / 2 - 96}px";
-    life.style.zIndex = "5";
-    output.children.add(life);
   }
 
   void setLifeBar(int life) {
@@ -223,5 +214,15 @@ class View {
     minimapElement.children.add(griddy);
     minimapElement.style.zIndex = "5";
     output.children.add(minimapElement);
+  }
+
+  void addLifeBar(){
+    life.src = "Assets/hearts_6.png";
+    life.className = "life";
+    life.style.position = "absolute";
+    life.style.bottom = "${90}%";
+    life.style.left = "${getViewWidth() / 2 - 96}px";
+    life.style.zIndex = "5";
+    output.children.add(life);
   }
 }
