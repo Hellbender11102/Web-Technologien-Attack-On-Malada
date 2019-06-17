@@ -2,6 +2,9 @@ import 'dart:html';
 
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/game.dart';
+import 'package:dartmotion_master/model/player.dart';
+import 'package:dartmotion_master/model/shot.dart';
+import 'package:dartmotion_master/model/cross.dart';
 
 class View {
   Map<int, Element> domElements = Map();
@@ -20,8 +23,14 @@ class View {
   ImageElement next = new ImageElement();
   ImageElement pause = new ImageElement();
 
+  DivElement minimapElement = new DivElement();
+  ImageElement playerDot = new ImageElement();
+  List<ImageElement> enemyDots = new List<ImageElement>();
+
+
   View() {
     addStartBtn();
+    addMiniMap();
 
     life.src = "Assets/hearts_6.png";
     life.className = "life";
@@ -51,14 +60,20 @@ class View {
   ///update erstellt und entfernt gegner aus der gamestage im html code
   /// Speichert die Elemente in eine Tabelle um nicht die ganze zeit query selecten #dartsnake
   void update() {
-    // Füge alle Element in den Dom ein
-    // todo
+    //Liste erstellen mit allen Einträgen
+    List entries = domElements.entries.toList();
+    ImageElement temporaryImageHolder;
+
     for (Actor actor in game.actors) {
       Element actorInView;
-      List entries = domElements.entries.toList();
+
 
       /// Suchen vom actor
-      actorInView = domElements[actor.id];
+      for (MapEntry entry in entries) {
+        if (entry.key == actor.id) {
+          actorInView = entry.value;
+        }
+      }
 
       /// wenn null dann erstellen
       if (actorInView == null && !actor.isDead) {
@@ -66,6 +81,15 @@ class View {
         actorInView.classes = actor.classes..add("actor");
         domElements.putIfAbsent(actor.id, () => actorInView);
         output.insertAdjacentElement("afterbegin", actorInView);
+        if(actor is !Player && actor is !Shot && actor is !Cross){
+          ImageElement enemy = new ImageElement();
+          enemy.style.position = "absolute";
+          enemy.src = "Assets/EnemyBeepBeep.png";
+          enemy.className = "enemy";
+          enemy.id = "enemyDotNr${actor.id}";
+          enemyDots.add(enemy);
+          minimapElement.children.add(enemy);
+        }
       }
 
       /// falls tot soll es nicht mehr angezeigt werde
@@ -73,15 +97,26 @@ class View {
       if (actor.isDead && actorInView != null) {
         actorInView.remove();
         domElements.remove(actor.id);
+        enemyDots.removeWhere((x) => x.id == "enemyDotNr${actor.id}");
+        minimapElement.children.removeWhere((x) => x.id == "enemyDotNr${actor.id}");
+
       } else if (actorInView != null) {
         /// Quelle generate und update der Dartsnake
         actorInView.style.height = actor.sizeY.toString() + "px";
         actorInView.style.width = actor.sizeX.toString() + "px";
         actorInView.style.bottom = actor.posY.toString() + "px";
         actorInView.style.left = actor.posX.toString() + "px";
+        if(actor is !Player && actor is !Shot && actor is !Cross){
+          temporaryImageHolder = enemyDots.firstWhere((x) => x.id == "enemyDotNr${actor.id}");
+          temporaryImageHolder.style.left = '${((actor.posX / game.worldSizeX) * 100)}%';
+          temporaryImageHolder.style.bottom = '${((actor.posY / game.worldSizeY) * 100)}%';
+        }
       }
     }
+    playerDot.style.left = '${((game.player.posX / game.worldSizeX) * 100)}%';
+    playerDot.style.bottom = '${((game.player.posY / game.worldSizeY) * 100)}%';
   }
+
 
   void showEndWin() {
     win.src = "Assets/Win.png";
@@ -152,5 +187,41 @@ class View {
         }
       }
     }
+  }
+
+  void addMiniMap(){
+    minimapElement.style.position = "absolute";
+    minimapElement.style.top = "0px";
+    minimapElement.style.left = "0px";
+    minimapElement.style.width = "150px";
+    minimapElement.style.height = "150px";
+    minimapElement.style.overflow = "hidden";
+
+    this.playerDot.style.position = "absolute";
+    this.playerDot.src = "Assets/MiniMap_Circle_Player.png";
+    this.playerDot.className = "playerOnMap";
+    minimapElement.children.add(playerDot);
+
+    UListElement griddy = new UListElement();
+    griddy.style.padding = "0px";
+    griddy.style.margin = "0px";
+    griddy.style.display = "grid";
+    griddy.style.gridTemplateColumns = "1fr 1fr 1fr";
+    griddy.style.gridTemplateRows = "1fr 1fr 1fr";
+    griddy.style.width = "100%";
+    griddy.style.height = "100%";
+    griddy.style.background = "#000";
+
+    for (int i = 0; i < 9; i++) {
+      LIElement box = new LIElement();
+      box.style.listStyleType = "none";
+      box.style.background = "#000";
+      box.style.boxSizing = "border-box";
+      box.style.border = "solid lightgreen 1px";
+      griddy.children.add(box);
+    }
+    minimapElement.children.add(griddy);
+    minimapElement.style.zIndex = "5";
+    output.children.add(minimapElement);
   }
 }

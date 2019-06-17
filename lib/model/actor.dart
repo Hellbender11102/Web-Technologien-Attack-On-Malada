@@ -120,7 +120,6 @@ abstract class Actor {
   void shootPlayer() {}
 
   /// überproft ob das objekt schaden bekommen kann und sollte von der eigenen klasse
-  //todo gegner treffen sich gegenseitig
   void damageOnCollision(List<Actor> actors) {
     for (Actor a in actors) {
       //if für aufteilung von gegner collisionen mit anderen gegnern
