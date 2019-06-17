@@ -81,9 +81,9 @@ class Controller {
           break;
       }
     });
+    view.addLifeBar();
     view.addPauseBtn();
     view.addMiniMap();
-    view.addLifeBar();
     ///timer der Model und view updatet
     startTimer();
   }
@@ -153,7 +153,6 @@ class Controller {
       await loadLevel("level/level$level.json");
       view.restart.remove();
       view.lose.remove();
-      game.player.life = 6;
       startTimer();
     });
 

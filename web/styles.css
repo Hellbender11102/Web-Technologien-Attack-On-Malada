@@ -49,11 +49,9 @@ html, body {
 .elite{
   background: url(Assets/elite.png);
 }
-
-.actor{
-  position: absolute;
-  background-size: 100% 100%;
-}
 .healthUp{
   background: url(Assets/healthUp.png);
+}
+.actor{
+  background-size: 100% 100%;
 }
