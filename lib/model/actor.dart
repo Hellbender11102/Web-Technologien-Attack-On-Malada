@@ -88,7 +88,7 @@ abstract class Actor {
 
   ///Der Actor berechnet die Beschleunigung
   ///Führt die move mit der neuen Beschleunigung aus
-  update() {
+  void update() {
     accelerate();
     move();
   }

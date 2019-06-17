@@ -4,13 +4,12 @@ import 'package:dartmotion_master/model/player.dart';
 import 'package:dartmotion_master/model/shot.dart';
 
 class Enemy extends Actor {
-  int damage;
   @override
   List<String> classes = ["casual", "enemy"];
 
   ///Erstellt einen Enemy
   Enemy(var game, int id, double posX, double posY, double sizeX, double sizeY,
-      int life, this.damage)
+      int life, damage)
       : super(game, id, posX, posY, sizeX, sizeY, life);
 
   @override
