@@ -8,8 +8,13 @@ import 'package:dartmotion_master/model/enemy.dart';
 import 'package:dartmotion_master/model/player.dart';
 
 class Game {
+  ///int worldSizeX ist die Breite des Levels
+  ///int worldSizeY ist die Höhe des Levels
+  ///int screenSizeY ist die Höhe des sichtbaren Spielfeldes
   int worldSizeX, worldSizeY, screenSizeY = window.innerHeight;
+  ///int fortschritt gibt an, in welchem Level man sich befindet
   int fortschritt;
+  ///String name ist der Name des Levels
   String name;
   int currentEntityID = 0;
   Cross cross;
@@ -19,7 +24,7 @@ class Game {
 
   Game();
 
-  ///updates each actor
+  ///Updatet jeden Actor
   void update() {
     for (Actor a in actors) {
       if (a.isDead) {
@@ -38,7 +43,7 @@ class Game {
     actors.forEach((actor) => actor.damageOnCollision(actors));
   }
 
-  ///führt für alle gegner den schuss aus
+  ///Führt für alle Gegner den Schuss aus
   void shoot() {
     for (Actor a in actors) {
       if (!a.isDead) {
@@ -47,7 +52,9 @@ class Game {
     }
   }
 
-  ///maps an JSON file on a game + enemies
+  ///Mappt die JSON-Datei zu einem Level.
+  ///Map<String, dynamic> json ist die JSON-Datei
+  ///int worldSizeX ist die Breite des Levels
   Game.fromJson(Map<String, dynamic> json, this.worldSizeX) {
     fortschritt = json['fortschritt'];
     name = json['name'];
@@ -68,8 +75,9 @@ class Game {
     actors.addAll([player, cross]);
   }
 
-  ///wird mit den lsiten der JSON datei gefüllt
-  ///erstellt gegner mit deren attributen
+  ///Wird mit den Listen der JSON-Datei gefüllt.
+  ///Erstellt Gegner mit deren Attributen, prüft dabei noch, ob die Gegner das Heavy-Attribut true ist und rechnet dementsprechend
+  ///Leben und Damage um.
   void _fillActorList(
       List<String> actorList,
       List<double> posXList,
@@ -120,6 +128,8 @@ class Game {
     enemies.addAll(actors);
   }
 
+  ///Verrechnet die X-Position des Actors mit der Breite des Bildschirms.
+  ///return Gibt die auf den Bildschirm angepasste X-Position zurück
   double _calcXPos (double posX){
     return posX * worldSizeX;
   }

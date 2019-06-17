@@ -4,73 +4,76 @@ import 'package:dartmotion_master/model/game.dart';
 import 'package:dartmotion_master/model/healthUp.dart';
 
 abstract class Actor {
-  /// constants
+  ///Konstanten
   final maxSpeed = 5;
   final accelerationMod = 0.0075;
 
-  ///zählt bei jedem update den tick mit
-  ///wird bei den Objekten enemy und player gebraucht
+  ///Zählt bei jedem Update den Tick mit.
+  ///wird bei den Objekten Enemy und Player gebraucht.
   int tickCount = 0;
 
   //muss 1 > x >= 0  sein
-  /// brake ist dafür da, dass der Spieler sich nach tastendruck leicht weiterbewegt
-  /// und momentum verliert
-  /// Wird mit dem Aktuellen Speed multipliziert
+  /// brake ist dafür da, dass der Spieler sich nach Tastendruck leicht weiterbewegt und Momentum verliert.
+  /// Wird mit dem aktuellen Speed multipliziert.
   final brake = 0.75;
 
-  ///für das design
+  ///Für das Design
   List<String> classes = ["actor"];
   int id;
   Game game;
   int damage = 1;
 
-  ///var game ist das Aktuelle spiel
-  ///int id ist eine einzigartiger id um diesen im dom zu verwalten
-  ///double posX ist die aktuelle position auf der X kooridnate
-  ///double posY ist die aktuelle position auf der Y kooridnate
+  ///var game ist das aktuelle spiel
+  ///int id ist eine einzigartige Id, um den Actor im Dom zu verwalten.
+  ///double posX ist die aktuelle Position auf der X-Koordinate.
+  ///double posY ist die aktuelle Position auf der Y-Koordinate.
   Actor(this.game, this.id, this.posX, this.posY, this.sizeX, this.sizeY,
       this.life);
 
-  ///position
+  ///X-Position
   double posX;
+  ///Y-Position
   double posY;
 
-  ///hitbox
+  ///Breite
   double sizeX;
+  ///Höhe
   double sizeY;
 
-  ///wird benutzt um objekte vor kollisionen zu schützen
+  ///wird benutzt, um Objekte vor Kollisionen zu schützen
   bool collisionDetect = true;
 
-  ///bewegungsgeschwindigkeit ind X oder Y richtung
+  ///Bewegungsgeschwindigkeit in X-Richtung
   double speedX = 0.0;
+  ///Bewegungsgeschwindigkeit in Y-Richtung
   double speedY = 0.0;
 
-  ///ändert die bewegungsgeschwindigkeit um den accelerationwert
+  ///Ändert die Bewegungsgeschwindigkeit in X-Richtung um den Acceleration-Wert
   double accelerationX = 0.0;
+  ///Ändert die Bewegungsgeschwindigkeit in Y-Richtung um den Acceleration-Wert
   double accelerationY = 0.0;
 
-  ///leben des Actors
+  ///Leben des Actors
   int life;
 
-  ///wenn der Actor kein Leben mehr hat wir false zurückgegeben
-  /// x > 0 return true
+  ///Wenn der Actor kein Leben mehr hat, wird false zurückgegeben.
+  ///x > 0 return true
   bool get isDead => life <= 0;
 
-  ///nächste position += speed
+  ///Beschleunigt, um den Acceleration-Wert, um die neue Geschwindigkeit zu bekommen
   void accelerate() {
     speedX = _getSpeed(speedX, accelerationX);
     speedY = _getSpeed(speedY, accelerationY);
   }
 
-  ///nächste position += speed
+  ///Nächste Position += speed mit Check, ob man innerhalb des sichtbaren Spielfeldes bleibt
   void move() {
     posX = keepInBounds(speedX, posX, game.worldSizeX.toDouble());
     posY = keepInBounds(speedY, posY, game.worldSizeY.toDouble());
   }
 
-  ///überprüft ob die beschläunigung über den maximalwert 15 steigt
-  ///wenn ja wird es auf 15 zurück gestzt
+  ///Überprüft, ob die Beschleunigung über den Maximalwert 15 steigt
+  ///Wenn ja, wird es auf 15 zurückgesetzt
   double _getSpeed(double speed, double acceleration) {
     speed += acceleration * accelerationMod;
     if (speed.abs() > maxSpeed) {
@@ -83,16 +86,14 @@ abstract class Actor {
     return speed;
   }
 
-  ///der Actor berechnet die beschleunigung
-  ///führt die move mit der neuen beschleunigung aus
+  ///Der Actor berechnet die Beschleunigung
+  ///Führt die move mit der neuen Beschleunigung aus
   update() {
     accelerate();
     move();
   }
 
-  ///überprüft ob 2 objekte überschneiden
-  ///und beide Objekte leben
-  ///und ob beide Objekte collisionDetect = true sind
+  ///Überprüft, ob 2 Objekte sich überschneiden, beide Objekte leben und ob beide Objekte collisionDetect = true sind
   ///Actor actor ist das zu vergleichende Objekt
   bool collision(Actor actor) {
     return collisionDetect && actor.collisionDetect && !isDead && !actor.isDead
@@ -105,9 +106,10 @@ abstract class Actor {
 
   String toString() => "ID:$id Position x:$posX  Position y:$posY";
 
-  ///lässt den nächsten move nicht aus den worldbounds
-  ///double speed geschwindigkeit des actors
-  ///double pos ist Die derzeitige position X und Y
+  ///Lässt den nächsten Move nicht aus dem sichtbaren Spielfeld raus
+  ///double speed Geschwindigkeit des Actors
+  ///double pos ist die derzeitige X- oder Y-Position
+  ///double max ist unsere Spielfeldgrenze für jeweils X oder Y
   double keepInBounds(double speed, double pos, double max) {
     if (pos + speed > max) {
       pos = max - 25;
@@ -121,13 +123,13 @@ abstract class Actor {
 
   void shootPlayer() {}
 
-  /// überproft ob das objekt schaden bekommen kann und sollte von der eigenen klasse
+  ///Überprüft, ob das Objekt Schaden bekommen kann
   void damageOnCollision(List<Actor> actors) {
     for (Actor a in actors) {
-      //if für aufteilung von gegner collisionen mit anderen gegnern
+      //if für Aufteilung von Gegner-Kollisionen mit anderen Gegnern
       if (collision(a) &&
           (!game.enemies.contains(a) || !game.enemies.contains(this))) {
-        // if für eigene schüsse die dem player kein schaden machen dürfen
+        //if für eigene Schüsse, die dem Player keinen Schaden machen dürfen
         if (!game.player.shotId.contains(id) && !a.classes.contains("player")) {
           a.life -= damage;
           life -= a.damage;
@@ -135,6 +137,8 @@ abstract class Actor {
       }
     }
   }
+
+  ///Fügt einem Gegner mit einer Chance von 10% ein PowerUp hinzu in Form eines Health-Ups
   void dropHealthUp(){
     double random =Random().nextDouble();
     if(random >= 0.9){

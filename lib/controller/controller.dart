@@ -88,6 +88,7 @@ class Controller {
     startTimer();
   }
 
+  ///Lädt das Level
   void loadLevel(String levelName) async {
     await HttpRequest.getString(levelName).then((json) {
       Map<String, dynamic> gameMap = JSON.jsonDecode(json);
@@ -96,17 +97,19 @@ class Controller {
     });
   }
 
+  ///Zählt das Level hoch und zeigt den entsprechenden Screen an
   void nextLevel() {
     level = level >= 10 ? 1 : level + 1;
     view.showEndWin();
   }
 
+  ///Zeigt den Screen fürs Verlieren an
   void retryLevel() {
     view.showEndLose();
   }
 
   void startTimer() {
-    ///timer der Model und view updatet
+    ///timer der Model und View updatet
     modelTimer = new Timer.periodic(
         new Duration(microseconds: ((1000 / tick).round().toInt())),
         (Timer t) async {
@@ -131,7 +134,7 @@ class Controller {
     modelTimer.cancel();
   }
 
-  ///erstellt die listener der knöpfe und legt deren funktion fest
+  ///erstellt die Listener der Knöpfe und legt deren Funktion fest
   void _setListener() {
     view.pause.onClick.listen((_) {
       if (modelTimer.isActive) {
