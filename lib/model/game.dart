@@ -1,4 +1,3 @@
-
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/astroid.dart';
 import 'package:dartmotion_master/model/boss.dart';
@@ -15,7 +14,7 @@ class Game {
   Cross cross;
   Player player;
   List<Actor> actors = [];
-  List<int> enemyShots = [];
+  List<Actor> enemies = [];
 
   Game();
 
@@ -30,7 +29,8 @@ class Game {
     }
     actors.forEach((actor) => actor.damageOnCollision(actors));
   }
-///führt für alle gegner den schuss aus
+
+  ///führt für alle gegner den schuss aus
   void shoot() {
     for (Actor a in actors) {
       if (!a.isDead) {
@@ -50,8 +50,7 @@ class Game {
     player = Player(this, currentEntityID++, cross.posX, 20);
     player.cross = cross;
     actors.addAll([player, cross]);
-
-    actors.addAll(_fillActorList(
+    _fillActorList(
         json['actorList'].cast<String>(),
         json['posXList'].cast<double>(),
         json['posYList'].cast<double>(),
@@ -59,12 +58,12 @@ class Game {
         json['sizeYList'].cast<double>(),
         json['healthList'].cast<int>(),
         json['heavyList'].cast<bool>(),
-        json['damageList'].cast<int>()));
+        json['damageList'].cast<int>());
   }
 
   ///wird mit den lsiten der JSON datei gefüllt
   ///erstellt gegner mit deren attributen
-  List<Actor> _fillActorList(
+  void _fillActorList(
       List<String> actorList,
       List<double> posXList,
       List<double> posYList,
@@ -73,7 +72,6 @@ class Game {
       List<int> healthList,
       List<bool> heavyList,
       List<int> damageList) {
-    List<Actor> actors = [];
     for (int i = 0; i < actorList.length; i++) {
       if (actorList[i] == 'casual') {
         actors.add(heavyList[i]
@@ -112,6 +110,6 @@ class Game {
             sizeXList[i], sizeYList[i], healthList[i], damageList[i]));
       }
     }
-    return actors;
+    enemies.addAll(actors);
   }
 }

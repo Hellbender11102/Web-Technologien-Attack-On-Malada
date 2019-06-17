@@ -9,10 +9,8 @@ class Elite extends Enemy{
   ///Elite gegner bekommen ein besonderes movment welches sich auf das Fadenkreuz bezieht
   @override
   void move() {
-    speedY = -0.5;
     double crossX = game.cross.posX;
     double crossY = game.cross.posY;
-
     if(crossX > posX -20){
       speedX +1;
     }

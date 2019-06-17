@@ -11,8 +11,7 @@ class Controller {
   Game game;
   View view;
   Timer modelTimer;
-  Timer shootTimer;
-  int level = 1;
+  int level = 2;
   int _life;
 
   Controller(this.view) {
@@ -111,17 +110,17 @@ class Controller {
   void startTimer() {
     ///timer der Model und view updatet
     modelTimer = new Timer.periodic(
-        new Duration(microseconds: ((1000 / ticks).round().toInt())),
+        new Duration(microseconds: ((1000 / tick).round().toInt())),
         (Timer t) {
           view.setLifeBar(game.player.life);
           //todo beim retry werden 2 timerr gestartet wird doppelt so schnell
       if (game.player.life <= 0) {
+        view.setLifeBar(0);
         view.deletAllFromDom();
         stopAllTimer();
         retryLevel();
-        view.setLifeBar(0);
         //todo friendly shots müssen ignoriert werden sonst kann man machen das das level nicht beendet wird
-      } else if (game.actors.length <= 2) {
+      } else if (game.enemies.isEmpty) {
         _life = game.player.life;
         view.deletAllFromDom();
         stopAllTimer();
@@ -131,15 +130,10 @@ class Controller {
         view.update();
       }
     });
-    ///timer der Model und view updatet
-    shootTimer = new Timer.periodic(new Duration(seconds: (3)), (Timer t) {
-      game.shoot();
-    });
   }
 
 
   void stopAllTimer() {
-    shootTimer.cancel();
     modelTimer.cancel();
   }
 
@@ -165,7 +159,6 @@ class Controller {
       await loadLevel("level/level$level.json");
       view.restart.remove();
       view.lose.remove();
-      startGame();
       startTimer();
     });
 

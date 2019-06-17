@@ -35,7 +35,7 @@ class Player extends Actor {
   @override
   void damageOnCollision(List<Actor> actors) {
     for(Actor a in actors) {
-      if (collision(a) && !a.isDead && !shotId.contains(a.id) && a != this && !isDead) {
+      if (collision(a) && !shotId.contains(a.id) && a != this) {
         a.life -=  damage;
         life -= a.damage;
       }

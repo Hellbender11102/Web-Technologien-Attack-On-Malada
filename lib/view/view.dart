@@ -60,11 +60,7 @@ class View {
       List entries = domElements.entries.toList();
 
       /// Suchen vom actor
-      for (MapEntry entry in entries) {
-        if (entry.key == actor.id) {
-          actorInView = entry.value;
-        }
-      }
+      actorInView = domElements[actor.id];
 
       /// wenn null dann erstellen
       if (actorInView == null && !actor.isDead) {

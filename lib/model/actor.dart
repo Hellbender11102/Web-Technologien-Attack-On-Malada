@@ -4,8 +4,10 @@ import 'package:dartmotion_master/model/player.dart';
 abstract class Actor {
   /// constants
   final maxSpeed = 5;
-  final accelerationMod = 0.005;
-  final brake = 0.95;
+  final accelerationMod = 0.0075;
+
+  //muss 1 > x >= 0  sein
+  final brake = 0.75;
 
   ///für das design
   List<String> classes = ["actor"];
@@ -96,12 +98,9 @@ abstract class Actor {
   //todo gegner treffen sich gegenseitig
   void damageOnCollision(List<Actor> actors) {
     for (Actor a in actors) {
-      if (collision(a) &&
-          !a.isDead &&
-          !isDead &&
-          !game.enemyShots.contains(a.id) &&
-          !game.enemyShots.contains(id) &&
-          a != this) {
+      //if für aufteilung von gegner collisionen mit anderen gegnern
+      if (collision(a) && (!game.enemies.contains(a) || !game.enemies.contains(this))) {
+        // if für eigene schüsse die dem player kein schaden machen dürfen
         if (!game.player.shotId.contains(id) && !a.classes.contains("player")) {
           a.life -= damage;
           life -= a.damage;
