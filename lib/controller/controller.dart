@@ -95,7 +95,6 @@ class Controller {
       view.game = game;
       //TODO so soll es nicht bleiben ist nur ein schmankerle für marcel
       game.worldSizeX = view.getViewWidth() - 40;
-      game.worldSizeY = view.getViewHeight() - 40;
     });
   }
 

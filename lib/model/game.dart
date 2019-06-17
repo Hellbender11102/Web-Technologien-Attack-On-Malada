@@ -7,7 +7,7 @@ import 'package:dartmotion_master/model/enemy.dart';
 import 'package:dartmotion_master/model/player.dart';
 
 class Game {
-  int worldSizeX = 1000, worldSizeY = 1000;
+  int worldSizeX, worldSizeY;
   int fortschritt;
   String name;
   int currentEntityID = 0;
@@ -48,7 +48,6 @@ class Game {
   Game.fromJson(Map<String, dynamic> json) {
     fortschritt = json['fortschritt'];
     name = json['name'];
-    worldSizeX = json['worldSizeX'];
     worldSizeY = json['worldSizeY'];
 
     cross = Cross(this, currentEntityID++, 300, 100);
