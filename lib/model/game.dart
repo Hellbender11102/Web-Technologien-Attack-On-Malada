@@ -45,7 +45,7 @@ class Game {
   }
 
   ///maps an JSON file on a game + enemies
-  Game.fromJson(Map<String, dynamic> json) {
+  Game.fromJson(Map<String, dynamic> json, this.worldSizeX) {
     fortschritt = json['fortschritt'];
     name = json['name'];
     worldSizeY = json['worldSizeY'];
@@ -82,38 +82,42 @@ class Game {
             ? (Enemy(
                 this,
                 currentEntityID++,
-                posXList[i],
+                _calcXPos(posXList[i]),
                 posYList[i],
                 sizeXList[i],
                 sizeYList[i],
                 healthList[i] * 2,
                 damageList[i] * 2))
-            : Enemy(this, currentEntityID++, posXList[i], posYList[i],
+            : Enemy(this, currentEntityID++, _calcXPos(posXList[i]), posYList[i],
                 sizeXList[i], sizeYList[i], healthList[i], damageList[i]));
       } else if (actorList[i] == 'asteroid') {
         actors.add(heavyList[i]
-            ? Asteroid(this, currentEntityID++, posXList[i], posYList[i],
+            ? Asteroid(this, currentEntityID++, _calcXPos(posXList[i]), posYList[i],
                 sizeXList[i], sizeYList[i], healthList[i] * 2)
-            : Asteroid(this, currentEntityID++, posXList[i], posYList[i],
+            : Asteroid(this, currentEntityID++, _calcXPos(posXList[i]), posYList[i],
                 sizeXList[i], sizeYList[i], healthList[i]));
       } else if (actorList[i] == 'elite') {
         actors.add(heavyList[i]
             ? Elite(
                 this,
                 currentEntityID++,
-                posXList[i],
+                _calcXPos(posXList[i]),
                 posYList[i],
                 sizeXList[i],
                 sizeYList[i],
                 healthList[i] * 2,
                 damageList[i] * 2)
-            : Elite(this, currentEntityID++, posXList[i], posYList[i],
+            : Elite(this, currentEntityID++, _calcXPos(posXList[i]), posYList[i],
                 sizeXList[i], sizeYList[i], healthList[i], damageList[i]));
       } else if (actorList[i] == 'boss') {
-        actors.add(Boss(this, currentEntityID++, posXList[i], posYList[i],
+        actors.add(Boss(this, currentEntityID++, _calcXPos(posXList[i]), posYList[i],
             sizeXList[i], sizeYList[i], healthList[i], damageList[i]));
       }
     }
     enemies.addAll(actors);
+  }
+
+  double _calcXPos (double posX){
+    return posX * worldSizeX;
   }
 }

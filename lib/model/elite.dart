@@ -1,4 +1,5 @@
 import 'package:dartmotion_master/model/enemy.dart';
+import 'package:dartmotion_master/model/player.dart';
 
 class Elite extends Enemy {
   List<String> classes = ["elite", 'enemy'];
@@ -16,10 +17,10 @@ class Elite extends Enemy {
     double crossSizeX = game.cross.sizeX;
     double crossSizeY = game.cross.sizeY;
     if (crossX > posX && posX < crossX + crossSizeX) {
-      accelerationX +=  posX -crossX > 0 ? 2: -2;
+      speedX +=  posX -crossX > 0 ? 2: -2;
     }
     if (crossY > posY && posY < crossY + crossSizeY) {
-      accelerationY +=  posY -crossY > 0 ? 2: -2;
+      speedY +=  posY -crossY > 0 ? 2: -2;
     }
   }
 }

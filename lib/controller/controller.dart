@@ -11,7 +11,7 @@ class Controller {
   Game game;
   View view;
   Timer modelTimer;
-  int level = 1;
+  int level = 10;
   int _life;
 
   Controller(this.view) {
@@ -91,10 +91,8 @@ class Controller {
   void loadLevel(String levelName) async {
     await HttpRequest.getString(levelName).then((json) {
       Map<String, dynamic> gameMap = JSON.jsonDecode(json);
-      this.game = Game.fromJson(gameMap);
+      this.game = Game.fromJson(gameMap, view.getViewWidth() - 40);
       view.game = game;
-      //TODO so soll es nicht bleiben ist nur ein schmankerle für marcel
-      game.worldSizeX = view.getViewWidth() - 40;
     });
   }
 
