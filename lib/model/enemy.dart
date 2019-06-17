@@ -24,7 +24,7 @@ class Enemy extends Actor {
   @override
   void shootPlayer() {
     Player a = game.player;
-    if (tickCount % (tick * 5) == 0) {
+    if (tickCount % (tick * 10git ) == 0) {
       Shot shot = Shot(game, game.currentEntityID++, posX + sizeX / 2, posY + sizeY / 2,
           a.posX + a.sizeX / 2, a.posY)
         ..damage = this.damage

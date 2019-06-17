@@ -14,7 +14,7 @@ class Asteroid extends Actor {
 
   @override
   void accelerate() {
-    speedY = -0.5;
+    speedY = -0.4;
     sizeX += growth;
     sizeY += growth;
 
@@ -27,11 +27,13 @@ class Asteroid extends Actor {
   void split() {
     Asteroid a1 =
         Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
-          ..speedX = -0.1;
+          ..speedX = -0.1
+          ..speedY = 0.2;
     Asteroid a2 =
         Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
-          ..speedX = 0.1;
+          ..speedX = 0.1
+          ..speedY = 0.2;
     game.actors.addAll([a1, a2]);
-    game.enemies.addAll([a1,a2]);
+    game.enemies.addAll([a1, a2]);
   }
 }
