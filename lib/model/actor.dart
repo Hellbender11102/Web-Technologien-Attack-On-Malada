@@ -136,10 +136,8 @@ abstract class Actor {
     }
   }
   void dropHealthUp(){
-    print('kein spawn');
     double random =Random().nextDouble();
     if(random >= 0.0){
-      print('spawn');
       HealthUp healthUp = HealthUp(game,game.currentEntityID++,posX-sizeX/2,posY-sizeY/2);
       game.actors.add(healthUp);
       game.enemies.add(healthUp);
