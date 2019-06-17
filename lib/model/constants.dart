@@ -1,8 +1,9 @@
 
 
-///tick ist die wiederholungsrate des timers
-///bei 60 haben wir jede 60stel sekunde ein update
-///diese kosntante wird auch für die berechnung von schüssen des gegners und des players genutzt
-final tick = 40;
-///growth ist zuständig für die wachstumsrate der gegner derzeit wäcsht nur der astroid
+///tick ist die Wiederholungsrate des Timers
+///bei 60 haben wir jede 60stel Sekunde ein Update
+///diese Kosntante wird auch für die Berechnung von Schüssen des Gegners und des Players genutzt
+final tick = 60;
+///growth ist zuständig für die Wachstumsrate der Gegner
+///derzeit wächst nur der astroid
 final growth = 0.015;

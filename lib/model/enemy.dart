@@ -8,6 +8,7 @@ class Enemy extends Actor {
   @override
   List<String> classes = ["casual", "enemy"];
 
+  ///Erstellt einen Enemy
   Enemy(var game, int id, double posX, double posY, double sizeX, double sizeY,
       int life, this.damage)
       : super(game, id, posX, posY, sizeX, sizeY, life);
@@ -19,7 +20,7 @@ class Enemy extends Actor {
     shootPlayer();
   }
 
-  ///nimmt die x und y coordinate des spielers und erstellt einen schuss der in die richtung fliegt
+  ///nimmt die X- und Y-Koordinate des Spielers und erstellt einen Schuss, der in die Richtung fliegt
   @override
   void shootPlayer() {
     Player a = game.player;
@@ -33,6 +34,7 @@ class Enemy extends Actor {
     }
   }
 
+  ///Fliegt seitlich hin- und her, ändert die Richtung, wenn er am Bildschirmrand angekommen ist
   @override
   void accelerate() {
     if (posY < game.worldSizeY && posY >= game.screenSizeY - sizeY) {

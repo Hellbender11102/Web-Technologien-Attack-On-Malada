@@ -10,10 +10,13 @@ class View {
   Map<int, Element> domElements = Map();
   Element output = querySelector('#output');
   Game game;
+  ///Mitte der X-Achse
   int centerX = (window.innerWidth / 2).round();
+  ///Mitte der Y-Achse
   int centerY = (window.innerHeight / 2).round();
   int sinVal = 0;
 
+  //ImageElemente für unsere Buttons und Lebensanzeige
   ImageElement life = new ImageElement();
   ImageElement startBtn = new ImageElement();
   ImageElement win = new ImageElement();
@@ -22,17 +25,19 @@ class View {
   ImageElement level = new ImageElement();
   ImageElement next = new ImageElement();
   ImageElement pause = new ImageElement();
-  ImageElement youWon =new ImageElement();
 
+  //ImageElemente und DivElement für die Minimap
   DivElement minimapElement = new DivElement();
   ImageElement playerDot = new ImageElement();
   List<ImageElement> enemyDots = new List<ImageElement>();
 
-
+  ///Beim Erstellen der View wird der Start-Button direkt hinzugefügt
   View() {
     addStartBtn();
   }
 
+  ///Aktualisiert die Lebensanzeige
+  ///int life aktuelles Leben
   void setLifeBar(int life) {
     if (life >= 0 && life <= 9) {
       this.life.src = "Assets/hearts_$life.png";
@@ -49,8 +54,8 @@ class View {
     return window.innerWidth;
   }
 
-  ///update erstellt und entfernt gegner aus der gamestage im html code
-  /// Speichert die Elemente in eine Tabelle um nicht die ganze zeit query selecten #dartsnake
+  ///update erstellt und entfernt Gegner aus der Gamestage im Html-Code
+  /// Speichert die Elemente in eine Tabelle, um nicht die ganze Zeit Query zu selecten #DartSnake
   void update() {
     //Liste erstellen mit allen Einträgen
     List entries = domElements.entries.toList();
@@ -60,10 +65,10 @@ class View {
       Element actorInView;
 
 
-      /// Suchen vom actor
+      /// Suchen vom Actor
       actorInView = domElements[actor.id];
 
-      /// wenn null dann erstellen
+      /// wenn null, dann erstellen
       if (actorInView == null && !actor.isDead) {
         actorInView = Element.div();
         actorInView.classes = actor.classes..add("actor");
@@ -80,8 +85,8 @@ class View {
         }
       }
 
-      /// falls tot soll es nicht mehr angezeigt werde
-      /// und entfernen aus der Liste
+      /// falls tot, soll es nicht mehr angezeigt werden
+      /// und aus der Liste entfernt werden
       if (actor.isDead && actorInView != null) {
         actorInView.remove();
         domElements.remove(actor.id);
@@ -106,6 +111,7 @@ class View {
   }
 
 
+  ///Zeigt den Screen fürs Gewinnen an
   void showEndWin() {
     win.src = "Assets/Win.png";
     win.className = "win";
@@ -124,6 +130,7 @@ class View {
     output.children.add(next);
   }
 
+  ///Fügt den Pause-Button hinzu
   void addPauseBtn() {
     pause.src = "Assets/pause.png";
     pause.className = "pauseBtn";
@@ -135,6 +142,7 @@ class View {
     output.children.add(pause);
   }
 
+  ///Zeigt den Screen fürs Verlieren an
   void showEndLose() {
     lose.src = "Assets/GameOver.png";
     lose.className = "lose";
@@ -153,6 +161,7 @@ class View {
     output.children.add(restart);
   }
 
+  ///Fügt den Start-Button hinzu
   void addStartBtn() {
     startBtn.src = "Assets/start.png";
     startBtn.className = "start";
@@ -164,7 +173,7 @@ class View {
   }
 
 
-  ///löscht alle actoren die im Spiel und im Dom tree vorhanden sind
+  ///löscht alle Actoren, die im Spiel und im Dom-Tree vorhanden sind
   void deletAllFromDom() {
     for (Actor actor in game.actors) {
       List entries = domElements.entries.toList();
@@ -177,6 +186,7 @@ class View {
     }
   }
 
+  ///Fügt die Minimap hinzu
   void addMiniMap(){
     minimapElement.style.position = "absolute";
     minimapElement.style.top = "0px";
@@ -213,6 +223,7 @@ class View {
     output.children.add(minimapElement);
   }
 
+  ///Fügt die Life-Bar hinzu
   void addLifeBar(){
     life.src = "Assets/hearts_6.png";
     life.className = "life";
@@ -222,5 +233,4 @@ class View {
     life.style.zIndex = "5";
     output.children.add(life);
   }
-
 }

@@ -10,21 +10,17 @@ class Player extends Actor {
   @override
   List<String> classes = ["player"];
 
-  ///konstruktor für ein Player
-  ///var game ist das Aktuelle spiel
-  ///int id ist eine einzigartiger id um diesen im dom zu verwalten
-  ///double posX ist die aktuelle position auf der X kooridnate
-  ///double posY ist die aktuelle position auf der Y kooridnate
-  ///Die zahl 56 ist die breite des Spielers
-  ///Die zahl 27 ist die höhe des Spielers
-  ///Die zahl 6 ist das maximale Leben des Spielers
+  ///Erstellt einen Spieler
+  ///Die Zahl 56 ist die Breite des Spielers
+  ///Die Zahl 27 ist die Höhe des Spielers
+  ///Die Zahl 6 ist das maximale Leben des Spielers
   Player(var game, int id, double posX, double posY)
       : super(game, id, posX, posY, 56, 27, 6);
   List<int> firendlyId = List();
   Actor cross;
   double sinVal = 0; //Wird genutzt für Animation
 
-  ///move wird überschrieben da der player nur dem Fadenkreutz folgt
+  ///Move wird überschrieben, da der Player nur dem Fadenkreuz folgt
   @override
   void move() {
     posX = cross.posX + (cross.sizeX - sizeX) / 2;
@@ -38,11 +34,9 @@ class Player extends Actor {
      super.update();
   }
 
-  ///erstellt einen schuss der in richtung fadenkreutz fliegt
+  ///Erstellt einen Schuss, der in Richtung Fadenkreuz fliegt
   void shoot() {
     if(_shotReady) {
-
-
       int id = game.currentEntityID++;
       game.actors.add(Shot(game, id, posX + sizeX / 2,
           posY + sizeY / 2, cross.posX + cross.sizeX / 2, cross.posY)
@@ -54,7 +48,7 @@ class Player extends Actor {
   }
 
 
-  ///überprüft ob er dem objekt schaden machen darf und zieht dann beiden objekt leben ab
+  ///Überprüft, ob er dem Objekt Schaden machen darf und zieht dann beiden Objekten Leben ab
   @override
   void damageOnCollision(List<Actor> actors) {
     for(Actor a in actors) {
