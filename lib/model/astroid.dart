@@ -10,7 +10,7 @@ class Asteroid extends Actor {
 
   ///überschreibt den return von classes
   @override
-  List<String> classes = ['asteroid','enemy'];
+  List<String> classes = ['asteroid', 'enemy'];
 
   @override
   void accelerate() {
@@ -22,5 +22,14 @@ class Asteroid extends Actor {
       life = 0;
       collisionDetect = false;
     }
+  }
+
+  void split() {
+    game.actors.addAll([
+      Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
+        ..speedX = -0.25,
+      Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
+        ..speedX = 0.25
+    ]);
   }
 }
