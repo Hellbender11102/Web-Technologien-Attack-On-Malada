@@ -10,7 +10,8 @@ class Shot extends Actor {
     ///berechnet den einheitsvektor mit gegebenen start und zielkoordinate. dadurch schießen gegner in egal welcher position gleich schnell
     double _betrag =
         Math.sqrt(Math.pow(posX2 - posX, 2) + Math.pow(posY2 - posY, 2));
-    speedX = ((posX2 - posX) * (1 / _betrag)) * 2;//multipliziert den einheitsvektors mit 2 für doppelte geschwindigkeit
+    speedX = ((posX2 - posX) * (1 / _betrag)) *
+        2; //multipliziert den einheitsvektors mit 2 für doppelte geschwindigkeit
     speedY = ((posY2 - posY) * (1 / _betrag)) * 2;
   }
 

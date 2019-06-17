@@ -17,8 +17,9 @@ class Asteroid extends Actor {
     speedY = -0.4;
     sizeX += growth;
     sizeY += growth;
+    speedX = posX + speedX <= 0 ? 0.1 : posX + speedX >= game.worldSizeX ? -0.1 : speedX;
 
-    if (posY <= 0 || posX <= 0 || posX >= game.worldSizeX) {
+    if (posY + speedY <= 0) {
       life = 0;
       collisionDetect = false;
     }
