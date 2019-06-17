@@ -1,212 +1,227 @@
 import 'dart:html';
-import '../model/asteroid.dart';
-import '../model/enemy.dart';
-import '../model/shot.dart';
-import '../model/player.dart';
-import '../model/elite.dart';
+
+import 'package:dartmotion_master/model/actor.dart';
+import 'package:dartmotion_master/model/game.dart';
+import 'package:dartmotion_master/model/player.dart';
+import 'package:dartmotion_master/model/shot.dart';
+import 'package:dartmotion_master/model/cross.dart';
 
 class View {
-  var screen = querySelector("#screen");
-  var player = querySelector("#player");
-  var cross = querySelector("#cross");
-  var start = querySelector("#start");
-  bool noHpLeft = false;
-  /**
-   * Breite des Views
-   */
-  int get width => window.innerWidth;
-  /**
-   * Höhe des Views
-   */
-  int get height => window.innerHeight;
-
-  double get center_x => this.width / 2;
-
-  double get center_y => this.height / 2;
-
-  ImageElement crosshair = new ImageElement();
-  double cross_x;
-  double cross_y;
+  Map<int, Element> domElements = Map();
+  Element output = querySelector('#output');
+  Game game;
+  int centerX = (window.innerWidth / 2).round();
+  int centerY = (window.innerHeight / 2).round();
+  int sinVal = 0;
 
   ImageElement life = new ImageElement();
-  int counter = 180;
-
   ImageElement startBtn = new ImageElement();
   ImageElement win = new ImageElement();
   ImageElement restart = new ImageElement();
   ImageElement lose = new ImageElement();
   ImageElement level = new ImageElement();
   ImageElement next = new ImageElement();
+  ImageElement pause = new ImageElement();
+
+  DivElement minimapElement = new DivElement();
+  ImageElement playerDot = new ImageElement();
+  List<ImageElement> enemyDots = new List<ImageElement>();
+
 
   View() {
-    cross_x = center_x;
-    cross_y = center_y;
+    addStartBtn();
+    addMiniMap();
 
-    this.crosshair.src = "Assets/cross.png";
-    this.crosshair.className = "cross";
-    this.crosshair.style.position = "absolute";
-    this.crosshair.style.zIndex = "2";
-    this.crosshair.style.bottom = "${cross_y}px";
-    this.crosshair.style.left = "${cross_x}px";
-    this.screen.children.add(crosshair);
-
-    this.startBtn.src = "Assets/start.png";
-    this.startBtn.className = "start";
-    this.startBtn.style.position = "absolute";
-    this.startBtn.style.zIndex = "3";
-    this.startBtn.style.bottom = "${50}%";
-    this.startBtn.style.left = "${center_x - 165}px";
-    this.screen.children.add(startBtn);
-
-    this.life.src = "Assets/hearts_6.png";
-    this.life.className = "life";
-    this.life.style.position = "absolute";
-    this.life.style.bottom = "${90}%";
-    this.life.style.left = "${center_x - 96}px";
-    this.life.style.zIndex = "5";
-    this.screen.children.add(life);
+    life.src = "Assets/hearts_6.png";
+    life.className = "life";
+    life.style.position = "absolute";
+    life.style.bottom = "${90}%";
+    life.style.left = "${getViewWidth() / 2 - 96}px";
+    life.style.zIndex = "5";
+    output.children.add(life);
   }
 
-  void collisionCheckShots(List<Shot> shots, Player toCheck){
-    var rectP = player.getBoundingClientRect();
-
-    for (int i = 0; i < shots.length; i++) {
-      var rectA = shots[i].getImage().getBoundingClientRect();
-      var overlapAP = !(rectA.right < rectP.left ||
-          rectA.left > rectP.right ||
-          rectA.bottom < rectP.top ||
-          rectA.top > rectP.bottom);
-      if (overlapAP) {
-        if(toCheck.life >= 2){
-          toCheck.life -= 2;
-        } else {
-          toCheck.life = 0;
-        }
-        shots[i].getImage().remove();
-        shots.removeAt(i);
-      }
+  void setLifeBar(int life) {
+    if (life >= 0 && life <= 6) {
+      this.life.src = "Assets/hearts_$life.png";
     }
   }
 
-  void collisionCheck(List<Enemy> enemyList, Player toCheck){
-    var rectP = player.getBoundingClientRect();
+  ///return die innerheight
+  int getViewHeight() {
+    return window.innerHeight;
+  }
 
-    for (int k = 0; k < enemyList.length; k++) {
-      var rectA = enemyList[k].getImage().getBoundingClientRect();
-      var overlapAP = !(rectA.right < rectP.left ||
-          rectA.left > rectP.right ||
-          rectA.bottom < rectP.top ||
-          rectA.top > rectP.bottom);
-      if (overlapAP) {
-        counter--;
-        if(counter < 180 && counter % 30 == 0){
-          toCheck.life--;
+  ///return die innerwidth
+  int getViewWidth() {
+    return window.innerWidth;
+  }
+
+  ///update erstellt und entfernt gegner aus der gamestage im html code
+  /// Speichert die Elemente in eine Tabelle um nicht die ganze zeit query selecten #dartsnake
+  void update() {
+    //Liste erstellen mit allen Einträgen
+    List entries = domElements.entries.toList();
+    ImageElement temporaryImageHolder;
+
+    for (Actor actor in game.actors) {
+      Element actorInView;
+      
+
+      /// Suchen vom actor
+      for (MapEntry entry in entries) {
+        if (entry.key == actor.id) {
+          actorInView = entry.value;
         }
       }
-    }
-    switch (toCheck.life) {
-          case 5:
-            {
-              this.life.src = "Assets/hearts_5.png";
-            }
-            break;
 
-          case 4:
-            {
-              this.life.src = "Assets/hearts_4.png";
-            }
-            break;
-
-          case 3:
-            {
-              this.life.src = "Assets/hearts_3.png";
-            }
-            break;
-
-          case 2:
-            {
-              this.life.src = "Assets/hearts_2.png";
-            }
-            break;
-
-          case 1:
-            {
-              this.life.src = "Assets/hearts_1.png";
-            }
-            break;
-
-          case 0:
-            {
-              this.life.src = "Assets/hearts_0.png";
-              noHpLeft = true;
-            }
-            break;
+      /// wenn null dann erstellen
+      if (actorInView == null && !actor.isDead) {
+        actorInView = Element.div();
+        actorInView.classes = actor.classes..add("actor");
+        domElements.putIfAbsent(actor.id, () => actorInView);
+        output.insertAdjacentElement("afterbegin", actorInView);
+        if(actor is !Player && actor is !Shot && actor is !Cross){
+          ImageElement enemy = new ImageElement();
+          enemy.style.position = "absolute";
+          enemy.src = "Assets/EnemyBeepBeep.png";
+          enemy.className = "enemy";
+          enemy.id = "enemyDotNr${actor.id}";
+          enemyDots.add(enemy);
+          minimapElement.children.add(enemy);
         }
-  }
+      }
 
-  void update(int xPos, int yPos, List<Enemy> enemyList) {
-    this.crosshair = querySelector(".cross");
-    this.crosshair.style.bottom = "${yPos}px";
-    this.crosshair.style.left = "${xPos}px";
+      /// falls tot soll es nicht mehr angezeigt werde
+      /// und entfernen aus der Liste
+      if (actor.isDead && actorInView != null) {
+        actorInView.remove();
+        domElements.remove(actor.id);
+        enemyDots.removeWhere((x) => x.id == "enemyDotNr${actor.id}");
+        minimapElement.children.removeWhere((x) => x.id == "enemyDotNr${actor.id}");
 
-    for (int a = 0; a < enemyList.length; a++) {
-      if(enemyList[a] is Elite){
-        enemyList[a].cleverMove(xPos, yPos);
-      } else {
-        enemyList[a].move();
+      } else if (actorInView != null) {
+        /// Quelle generate und update der Dartsnake
+        actorInView.style.height = actor.sizeY.toString() + "px";
+        actorInView.style.width = actor.sizeX.toString() + "px";
+        actorInView.style.bottom = actor.posY.toString() + "px";
+        actorInView.style.left = actor.posX.toString() + "px";
+        if(actor is !Player && actor is !Shot && actor is !Cross){
+          temporaryImageHolder = enemyDots.firstWhere((x) => x.id == "enemyDotNr${actor.id}");
+          temporaryImageHolder.style.left = '${((actor.posX / game.worldSizeX) * 100)}%';
+          temporaryImageHolder.style.bottom = '${((actor.posY / game.worldSizeY) * 100)}%';
+        }
       }
     }
+    playerDot.style.left = '${((game.player.posX / game.worldSizeX) * 100)}%';
+    playerDot.style.bottom = '${((game.player.posY / game.worldSizeY) * 100)}%';
   }
 
-  void updateShots(List<Shot> shots){
-    for(int i = 0; i < shots.length; i++){
-      shots[i].move();
-      if(shots[i].missed == true){
-        shots[i].getImage().remove();
-        shots.removeAt(i);
-      }
-    }
-  }
 
-  void showEndWin(){
+  void showEndWin() {
     win.src = "Assets/Win.png";
     win.className = "win";
     win.style.position = "absolute";
     win.style.zIndex = "5";
-    win.style.bottom = "${center_y + 65}px";
-    win.style.left = "${center_x - 165}px";
-    screen.children.add(win);
+    win.style.bottom = "${centerY + 65}px";
+    win.style.left = "${centerX - 165}px";
+    output.children.add(win);
 
     next.src = "Assets/Next.png";
     next.className = "next";
     next.style.position = "absolute";
     next.style.zIndex = "5";
-    next.style.bottom = "${center_y - 65}px";
-    next.style.left = "${center_x - 165}px";
-    screen.children.add(next);
+    next.style.bottom = "${centerY - 65}px";
+    next.style.left = "${centerX - 165}px";
+    output.children.add(next);
   }
 
-  void showEndLose(){
+  void addPauseBtn() {
+    pause.src = "Assets/pause.png";
+    pause.className = "pauseBtn";
+    pause.style.position = "absolute";
+    pause.style.width = "100px";
+    pause.style.height = "100px";
+    pause.style.bottom = "${getViewHeight() - 100}px";
+    pause.style.left = "${getViewWidth() - 100}px";
+    output.children.add(pause);
+  }
+
+  void showEndLose() {
     lose.src = "Assets/GameOver.png";
     lose.className = "lose";
     lose.style.position = "absolute";
     lose.style.zIndex = "5";
-    lose.style.bottom = "${center_y + 65}px";
-    lose.style.left = "${center_x - 165}px";
-    screen.children.add(lose);
+    lose.style.bottom = "${centerY + 65}px";
+    lose.style.left = "${centerX - 165}px";
+    output.children.add(lose);
 
     restart.src = "Assets/restart.png";
     restart.className = "restart";
     restart.style.position = "absolute";
     restart.style.zIndex = "5";
-    restart.style.bottom = "${center_y - 65}px";
-    restart.style.left = "${center_x - 165}px";
-    screen.children.add(restart);
+    restart.style.bottom = "${centerY - 65}px";
+    restart.style.left = "${centerX - 165}px";
+    output.children.add(restart);
   }
 
-  void clearScreen(){
-    for(int i = 2; i < screen.children.length; i++){
-      screen.children[i].remove();
+  void addStartBtn() {
+    startBtn.src = "Assets/start.png";
+    startBtn.className = "start";
+    startBtn.style.position = "absolute";
+    startBtn.style.zIndex = "3";
+    startBtn.style.bottom = "${50}%";
+    startBtn.style.left = "${getViewWidth() / 2 - 165}px";
+    output.children.add(startBtn);
+  }
+
+
+  ///löscht alle actoren die im Spiel und im Dom tree vorhanden sind
+  void deletAllFromDom() {
+    for (Actor actor in game.actors) {
+      List entries = domElements.entries.toList();
+      for (MapEntry entry in entries) {
+        if (entry.key == actor.id) {
+          entry.value.remove();
+          domElements.remove(actor.id);
+        }
+      }
     }
+  }
+
+  void addMiniMap(){
+    minimapElement.style.position = "absolute";
+    minimapElement.style.top = "0px";
+    minimapElement.style.left = "0px";
+    minimapElement.style.width = "150px";
+    minimapElement.style.height = "150px";
+    minimapElement.style.overflow = "hidden";
+
+    this.playerDot.style.position = "absolute";
+    this.playerDot.src = "Assets/MiniMap_Circle_Player.png";
+    this.playerDot.className = "playerOnMap";
+    minimapElement.children.add(playerDot);
+
+    UListElement griddy = new UListElement();
+    griddy.style.padding = "0px";
+    griddy.style.margin = "0px";
+    griddy.style.display = "grid";
+    griddy.style.gridTemplateColumns = "1fr 1fr 1fr";
+    griddy.style.gridTemplateRows = "1fr 1fr 1fr";
+    griddy.style.width = "100%";
+    griddy.style.height = "100%";
+    griddy.style.background = "#000";
+
+    for (int i = 0; i < 9; i++) {
+      LIElement box = new LIElement();
+      box.style.listStyleType = "none";
+      box.style.background = "#000";
+      box.style.boxSizing = "border-box";
+      box.style.border = "solid lightgreen 1px";
+      griddy.children.add(box);
+    }
+    minimapElement.children.add(griddy);
+    minimapElement.style.zIndex = "5";
+    output.children.add(minimapElement);
   }
 }

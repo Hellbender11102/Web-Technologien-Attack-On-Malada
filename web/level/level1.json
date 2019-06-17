@@ -1,10 +1,39 @@
 {
-  "fortschritt": 0,
+  "fortschritt": 1,
   "name": "Aller Anfang ist schwer",
-  "maxY": 2500,
-  "entityList":
+  "worldSizeX": 1000,
+  "worldSizeY": 1000,
+  "actorList":
   [
-  "asteroid","2000","asteroid","2500","asteroid","1000","asteroid","1200",
-  "asteroid","2400","asteroid","1400","asteroid","1800","asteroid","1600"
+    "asteroid","asteroid","asteroid","asteroid",
+    "asteroid","asteroid","asteroid","asteroid"
+  ],
+  "posXList": [
+    200,900,100,320,
+    880,760,500,20
+  ],
+  "posYList" : [
+    900,700,700,800,
+    650,780,500,980
+  ],
+  "sizeXList" : [
+    32,60,64,32,
+    32,20,60,32
+  ],
+  "sizeYList" : [
+    32,60,64,32,
+    32,20,60,32
+  ],
+  "healthList" : [
+    1,1,1,1,
+    1,1,1,1
+  ],
+  "heavyList": [
+    false,false,false,false,
+    false,false,false,false
+  ],
+  "damageList" : [
+    1,1,1,1,
+    1,1,1,1
   ]
-  }
+}

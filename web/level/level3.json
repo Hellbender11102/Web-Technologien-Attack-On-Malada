@@ -1,12 +1,39 @@
 {
-  "fortschritt": 2,
-  "name": "Das zweite Level",
-  "maxY": 3500,
-  "entityList":
+  "fortschritt": 3,
+  "name": "Aller Anfang ist schwer",
+  "worldSizeX": 1000,
+  "worldSizeY": 1000,
+  "actorList":
   [
-    "asteroid","2400","asteroid","1400","asteroid","1800","asteroid","1600",
-    "asteroid","3000","asteroid","2800","asteroid","1500","asteroid","2700",
-    "asteroid","3500","asteroid","3300","asteroid","3200","asteroid","3100",
-    "asteroid","2950","elite","1150","casual","2775"
+    "asteroid","casual","asteroid","casual",
+    "asteroid","asteroid","casual","asteroid"
+  ],
+  "posXList": [
+    200,900,100,320,
+    880,760,500,20
+  ],
+  "posYList" : [
+    900,700,700,800,
+    650,780,500,980
+  ],
+  "sizeXList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "sizeYList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "healthList" : [
+    1,1,1,1,
+    1,1,1,1
+  ],
+  "heavyList": [
+    false,false,false,false,
+    false,false,false,false
+  ],
+  "damageList" : [
+    1,1,1,1,
+    1,1,1,1
   ]
-  }
+}

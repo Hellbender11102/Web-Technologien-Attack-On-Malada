@@ -1,12 +1,39 @@
 {
-  "fortschritt": 0,
-  "name": "Aller",
-  "spawnTime": 2,
-  "numberOnScreen": 5,
-  "type": {
-    "asteroid": 5,
-    "casual": 0,
-    "boss": 0
-  },
-  "numberTilFinish": 20
+  "fortschritt": 5,
+  "name": "Aller Anfang ist schwer",
+  "worldSizeX": 1000,
+  "worldSizeY": 1000,
+  "actorList":
+  [
+    "elite","casual","asteroid","elite",
+    "casual","elite","casual","boss"
+  ],
+  "posXList": [
+    200,900,100,320,
+    880,760,500,20
+  ],
+  "posYList" : [
+    900,700,700,800,
+    650,780,500,980
+  ],
+  "sizeXList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "sizeYList" : [
+    60,60,60,60,
+    60,60,60,60
+  ],
+  "healthList" : [
+    1,1,1,1,
+    1,1,1,10
+  ],
+  "heavyList": [
+    false,false,false,false,
+    false,false,false,false
+  ],
+  "damageList" : [
+    1,1,1,1,
+    1,1,1,2
+  ]
 }

@@ -1,93 +1,55 @@
 
 html, body {
-	width: 99%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden; 
-}
-.minimap {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 150px;
-	height: 150px;
-	overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.griddy{
-	padding: 0px;
+#output {
+  width: 100%;
+  height: 100%;
+  background: url(Assets/bg.jpg);
+  background-size: 100%;
 }
 
-ul {
-	padding: 0px;
-	margin: 0px;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
-	width: 100%;
-	height: 100%;
-	background: #000;
-	/*border: .2em solid #91a7ff;*/
+#output > div{
+  position:absolute;
 }
 
-li {
-	list-style-type: none;
-	background: #000;
-	box-sizing: border-box;
-	border: solid lightgreen 1px;
+.player {
+  background: url(Assets/player.png);
 }
 
-.playerOnMap{
-	position: absolute;
+.cross{
+  background: url(Assets/cross.png);
 }
 
-.enemy{
-	position: absolute;
+.shot{
+  background: url(Assets/laserBeam.png);
 }
 
-#player{
-	position: absolute;
-	left: 50%;
-	bottom: 40px;
+.friendlyFire.shot{
+  background: url(Assets/laserBeamGreen.png);
 }
 
-#start{
-	position: absolute;
-	alignment: center;
+.asteroid{
+  background: url(Assets/asteroid.png);
 }
 
-#life{
-	position: absolute;
-	bottom: 90%;
+.boss.actor{
+  background: antiquewhite;
 }
 
-#cross{
-	position: relative;
+.casual{
+  background: url(Assets/casual.png);
 }
 
-#background{
-	position: relative;
-	background: url(Assets/bg.jpg);
+.elite{
+  background: url(Assets/elite.png);
 }
 
-#screen{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-}
-
-.Asteroid{
-	position: absolute;
-	background-image: url(Assets/asteroid.png);
-}
-	
-.Boss{
-	position: absolute;
-	background-image: url(Assets/boss.png);
-}
-	
-.Casual{
-	position: absolute;
-	background-image: url(Assets/casual.png);
+.actor{
+  position: absolute;
+  background-size: 100% 100%;
 }
