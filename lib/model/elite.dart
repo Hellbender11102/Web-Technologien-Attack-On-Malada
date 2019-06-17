@@ -1,37 +1,41 @@
-
 import 'package:dartmotion_master/model/enemy.dart';
 
-class Elite extends Enemy{
+class Elite extends Enemy {
+  List<String> classes = ["elite", 'enemy'];
 
-  List<String> classes = ["elite",'enemy'];
-  Elite(var game,int id, double posX, double posY, double sizeX, double sizeY, int life,int damage) : super(game,id, posX, posY, sizeX, sizeY, life,damage);
+  Elite(var game, int id, double posX, double posY, double sizeX, double sizeY,
+      int life, int damage)
+      : super(game, id, posX, posY, sizeX, sizeY, life, damage);
 
   ///Elite gegner bekommen ein besonderes movment welches sich auf das Fadenkreuz bezieht
   @override
   void move() {
+    super.move();
     double crossX = game.cross.posX;
     double crossY = game.cross.posY;
-    if(crossX > posX -20){
-      speedX +1;
+    if (crossX > posX - 20) {
+      speedX -= 1;
     }
-    if(crossX < posX +20){
-      speedX -1;
+    if (crossX < posX + 20) {
+      speedX += 1;
     }
-    if(crossY > posY -20){
-      speedY +1;
+    if (crossY < game.worldSizeY / 2) {
+      speedY += 1;
+    } else if (crossY > posY - 20) {
+      speedY -= 1;
     }
-    if(crossY < posY +20){
-      speedY -1;
+    if (crossY < posY + 20) {
+      speedY += 1;
     }
-    if(posX +speedX > game.worldSizeX){
-      posX - 100;
-    }else if(posX +speedX < 0 ){
-      posX +100;
+    if (posX + speedX > game.worldSizeX) {
+      posX += 100;
+    } else if (posX + speedX < 0) {
+      posX -= 100;
     }
-    if(posY +speedY > game.worldSizeY){
-      posY - 100;
-    }else if(posY +speedY < 0 ){
-      posY +100;
+    if (posY + speedY > game.worldSizeY) {
+      posY += 100;
+    } else if (posY + speedY < 0) {
+      posY -= 100;
     }
   }
 }

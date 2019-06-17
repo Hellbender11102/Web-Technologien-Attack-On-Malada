@@ -11,7 +11,7 @@ class Controller {
   Game game;
   View view;
   Timer modelTimer;
-  int level = 2;
+  int level = 4;
   int _life;
 
   Controller(this.view) {
@@ -111,11 +111,10 @@ class Controller {
     ///timer der Model und view updatet
     modelTimer = new Timer.periodic(
         new Duration(microseconds: ((1000 / tick).round().toInt())),
-        (Timer t) {
+        (Timer t) async {
           view.setLifeBar(game.player.life);
           //todo beim retry werden 2 timerr gestartet wird doppelt so schnell
       if (game.player.life <= 0) {
-        view.setLifeBar(0);
         view.deletAllFromDom();
         stopAllTimer();
         retryLevel();

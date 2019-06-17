@@ -6,7 +6,7 @@ class Shot extends Actor {
   List<String> classes = ["shot"];
 
   Shot(var game, int id, double posX, double posY, double posX2, double posY2)
-      : super(game, id, posX, posY, 8, 16, 1) {
+      : super(game, id, posX, posY, 4, 16, 1) {
     ///berechnet den einheitsvektor mit gegebenen start und zielkoordinate. dadurch schießen gegner in egal welcher position gleich schnell
     double _betrag =
         Math.sqrt(Math.pow(posX2 - posX, 2) + Math.pow(posY2 - posY, 2));

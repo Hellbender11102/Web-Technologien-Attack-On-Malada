@@ -23,6 +23,7 @@ class Game {
     for (Actor a in actors) {
       if (a.isDead) {
         actors.remove(a);
+        enemies.remove(a);
       } else {
         a.update();
       }
@@ -49,7 +50,6 @@ class Game {
     cross = Cross(this, currentEntityID++, 300, 100);
     player = Player(this, currentEntityID++, cross.posX, 20);
     player.cross = cross;
-    actors.addAll([player, cross]);
     _fillActorList(
         json['actorList'].cast<String>(),
         json['posXList'].cast<double>(),
@@ -59,6 +59,7 @@ class Game {
         json['healthList'].cast<int>(),
         json['heavyList'].cast<bool>(),
         json['damageList'].cast<int>());
+    actors.addAll([player, cross]);
   }
 
   ///wird mit den lsiten der JSON datei gefüllt
