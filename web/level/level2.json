@@ -1,23 +1,27 @@
 {
   "fortschritt": 2,
-  "name": "Aller Anfang ist schwer",
-  "worldSizeY": 1000,
+  "name": "Level 2",
+  "worldSizeY": 1750,
   "actorList":
   [
     "asteroid","asteroid","asteroid","casual",
-    "asteroid","asteroid","casual","asteroid"
+    "asteroid","asteroid","casual","asteroid",
+    "asteroid","asteroid"
   ],
   "posXList": [
     0.2,0.9,0.1,0.32,
-    0.88,0.76,0.5,0.25
+    0.88,0.76,0.5,0.25,
+    0.66,0.55
   ],
   "posYList" : [
-    900,700,700,800,
-    650,780,500,980
+    1600,700,1200,1750,
+    1300,1250,1500,1100,
+    999, 888
   ],
   "sizeXList" : [
     60,60,60,60,
-    60,60,60,60
+    60,60,60,60,
+    60,60
   ],
   "sizeYList" : [
     60,60,60,60,

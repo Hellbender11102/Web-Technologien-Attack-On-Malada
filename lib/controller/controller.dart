@@ -11,7 +11,7 @@ class Controller {
   Game game;
   View view;
   Timer modelTimer;
-  int level = 10;
+  int level = 1;
   int _life;
 
   Controller(this.view) {

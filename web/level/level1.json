@@ -1,7 +1,7 @@
 {
   "fortschritt": 1,
-  "name": "Aller Anfang ist schwer",
-  "worldSizeY": 2500,
+  "name": "Level 1",
+  "worldSizeY": 1500,
   "actorList":
   [
     "asteroid","asteroid","asteroid","asteroid",
@@ -12,7 +12,7 @@
     0.88,0.76,0.5,0.25
   ],
   "posYList" : [
-    2500,1250,1350,1000,
+    1500,1350,1150,1000,
     900,1450,1100,980
   ],
   "sizeXList" : [
