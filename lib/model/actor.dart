@@ -16,7 +16,7 @@ abstract class Actor {
   /// brake ist dafür da, dass der Spieler sich nach tastendruck leicht weiterbewegt
   /// und momentum verliert
   /// Wird mit dem Aktuellen Speed multipliziert
-  final brake = 0.75;
+  final brake = 0.85;
 
   ///für das design
   List<String> classes = ["actor"];

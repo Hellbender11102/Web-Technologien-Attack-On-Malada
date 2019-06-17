@@ -19,7 +19,7 @@ class Game {
 
   Game();
 
-  ///updates each actor
+  ///updated jeden actor
   void update() {
     for (Actor a in actors) {
       if (a.isDead) {
