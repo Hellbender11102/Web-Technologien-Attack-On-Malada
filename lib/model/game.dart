@@ -1,5 +1,5 @@
 import 'package:dartmotion_master/model/actor.dart';
-import 'package:dartmotion_master/model/astroid.dart';
+import 'package:dartmotion_master/model/asteroid.dart';
 import 'package:dartmotion_master/model/boss.dart';
 import 'package:dartmotion_master/model/cross.dart';
 import 'package:dartmotion_master/model/elite.dart';
