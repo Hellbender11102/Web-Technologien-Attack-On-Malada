@@ -11,6 +11,10 @@ class HealthUp extends Actor {
   @override
   void accelerate() {
     speedY = -0.5;
+    if (posY + speedY <= 0) {
+      life = 0;
+      collisionDetect = false;
+    }
   }
 
   @override
@@ -19,7 +23,7 @@ class HealthUp extends Actor {
       if (a.classes.contains("player") && collision(a)) {
         if(a.life < 9){
           a.life = a.life +1;
-          life = 0;
+          life= 0;
         }
       }
     }

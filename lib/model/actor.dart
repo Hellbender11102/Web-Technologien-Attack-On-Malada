@@ -137,7 +137,7 @@ abstract class Actor {
   }
   void dropHealthUp(){
     double random =Random().nextDouble();
-    if(random >= 0.0){
+    if(random >= 0.9){
       HealthUp healthUp = HealthUp(game,game.currentEntityID++,posX-sizeX/2,posY-sizeY/2);
       game.actors.add(healthUp);
       game.enemies.add(healthUp);
