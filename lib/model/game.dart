@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/asteroid.dart';
 import 'package:dartmotion_master/model/boss.dart';
@@ -7,7 +8,7 @@ import 'package:dartmotion_master/model/enemy.dart';
 import 'package:dartmotion_master/model/player.dart';
 
 class Game {
-  int worldSizeX, worldSizeY;
+  int worldSizeX, worldSizeY, screenSizeY = window.innerHeight;
   int fortschritt;
   String name;
   int currentEntityID = 0;

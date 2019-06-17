@@ -10,6 +10,13 @@ class Cross extends Actor {
 
   @override
   bool get isDead => false;
-@override
+
+  @override
   bool collisionDetect = false;
+
+  @override
+  void move() {
+    posX = keepInBounds(speedX, posX, game.worldSizeX.toDouble() - sizeX/2);
+    posY = keepInBounds(speedY, posY, game.screenSizeY.toDouble() - sizeY);
+  }
 }
