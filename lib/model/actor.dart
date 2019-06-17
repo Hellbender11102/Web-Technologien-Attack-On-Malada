@@ -103,8 +103,6 @@ abstract class Actor {
         : false;
   }
 
-  String toString() => "ID:$id Position x:$posX  Position y:$posY";
-
   ///lässt den nächsten move nicht aus den worldbounds
   ///double speed geschwindigkeit des actors
   ///double pos ist Die derzeitige position X und Y
@@ -128,7 +126,7 @@ abstract class Actor {
       if (collision(a) &&
           (!game.enemies.contains(a) || !game.enemies.contains(this))) {
         // if für eigene schüsse die dem player kein schaden machen dürfen
-        if (!game.player.shotId.contains(id) && !a.classes.contains("player")) {
+        if (!game.player.firendlyId.contains(id) && !a.classes.contains("player")) {
           a.life -= damage;
           life -= a.damage;
         }
@@ -141,6 +139,7 @@ abstract class Actor {
       HealthUp healthUp = HealthUp(game,game.currentEntityID++,posX-sizeX/2,posY-sizeY/2);
       game.actors.add(healthUp);
       game.enemies.add(healthUp);
+      game.player.firendlyId.add(healthUp.id);
     }
   }
 }

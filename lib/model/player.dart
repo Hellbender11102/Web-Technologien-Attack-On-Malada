@@ -20,7 +20,7 @@ class Player extends Actor {
   ///Die zahl 6 ist das maximale Leben des Spielers
   Player(var game, int id, double posX, double posY)
       : super(game, id, posX, posY, 56, 27, 6);
-  List<int> shotId = List();
+  List<int> firendlyId = List();
   Actor cross;
   double sinVal = 0; //Wird genutzt für Animation
 
@@ -48,7 +48,7 @@ class Player extends Actor {
           posY + sizeY / 2, cross.posX + cross.sizeX / 2, cross.posY)
         ..classes.add("friendlyFire")
         ..damage = this.damage);
-      shotId.add(id);
+      firendlyId.add(id);
       _shotReady = false;
     }
   }
@@ -58,7 +58,7 @@ class Player extends Actor {
   @override
   void damageOnCollision(List<Actor> actors) {
     for(Actor a in actors) {
-      if (collision(a) && !shotId.contains(a.id) && a != this && !a.classes.contains("healthUp")) {
+      if (collision(a) && !firendlyId.contains(a.id) && a != this) {
         a.life -=  damage;
         life -= a.damage;
       }
