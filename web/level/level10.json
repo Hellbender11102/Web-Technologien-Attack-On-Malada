@@ -6,7 +6,7 @@
   "actorList":
   [
     "elite","casual","asteroid","elite",
-    "casual","elite","casual","asteroid"
+    "casual","elite","casual","boss"
   ],
   "posXList": [
     200,900,100,320,
@@ -26,7 +26,7 @@
   ],
   "healthList" : [
     1,1,1,1,
-    1,1,1,1
+    1,1,1,10
   ],
   "heavyList": [
     false,false,false,false,
@@ -34,6 +34,6 @@
   ],
   "damageList" : [
     1,1,1,1,
-    1,1,1,1
+    1,1,1,2
   ]
 }

@@ -5,7 +5,7 @@ import 'package:dartmotion_master/model/shot.dart';
 
 class Enemy extends Actor {
   int damage;
-  int _tickCount = 0;
+  int tickCount = 0;
   @override
   List<String> classes = ["casual", "enemy"];
 
@@ -16,7 +16,7 @@ class Enemy extends Actor {
   @override
   update() {
     super.update();
-    _tickCount++;
+    tickCount++;
     shootPlayer();
   }
 
@@ -24,7 +24,7 @@ class Enemy extends Actor {
   @override
   void shootPlayer() {
     Player a = game.player;
-    if (_tickCount % (tick * 5) == 0) {
+    if (tickCount % (tick * 5) == 0) {
       Shot shot = Shot(game, game.currentEntityID++, posX + sizeX / 2, posY + sizeY / 2,
           a.posX + a.sizeX / 2, a.posY)
         ..damage = this.damage

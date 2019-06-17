@@ -37,8 +37,8 @@ html, body {
   background: url(Assets/asteroid.png);
 }
 
-.boss{
-  background: url(Assets/eliteBackup.png);
+.boss.actor{
+  background: antiquewhite;
 }
 
 .casual{
