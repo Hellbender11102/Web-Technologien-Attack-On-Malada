@@ -16,7 +16,7 @@
   "posYList" : [
     1600,700,1200,1750,
     1300,1250,1500,1100,
-    999, 888
+    999,888
   ],
   "sizeXList" : [
     60,60,60,60,
@@ -34,9 +34,9 @@
     1,1
   ],
   "heavyList": [
-    true,false,true,false,
-    false,false,true,false,
-    true,false
+    false,false,false,false,
+    false,false,false,false,
+    false,false
   ],
   "damageList" : [
     1,1,1,1,
