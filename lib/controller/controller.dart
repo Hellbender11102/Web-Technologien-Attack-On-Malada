@@ -145,7 +145,7 @@ class Controller {
       await loadLevel("level/level$level.json");
       view.next.remove();
       view.win.remove();
-      game.player.life = 6;
+      game.player.life = _life;
       startTimer();
     });
 
