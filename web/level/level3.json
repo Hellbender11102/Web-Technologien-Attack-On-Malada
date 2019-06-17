@@ -1,7 +1,7 @@
 {
   "fortschritt": 3,
-  "name": "Aller Anfang ist schwer",
-  "worldSizeY": 1000,
+  "name": "Level 2",
+  "worldSizeY": 2000,
   "actorList":
   [
     "asteroid","casual","asteroid","casual",
@@ -17,17 +17,21 @@
   ],
   "sizeXList" : [
     60,60,60,60,
+    60,60,60,60,
     60,60,60,60
   ],
   "sizeYList" : [
+    60,60,60,60,
     60,60,60,60,
     60,60,60,60
   ],
   "healthList" : [
     1,1,1,1,
+    1,1,1,1,
     1,1,1,1
   ],
   "heavyList": [
+    false,false,false,false,
     false,false,false,false,
     false,false,false,false
   ],
