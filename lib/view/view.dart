@@ -58,7 +58,6 @@ class View {
   /// Speichert die Elemente in eine Tabelle, um nicht die ganze Zeit Query zu selecten #DartSnake
   void update() {
     //Liste erstellen mit allen Einträgen
-    List entries = domElements.entries.toList();
     ImageElement temporaryImageHolder;
 
     for (Actor actor in game.actors) {

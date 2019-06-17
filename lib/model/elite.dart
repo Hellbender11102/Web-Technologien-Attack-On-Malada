@@ -1,5 +1,5 @@
 import 'package:dartmotion_master/model/enemy.dart';
-import 'package:dartmotion_master/model/player.dart';
+
 
 class Elite extends Enemy {
   List<String> classes = ["elite", 'enemy'];

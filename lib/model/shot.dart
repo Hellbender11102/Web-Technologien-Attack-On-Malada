@@ -1,4 +1,6 @@
 import 'package:dartmotion_master/model/actor.dart';
+
+// ignore: library_prefixes
 import 'dart:math' as Math;
 
 class Shot extends Actor {

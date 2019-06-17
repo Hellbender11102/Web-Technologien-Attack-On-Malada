@@ -1,6 +1,6 @@
 import 'package:dartmotion_master/model/constants.dart';
 import 'package:dartmotion_master/model/elite.dart';
-import 'package:dartmotion_master/model/enemy.dart';
+
 import 'package:dartmotion_master/model/shot.dart';
 
 class Boss extends Elite {
