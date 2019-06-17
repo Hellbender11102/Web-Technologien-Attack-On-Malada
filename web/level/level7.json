@@ -1,38 +1,54 @@
 {
-  "fortschritt": 5,
-  "name": "Aller Anfang ist schwer",
-  "worldSizeY": 1000,
+  "fortschritt": 7,
+  "name": "Level 7",
+  "worldSizeY": 2500,
   "actorList":
   [
-    "elite","casual","asteroid","elite",
-    "casual","elite","casual","asteroid"
+    "asteroid","casual","asteroid","elite",
+    "casual","asteroid","casual","asteroid",
+    "elite","asteroid","asteroid","casual",
+    "asteroid","casual","elite","asteroid"
   ],
   "posXList": [
-    0.2,0.9,0.1,0.32,
-    0.88,0.76,0.5,0.25
+    0.45,0.1,0.74,0.6,
+    0.76,0.65,0.55,0.39,
+    0.25,0.15,0.53,0.66,
+    0.67,0.4,0.6,0.69
   ],
   "posYList" : [
-    900,700,700,800,
-    650,780,500,980
+    1100,1350,1800,2150,
+    1750,950,1700,650,
+    1100,1250,600,2250,
+    650,1550,2500,777
   ],
   "sizeXList" : [
+    60,60,60,60,
+    60,60,60,60,
     60,60,60,60,
     60,60,60,60
   ],
   "sizeYList" : [
     60,60,60,60,
+    60,60,60,60,
+    60,60,60,60,
     60,60,60,60
   ],
   "healthList" : [
+    1,1,1,3,
     1,1,1,1,
-    1,1,1,1
+    3,1,1,1,
+    1,1,3,1
   ],
   "heavyList": [
+    false,true,false,false,
+    true,false,true,false,
     false,false,false,false,
-    false,false,false,false
+    false,false,false, false
   ],
   "damageList" : [
+    1,1,1,2,
     1,1,1,1,
-    1,1,1,1
+    2,1,1,1,
+    1,1,2,1
   ]
 }
