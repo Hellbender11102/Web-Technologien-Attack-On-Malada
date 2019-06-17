@@ -3,13 +3,13 @@ import 'package:dartmotion_master/model/enemy.dart';
 
 class Elite extends Enemy{
 
-  @override
-  List<String> classes = ["elite"];
+  List<String> classes = ["elite",'enemy'];
   Elite(var game,int id, double posX, double posY, double sizeX, double sizeY, int life,int damage) : super(game,id, posX, posY, sizeX, sizeY, life,damage);
 
   ///Elite gegner bekommen ein besonderes movment welches sich auf das Fadenkreuz bezieht
   @override
   void move() {
+    speedY = -0.5;
     double crossX = game.cross.posX;
     double crossY = game.cross.posY;
 

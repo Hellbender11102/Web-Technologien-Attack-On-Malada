@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/constants.dart';
 import 'package:dartmotion_master/model/game.dart';
 import 'package:dartmotion_master/view/view.dart';
@@ -114,11 +113,13 @@ class Controller {
     modelTimer = new Timer.periodic(
         new Duration(microseconds: ((1000 / ticks).round().toInt())),
         (Timer t) {
-      view.setLifeBar(game.player.life);
+          view.setLifeBar(game.player.life);
+          //todo beim retry werden 2 timerr gestartet wird doppelt so schnell
       if (game.player.life <= 0) {
         view.deletAllFromDom();
         stopAllTimer();
         retryLevel();
+        view.setLifeBar(0);
         //todo friendly shots müssen ignoriert werden sonst kann man machen das das level nicht beendet wird
       } else if (game.actors.length <= 2) {
         _life = game.player.life;

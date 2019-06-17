@@ -10,7 +10,7 @@ class Asteroid extends Actor {
 
   ///überschreibt den return von classes
   @override
-  List<String> classes = ['asteroid'];
+  List<String> classes = ['asteroid','enemy'];
 
   @override
   void accelerate() {

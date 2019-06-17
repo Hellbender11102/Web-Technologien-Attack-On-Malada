@@ -30,7 +30,7 @@ class Game {
     }
     actors.forEach((actor) => actor.damageOnCollision(actors));
   }
-
+///führt für alle gegner den schuss aus
   void shoot() {
     for (Actor a in actors) {
       if (!a.isDead) {

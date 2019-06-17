@@ -43,8 +43,8 @@ abstract class Actor {
 
   ///nächste position += speed
   void move() {
-    posX = _keepInBounds(speedX, posX, game.worldSizeX.toDouble());
-    posY = _keepInBounds(speedY, posY, game.worldSizeY.toDouble());
+    posX = keepInBounds(speedX, posX, game.worldSizeX.toDouble());
+    posY = keepInBounds(speedY, posY, game.worldSizeY.toDouble());
   }
 
   ///überprüft ob die beschläunigung über den maximalwert 15 steigt
@@ -68,7 +68,7 @@ abstract class Actor {
 
   ///überprüft ob 2 objekte überschneiden
   bool collision(Actor actor) {
-    return collisionDetect && actor.collisionDetect
+    return collisionDetect && actor.collisionDetect && !isDead && !actor.isDead
         ? (actor.posX < posX + sizeX &&
             actor.posX + actor.sizeX > posX &&
             actor.posY < posY + sizeY &&
@@ -79,7 +79,7 @@ abstract class Actor {
   String toString() => "ID:$id Position x:$posX  Position y:$posY";
 
   ///lässt den nächsten move nicht aus den worldbounds
-  double _keepInBounds(double speed, double pos, double max) {
+  double keepInBounds(double speed, double pos, double max) {
     if (pos + speed > max) {
       pos = max - 25;
     } else if (pos + speed <= 0) {
@@ -92,6 +92,8 @@ abstract class Actor {
 
   void shootPlayer() {}
 
+  /// überproft ob das objekt schaden bekommen kann und sollte von der eigenen klasse
+  //todo gegner treffen sich gegenseitig
   void damageOnCollision(List<Actor> actors) {
     for (Actor a in actors) {
       if (collision(a) &&
@@ -99,8 +101,7 @@ abstract class Actor {
           !isDead &&
           !game.enemyShots.contains(a.id) &&
           !game.enemyShots.contains(id) &&
-          a != this &&
-          collisionDetect) {
+          a != this) {
         if (!game.player.shotId.contains(id) && !a.classes.contains("player")) {
           a.life -= damage;
           life -= a.damage;
