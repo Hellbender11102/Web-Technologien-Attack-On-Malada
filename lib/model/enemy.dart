@@ -35,9 +35,9 @@ class Enemy extends Actor {
 
   @override
   void accelerate() {
-    if (posY > game.worldSizeY - sizeY) {
+    if (posY < game.worldSizeY && posY >= game.screenSizeY - sizeY) {
       speedY = -0.25;
-    } else if (posY < 0 + sizeY) {
+    } else if (posY < 0 + sizeY * 2) {
       speedY = 0.25;
     } else {
       speedY = speedY >= 0 ? 0.25 : -0.25;
