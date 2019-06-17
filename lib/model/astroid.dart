@@ -25,11 +25,13 @@ class Asteroid extends Actor {
   }
 
   void split() {
-    game.actors.addAll([
-      Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
-        ..speedX = -0.25,
-      Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
-        ..speedX = 0.25
-    ]);
+    Asteroid a1 =
+        Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
+          ..speedX = -0.1;
+    Asteroid a2 =
+        Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
+          ..speedX = 0.1;
+    game.actors.addAll([a1, a2]);
+    game.enemies.addAll([a1,a2]);
   }
 }

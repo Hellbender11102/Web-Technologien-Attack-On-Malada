@@ -22,7 +22,8 @@ class Game {
   void update() {
     for (Actor a in actors) {
       if (a.isDead) {
-        if(a.classes.contains('asteroid')&& a.sizeY +a.sizeY > 150){
+        if(a.classes.contains('asteroid')&& a.sizeY +a.sizeY > 120){
+          print("sploit");
           Asteroid as = a;
           as.split();
         }
