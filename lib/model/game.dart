@@ -26,7 +26,7 @@ class Game {
         if(a.classes.contains('asteroid')&& a.sizeY +a.sizeY > 120) {
           Asteroid asteroid = a;
           asteroid.split();
-        }else if(!a.classes.contains('shot') && !a.classes.contains('asteroid')) {
+        }else if(!a.classes.contains('shot') && !a.classes.contains('asteroid') && !a.classes.contains('healthUp')) {
           a.dropHealthUp();
         }
         actors.remove(a);

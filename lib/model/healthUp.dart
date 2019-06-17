@@ -11,7 +11,7 @@ class HealthUp extends Actor {
 
   @override
 void accelerate() {
-    speedY = -0.75;
+    speedY = -0.2;
 
   }
 
