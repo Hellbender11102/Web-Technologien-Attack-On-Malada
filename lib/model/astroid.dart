@@ -23,14 +23,14 @@ class Asteroid extends Actor {
       collisionDetect = false;
     }
   }
-
+ ///erstellt 2 kleine Asteroiden die sich weiter seitlich nach unten bewegen
   void split() {
     Asteroid a1 =
-        Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
+        Asteroid(game, game.currentEntityID++, this.posX+ this.sizeX/2, this.posY, 20, 20, 1)
           ..speedX = -0.1
           ..speedY = 0.2;
     Asteroid a2 =
-        Asteroid(game, game.currentEntityID++, this.posX, this.posY, 20, 20, 1)
+        Asteroid(game, game.currentEntityID++, this.posX + this.sizeX/2, this.posY, 20, 20, 1)
           ..speedX = 0.1
           ..speedY = 0.2;
     game.actors.addAll([a1, a2]);

@@ -30,7 +30,17 @@ class Boss extends Enemy {
   }
   @override
   void accelerate() {
-    // TODO: implement accelerate
     super.accelerate();
+  }
+  @override
+  double keepInBounds(double speed, double pos, double max) {
+    if (pos + speed > max) {
+      pos = max - 25;
+    } else if (pos + speed <= game.worldSizeY / 2) {
+      pos -= speed;
+    } else {
+      pos += speed;
+    }
+    return pos;
   }
 }

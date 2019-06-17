@@ -6,7 +6,14 @@ abstract class Actor {
   final maxSpeed = 5;
   final accelerationMod = 0.0075;
 
+  ///zählt bei jedem update den tick mit
+  ///wird bei den Objekten enemy und player gebraucht
+  int tickCount = 0;
+
   //muss 1 > x >= 0  sein
+  /// brake ist dafür da, dass der Spieler sich nach tastendruck leicht weiterbewegt
+  /// und momentum verliert
+  /// Wird mit dem Aktuellen Speed multipliziert
   final brake = 0.75;
 
   ///für das design
@@ -15,6 +22,10 @@ abstract class Actor {
   Game game;
   int damage = 1;
 
+  ///var game ist das Aktuelle spiel
+  ///int id ist eine einzigartiger id um diesen im dom zu verwalten
+  ///double posX ist die aktuelle position auf der X kooridnate
+  ///double posY ist die aktuelle position auf der Y kooridnate
   Actor(this.game, this.id, this.posX, this.posY, this.sizeX, this.sizeY,
       this.life);
 
@@ -25,16 +36,23 @@ abstract class Actor {
   ///hitbox
   double sizeX;
   double sizeY;
+
+  ///wird benutzt um objekte vor kollisionen zu schützen
   bool collisionDetect = true;
 
+  ///bewegungsgeschwindigkeit ind X oder Y richtung
   double speedX = 0.0;
   double speedY = 0.0;
 
+  ///ändert die bewegungsgeschwindigkeit um den accelerationwert
   double accelerationX = 0.0;
   double accelerationY = 0.0;
 
+  ///leben des Actors
   int life;
 
+  ///wenn der Actor kein Leben mehr hat wir false zurückgegeben
+  /// x > 0 return true
   bool get isDead => life <= 0;
 
   ///nächste position += speed
@@ -63,12 +81,17 @@ abstract class Actor {
     return speed;
   }
 
+  ///der Actor berechnet die beschleunigung
+  ///führt die move mit der neuen beschleunigung aus
   update() {
     accelerate();
     move();
   }
 
   ///überprüft ob 2 objekte überschneiden
+  ///und beide Objekte leben
+  ///und ob beide Objekte collisionDetect = true sind
+  ///Actor actor ist das zu vergleichende Objekt
   bool collision(Actor actor) {
     return collisionDetect && actor.collisionDetect && !isDead && !actor.isDead
         ? (actor.posX < posX + sizeX &&
@@ -81,6 +104,8 @@ abstract class Actor {
   String toString() => "ID:$id Position x:$posX  Position y:$posY";
 
   ///lässt den nächsten move nicht aus den worldbounds
+  ///double speed geschwindigkeit des actors
+  ///double pos ist Die derzeitige position X und Y
   double keepInBounds(double speed, double pos, double max) {
     if (pos + speed > max) {
       pos = max - 25;
@@ -99,7 +124,8 @@ abstract class Actor {
   void damageOnCollision(List<Actor> actors) {
     for (Actor a in actors) {
       //if für aufteilung von gegner collisionen mit anderen gegnern
-      if (collision(a) && (!game.enemies.contains(a) || !game.enemies.contains(this))) {
+      if (collision(a) &&
+          (!game.enemies.contains(a) || !game.enemies.contains(this))) {
         // if für eigene schüsse die dem player kein schaden machen dürfen
         if (!game.player.shotId.contains(id) && !a.classes.contains("player")) {
           a.life -= damage;
