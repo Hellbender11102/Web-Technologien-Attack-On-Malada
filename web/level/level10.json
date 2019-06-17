@@ -1,7 +1,7 @@
 {
   "fortschritt": 5,
   "name": "Aller Anfang ist schwer",
-  "worldSizeY": 1000,
+  "worldSizeY": 1500,
   "actorList":
   [
     "elite","casual","asteroid","elite",
@@ -12,16 +12,16 @@
     0.88,0.76,0.5,0.25
   ],
   "posYList" : [
-    900,700,700,800,
+    1500,700,700,800,
     650,780,500,980
   ],
   "sizeXList" : [
     60,60,60,60,
-    60,60,60,60
+    60,60,60,120
   ],
   "sizeYList" : [
     60,60,60,60,
-    60,60,60,60
+    60,60,60,120
   ],
   "healthList" : [
     1,1,1,1,
