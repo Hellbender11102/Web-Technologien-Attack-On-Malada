@@ -13,29 +13,13 @@ class Elite extends Enemy {
     super.move();
     double crossX = game.cross.posX;
     double crossY = game.cross.posY;
-    if (crossX > posX - 20) {
-      speedX -= 1;
+    double crossSizeX = game.cross.sizeX;
+    double crossSizeY = game.cross.sizeY;
+    if (crossX > posX && posX < crossX + crossSizeX) {
+      accelerationX +=  posX -crossX > 0 ? 2: -2;
     }
-    if (crossX < posX + 20) {
-      speedX += 1;
-    }
-    if (crossY < game.worldSizeY / 2) {
-      speedY += 1;
-    } else if (crossY > posY - 20) {
-      speedY -= 1;
-    }
-    if (crossY < posY + 20) {
-      speedY += 1;
-    }
-    if (posX + speedX > game.worldSizeX) {
-      posX += 100;
-    } else if (posX + speedX < 0) {
-      posX -= 100;
-    }
-    if (posY + speedY > game.worldSizeY) {
-      posY += 100;
-    } else if (posY + speedY < 0) {
-      posY -= 100;
+    if (crossY > posY && posY < crossY + crossSizeY) {
+      accelerationY +=  posY -crossY > 0 ? 2: -2;
     }
   }
 }
