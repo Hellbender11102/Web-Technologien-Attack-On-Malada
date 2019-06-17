@@ -23,6 +23,7 @@ html, body {
 
 .cross{
   background: url(Assets/cross.png);
+  z-index: 5;
 }
 
 .shot{
@@ -38,7 +39,7 @@ html, body {
 }
 
 .boss.actor{
-  background: antiquewhite;
+  background: url(Assets/boss.png);
 }
 
 .casual{

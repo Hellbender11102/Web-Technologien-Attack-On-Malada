@@ -1,8 +1,9 @@
 import 'package:dartmotion_master/model/constants.dart';
+import 'package:dartmotion_master/model/elite.dart';
 import 'package:dartmotion_master/model/enemy.dart';
 import 'package:dartmotion_master/model/shot.dart';
 
-class Boss extends Enemy {
+class Boss extends Elite {
   Boss(var game, int id, double posX, double posY, double sizeX, double sizeY,
       int life, int damage)
       : super(game, id, posX, posY, sizeX , sizeY, life, damage) {
@@ -32,15 +33,20 @@ class Boss extends Enemy {
   void accelerate() {
     super.accelerate();
   }
+
   @override
-  double keepInBounds(double speed, double pos, double max) {
-    if (pos + speed > max) {
-      pos = max - 25;
-    } else if (pos + speed <= game.worldSizeY / 2) {
-      pos -= speed;
-    } else {
-      pos += speed;
+  void dodge(){
+    double crossX = game.cross.posX;
+    double crossY = game.cross.posY;
+  
+    if(crossX > posX && crossY > posY && (crossX - posX) <= 200 && (crossY - posY) <= 200){             // von oben rechts
+      speedX--;
+    } else if (posX > crossX && crossY > posY && (posX - crossX) <= 200 && (crossY - posY) <= 200) {    // von oben links
+      speedX++;
+    } else if(crossX > posX && posY > crossY && (crossX - posX) <= 200 && (posY - crossY) <= 200){      // von unten rechts
+      speedX--;
+    } else if (posX > crossX && posY > crossY && (posX - crossX) <= 200 && (posY - crossY) <= 200) {    // von unten links
+      speedX++;
     }
-    return pos;
   }
 }

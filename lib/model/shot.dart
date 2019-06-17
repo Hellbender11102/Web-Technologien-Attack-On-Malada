@@ -25,7 +25,9 @@ class Shot extends Actor {
       life = 0;
       collisionDetect = false;
     }
-
+    if(posY + speedY > game.screenSizeY - sizeY){
+      life = 0;
+    }
     speedX;
     speedY;
   }
