@@ -66,7 +66,7 @@ class View {
 
     for (Actor actor in game.actors) {
       Element actorInView;
-      
+
 
       /// Suchen vom actor
       for (MapEntry entry in entries) {

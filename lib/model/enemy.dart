@@ -5,7 +5,6 @@ import 'package:dartmotion_master/model/shot.dart';
 
 class Enemy extends Actor {
   int damage;
-  int tickCount = 0;
   @override
   List<String> classes = ["casual", "enemy"];
 
