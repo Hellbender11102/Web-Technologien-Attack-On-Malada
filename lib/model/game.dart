@@ -23,9 +23,11 @@ class Game {
   void update() {
     for (Actor a in actors) {
       if (a.isDead) {
-        if(a.classes.contains('asteroid')&& a.sizeY +a.sizeY > 120){
-          Asteroid as = a;
-          as.split();
+        if(a.classes.contains('asteroid')&& a.sizeY +a.sizeY > 120) {
+          Asteroid asteroid = a;
+          asteroid.split();
+        }else if(!a.classes.contains('shot') && !a.classes.contains('asteroid')) {
+          a.dropHealthUp();
         }
         actors.remove(a);
         enemies.remove(a);

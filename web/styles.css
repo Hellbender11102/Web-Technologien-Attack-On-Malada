@@ -53,3 +53,6 @@ html, body {
   position: absolute;
   background-size: 100% 100%;
 }
+.healthUp{
+  background: url(Assets/healthUp.png);
+}
