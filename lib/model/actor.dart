@@ -26,7 +26,7 @@ abstract class Actor {
   ///int id ist eine einzigartiger id um diesen im dom zu verwalten
   ///double posX ist die aktuelle position auf der X kooridnate
   ///double posY ist die aktuelle position auf der Y kooridnate
-  Actor(this.game, this.id, this.posX, this.posY, this.sizeX, this.sizeY,
+  Actor(this.game, this.id, this.posX , this.posY, this.sizeX, this.sizeY,
       this.life);
 
   ///position
