@@ -19,6 +19,9 @@ class Controller {
   }
 
   void startGame() {
+    view.addLifeBar();
+    view.addPauseBtn();
+    view.addMiniMap();
     ///Device-Oriantation listener welcher anhand von dem derzeitigen winkel des gerätes
     ///die position auf dem Display bestimmt
     window.onDeviceOrientation.listen((ev) {
@@ -81,9 +84,6 @@ class Controller {
           break;
       }
     });
-    view.addLifeBar();
-    view.addPauseBtn();
-    view.addMiniMap();
     ///timer der Model und view updatet
     startTimer();
   }
@@ -116,12 +116,12 @@ class Controller {
       view.setLifeBar(game.player.life);
       if (game.player.life <= 0) {
         view.deletAllFromDom();
-        stopAllTimer();
+        stopTimer();
         retryLevel();
       } else if (game.enemies.isEmpty) {
         _life = game.player.life;
         view.deletAllFromDom();
-        stopAllTimer();
+        stopTimer();
         nextLevel();
       } else {
         game.update();
@@ -130,7 +130,7 @@ class Controller {
     });
   }
 
-  void stopAllTimer() {
+  void stopTimer() {
     modelTimer.cancel();
   }
 
@@ -138,7 +138,7 @@ class Controller {
   void _setListener() {
     view.pause.onClick.listen((_) {
       if (modelTimer.isActive) {
-        stopAllTimer();
+        stopTimer();
       } else {
         startTimer();
       }
