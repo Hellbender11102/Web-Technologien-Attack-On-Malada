@@ -1,5 +1,3 @@
-
-
 import 'package:dartmotion_master/model/actor.dart';
 import 'package:dartmotion_master/model/constants.dart';
 import 'package:dartmotion_master/model/shot.dart';
@@ -24,14 +22,18 @@ class Player extends Actor {
   @override
   void move() {
     posX = cross.posX + (cross.sizeX - sizeX) / 2;
-    posY = sin(sinVal)*10+30;
-    sinVal >= 6.28 ? sinVal = 0.00 : sinVal += 0.01 ;
+    if (posX < 0) {
+      posX = 0;
+    }
+    posY = sin(sinVal) * 10 + 30;
+    sinVal >= 6.28 ? sinVal = 0.00 : sinVal += 0.01;
   }
+
   @override
   update() {
     tickCount++;
     _shotReady = tickCount % (tick * 0.75) == 0 || _shotReady ? true : false;
-     super.update();
+    super.update();
   }
 
   ///Erstellt einen Schuss, der in Richtung Fadenkreuz fliegt

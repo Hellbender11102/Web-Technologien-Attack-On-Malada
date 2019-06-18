@@ -92,7 +92,7 @@ class Controller {
   void loadLevel(String levelName) async {
     await HttpRequest.getString(levelName).then((json) {
       Map<String, dynamic> gameMap = JSON.jsonDecode(json);
-      this.game = Game.fromJson(gameMap, view.getViewWidth() - 40);
+      this.game = Game.fromJson(gameMap, view.getViewWidth());
       view.game = game;
     });
   }

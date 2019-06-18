@@ -32,11 +32,13 @@ abstract class Actor {
 
   ///X-Position
   double posX;
+
   ///Y-Position
   double posY;
 
   ///Breite
   double sizeX;
+
   ///Höhe
   double sizeY;
 
@@ -45,11 +47,13 @@ abstract class Actor {
 
   ///Bewegungsgeschwindigkeit in X-Richtung
   double speedX = 0.0;
+
   ///Bewegungsgeschwindigkeit in Y-Richtung
   double speedY = 0.0;
 
   ///Ändert die Bewegungsgeschwindigkeit in X-Richtung um den Acceleration-Wert
   double accelerationX = 0.0;
+
   ///Ändert die Bewegungsgeschwindigkeit in Y-Richtung um den Acceleration-Wert
   double accelerationY = 0.0;
 
@@ -111,8 +115,8 @@ abstract class Actor {
   ///double pos ist die derzeitige X- oder Y-Position
   ///double max ist unsere Spielfeldgrenze für jeweils X oder Y
   double keepInBounds(double speed, double pos, double max) {
-    if (pos + speed > max) {
-      pos = max - 25;
+    if (pos + speed + sizeX / 2 > max) {
+      pos = max - sizeX / 2;
     } else if (pos + speed <= 0) {
       pos = 0;
     } else {
@@ -130,7 +134,8 @@ abstract class Actor {
       if (collision(a) &&
           (!game.enemies.contains(a) || !game.enemies.contains(this))) {
         //if für eigene Schüsse, die dem Player keinen Schaden machen dürfen
-     if (!game.player.firendlyId.contains(id) && !a.classes.contains("player")) {
+        if (!game.player.firendlyId.contains(id) &&
+            !a.classes.contains("player")) {
           a.life -= damage;
           life -= a.damage;
         }
@@ -139,10 +144,11 @@ abstract class Actor {
   }
 
   ///Fügt einem Gegner mit einer Chance von 10% ein PowerUp hinzu in Form eines Health-Ups
-  void dropHealthUp(){
-    double random =Random().nextDouble();
-    if(random >= 0.9){
-      HealthUp healthUp = HealthUp(game,game.currentEntityID++,posX-sizeX/2,posY-sizeY/2);
+  void dropHealthUp() {
+    double random = Random().nextDouble();
+    if (random >= 0.9) {
+      HealthUp healthUp = HealthUp(
+          game, game.currentEntityID++, posX - sizeX / 2, posY - sizeY / 2);
       game.actors.add(healthUp);
       game.enemies.add(healthUp);
       game.player.firendlyId.add(healthUp.id);

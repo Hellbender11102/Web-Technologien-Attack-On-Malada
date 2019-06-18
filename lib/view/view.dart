@@ -71,6 +71,7 @@ class View {
       if (actorInView == null && !actor.isDead) {
         actorInView = Element.div();
         actorInView.classes = actor.classes..add("actor");
+        actorInView.style.zIndex = "1";
         domElements.putIfAbsent(actor.id, () => actorInView);
         output.insertAdjacentElement("afterbegin", actorInView);
         if(actor is !Player && actor is !Shot && actor is !Cross){
@@ -195,6 +196,7 @@ class View {
     minimapElement.style.overflow = "hidden";
 
     this.playerDot.style.position = "absolute";
+    this.playerDot.style.zIndex = "0";
     this.playerDot.src = "Assets/MiniMap_Circle_Player.png";
     this.playerDot.className = "playerOnMap";
     minimapElement.children.add(playerDot);
@@ -218,7 +220,7 @@ class View {
       griddy.children.add(box);
     }
     minimapElement.children.add(griddy);
-    minimapElement.style.zIndex = "5";
+    minimapElement.style.zIndex = "0";
     output.children.add(minimapElement);
   }
 
@@ -229,7 +231,7 @@ class View {
     life.style.position = "absolute";
     life.style.bottom = "${90}%";
     life.style.left = "${getViewWidth() / 2 - 96}px";
-    life.style.zIndex = "5";
+    life.style.zIndex = "0";
     output.children.add(life);
   }
 }

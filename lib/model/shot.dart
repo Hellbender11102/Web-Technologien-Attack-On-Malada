@@ -22,9 +22,9 @@ class Shot extends Actor {
   @override
   void accelerate() {
     if (posY + speedY <= 0 ||
-        posY + speedY >= game.worldSizeY ||
+        posY + speedY >= game.worldSizeY -sizeY ||
         posX + speedX <= 0 ||
-        posX + speedX >= game.worldSizeX + game.cross.sizeY / 2) {
+        posX + speedX >= game.worldSizeX + game.player.sizeX/2) {
       life = 0;
       collisionDetect = false;
     }
